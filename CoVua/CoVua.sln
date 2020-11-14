@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30011.22
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoVua", "CoVua\CoVua.csproj", "{A83EF2B8-1069-485C-907F-15F9002F905F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A83EF2B8-1069-485C-907F-15F9002F905F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A83EF2B8-1069-485C-907F-15F9002F905F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A83EF2B8-1069-485C-907F-15F9002F905F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A83EF2B8-1069-485C-907F-15F9002F905F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9B3405E8-1F57-45A1-A247-9BD77598F0A7}
+	EndGlobalSection
+EndGlobal
