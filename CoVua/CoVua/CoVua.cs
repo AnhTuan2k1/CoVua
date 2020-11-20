@@ -10,11 +10,20 @@ using System.Windows.Forms;
 
 namespace CoVua
 {
-    public partial class Form1 : Form
+    public partial class CoVua : Form
     {
-        public Form1()
+        private ChessBoard chessBoard;
+        public CoVua()
         {
             InitializeComponent();
+            chessBoard = new ChessBoard();
+            this.Controls.Add(chessBoard);
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+           
+        }
+
     }
 }
