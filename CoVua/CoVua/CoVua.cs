@@ -20,9 +20,10 @@ namespace CoVua
             this.Controls.Add(chessBoard);
         }
 
+
         private void button1_Click(object sender, EventArgs e)
         {
-           
+          
         }
 
     }
