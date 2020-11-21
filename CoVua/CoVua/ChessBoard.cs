@@ -24,7 +24,7 @@ namespace CoVua
             heightCell = 65;
 
             Size = new Size(widthCell * 8, Height * 8);
-            Location = new Point(90,20);                             
+            Location = new Point(90,24);                             
 
            //------------Tạo 64 ô cờ----------------------
             for (int i = 0; i < cells.GetLength(0); i++) 
@@ -108,7 +108,7 @@ namespace CoVua
 
             if(((Button)sender).Text == "") // ko có quân Cờ
             {
-                if (ReadytoAttack && ((Button)sender).FlatAppearance.BorderColor == Color.Blue) //di chuyển quân cờ đi vị trí khác
+                if (ReadytoAttack && ((Button)sender).FlatAppearance.BorderColor == Color.Blue)     //di chuyển quân cờ đi vị trí khác
                 {
                     ReadytoAttack = false;
                     MyTurn = !MyTurn;
@@ -117,7 +117,7 @@ namespace CoVua
                     cellPre = null;
                     ResetBoderColor();
                 }
-                else   //kick vào ô ko có gì
+                else                                                                                 //kick vào ô ko có gì
                 {
                     ReadytoAttack = false;
                     ResetBoderColor();               
@@ -210,32 +210,67 @@ namespace CoVua
         /// <param name="btn"></param>
         private void ShowLegalMovement(Button chessman)
         {
-            if(MyTurn)
-                switch (chessman.Text)
+            if (chessman.Text == "pawn")
+            {
+                if (MyTurn)
                 {
-                    case "pawn":
-                        Pawn.goUp(chessman, cells);
-                        Pawn.attackDiagonally(chessman, cells);
-                        break;
-                    case "knight":
-                        Knight.Move(chessman, cells);
-                        break;
-                    default:
-                        break;
+                    Pawn.goUp(chessman, cells);
+                    Pawn.attackDiagonally(chessman, cells);
                 }
+                else
+                {
+                    Pawn.goUpforNeibor(chessman, cells);
+                    Pawn.attackDiagonallyforNeibor(chessman, cells);
+                }
+            }
             else
                 switch (chessman.Text)
                 {
-                    case "pawn":
-                        Pawn.goUpforNeibor(chessman, cells);
-                        Pawn.attackDiagonallyforNeibor(chessman, cells);
-                        break;
                     case "knight":
                         Knight.Move(chessman, cells);
+                        break;
+                    case "bishop":
+                        Bishop.Move(chessman, cells);
+                        break;
+                    case "rook":
+                        Rook.Move(chessman, cells);
+                        break;
+                    case "queen":
+                        Queen.Move(chessman, cells);
+                        break;
+                    case "king":
+                        King.Move(chessman, cells);
                         break;
                     default:
                         break;
                 }
+
+            //if (MyTurn)
+            //    switch (chessman.Text)
+            //    {
+            //        case "pawn":
+            //            Pawn.goUp(chessman, cells);
+            //            Pawn.attackDiagonally(chessman, cells);
+            //            break;
+            //        case "knight":
+            //            Knight.Move(chessman, cells);
+            //            break;
+            //        default:
+            //            break;
+            //    }
+            //else
+            //    switch (chessman.Text)
+            //    {
+            //        case "pawn":
+            //            Pawn.goUpforNeibor(chessman, cells);
+            //            Pawn.attackDiagonallyforNeibor(chessman, cells);
+            //            break;
+            //        case "knight":
+            //            Knight.Move(chessman, cells);
+            //            break;
+            //        default:
+            //            break;
+            //    }
 
         }
     }

@@ -16,14 +16,12 @@ namespace CoVua
         public CoVua()
         {
             InitializeComponent();
-            chessBoard = new ChessBoard();
-            this.Controls.Add(chessBoard);
         }
 
-
-        private void button1_Click(object sender, EventArgs e)
+        private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
-          
+            chessBoard = new ChessBoard();
+            Controls.Add(chessBoard);
         }
 
     }

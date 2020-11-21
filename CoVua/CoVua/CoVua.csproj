@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bishop.cs" />
     <Compile Include="ChessBoard.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -55,11 +56,13 @@
     <Compile Include="CoVua.Designer.cs">
       <DependentUpon>CoVua.cs</DependentUpon>
     </Compile>
-    <Compile Include="CanMove.cs" />
+    <Compile Include="King.cs" />
     <Compile Include="Knight.cs" />
     <Compile Include="Pawn.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Queen.cs" />
+    <Compile Include="Rook.cs" />
     <EmbeddedResource Include="CoVua.resx">
       <DependentUpon>CoVua.cs</DependentUpon>
     </EmbeddedResource>
