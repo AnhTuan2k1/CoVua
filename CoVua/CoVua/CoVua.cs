@@ -16,13 +16,29 @@ namespace CoVua
         public CoVua()
         {
             InitializeComponent();
-        }
-
-        private void newToolStripMenuItem_Click(object sender, EventArgs e)
-        {
             chessBoard = new ChessBoard();
             Controls.Add(chessBoard);
         }
 
+        private void DanhVoiMay_Click(object sender, EventArgs e)
+        {
+            //Controls.Remove(chessBoard);
+            //chessBoard = new ChessBoard();
+            //Controls.Add(chessBoard);
+
+            if (!chessBoard.MyTurn)
+            {
+                ChessBoard.ResetBoderColor(chessBoard.cells);
+                Computer.Move(chessBoard.cells);
+                chessBoard.MyTurn = !chessBoard.MyTurn;
+            }
+            else
+                chessBoard.HinhThucChoi = 2;
+        }
+
+        private void tuChoi1Minh_Click(object sender, EventArgs e)
+        {
+            chessBoard.HinhThucChoi = 1;
+        }
     }
 }

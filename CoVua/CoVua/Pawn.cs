@@ -20,7 +20,7 @@ namespace CoVua
                     cells[indexX, indexY - 1].FlatAppearance.BorderColor = Color.Blue;
 
             //đi được 2 ô nếu chưa di chuyển.
-            if (indexY == 6 && cells[indexX, indexY - 2].Text == "") 
+            if (indexY == 6 && cells[indexX, indexY - 2].Text == "" && cells[indexX, indexY - 1].Text == "") 
                 cells[indexX, indexY - 2].FlatAppearance.BorderColor = Color.Blue;
         }
        
@@ -52,7 +52,7 @@ namespace CoVua
                     cells[indexX, indexY + 1].FlatAppearance.BorderColor = Color.Blue;
 
             //đi được 2 ô nếu chưa di chuyển.
-            if (indexY == 1 && cells[indexX, indexY + 2].Text == "")
+            if (indexY == 1 && cells[indexX, indexY + 2].Text == "" && cells[indexX, indexY + 1].Text == "") 
                 cells[indexX, indexY + 2].FlatAppearance.BorderColor = Color.Blue;
         }
 

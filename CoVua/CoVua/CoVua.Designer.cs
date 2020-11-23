@@ -30,8 +30,8 @@
         {
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.DanhVoiMay = new System.Windows.Forms.ToolStripMenuItem();
+            this.tuChoi1Minh = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -39,8 +39,7 @@
             // 
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem,
-            this.clearToolStripMenuItem});
+            this.fileToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(914, 28);
@@ -50,23 +49,25 @@
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.newToolStripMenuItem});
+            this.DanhVoiMay,
+            this.tuChoi1Minh});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(44, 24);
             this.fileToolStripMenuItem.Text = "file";
             // 
-            // newToolStripMenuItem
+            // DanhVoiMay
             // 
-            this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.newToolStripMenuItem.Text = "New game";
-            this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
+            this.DanhVoiMay.Name = "DanhVoiMay";
+            this.DanhVoiMay.Size = new System.Drawing.Size(224, 26);
+            this.DanhVoiMay.Text = "Danh Voi May";
+            this.DanhVoiMay.Click += new System.EventHandler(this.DanhVoiMay_Click);
             // 
-            // clearToolStripMenuItem
+            // tuChoi1Minh
             // 
-            this.clearToolStripMenuItem.Name = "clearToolStripMenuItem";
-            this.clearToolStripMenuItem.Size = new System.Drawing.Size(55, 24);
-            this.clearToolStripMenuItem.Text = "clear";
+            this.tuChoi1Minh.Name = "tuChoi1Minh";
+            this.tuChoi1Minh.Size = new System.Drawing.Size(224, 26);
+            this.tuChoi1Minh.Text = "Tu Choi 1 Minh";
+            this.tuChoi1Minh.Click += new System.EventHandler(this.tuChoi1Minh_Click);
             // 
             // CoVua
             // 
@@ -88,8 +89,8 @@
         #endregion
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem clearToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem DanhVoiMay;
+        private System.Windows.Forms.ToolStripMenuItem tuChoi1Minh;
     }
 }
 

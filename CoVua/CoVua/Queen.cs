@@ -61,6 +61,7 @@ namespace CoVua
                 }
             }
         }
+
         static public void goUp(Button chessman, Button[,] cells, Color Source)
         {
             int indexX = chessman.Location.X / chessman.Size.Width;

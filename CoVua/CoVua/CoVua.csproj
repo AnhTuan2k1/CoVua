@@ -50,6 +50,7 @@
     <Compile Include="ChessBoard.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Computer.cs" />
     <Compile Include="CoVua.cs">
       <SubType>Form</SubType>
     </Compile>
