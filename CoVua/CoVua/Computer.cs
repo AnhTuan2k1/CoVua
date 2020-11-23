@@ -21,6 +21,7 @@ namespace CoVua
     {
         static public void Move(Button[,] cells)
         {
+
             WorthMovement ComputerMovement = Computer.MovementInfo(cells);
             int SourceIndexX = ComputerMovement.Source.X / cells[0, 0].Size.Width;
             int SourceIndexY = ComputerMovement.Source.Y / cells[0, 0].Size.Height;
@@ -45,11 +46,16 @@ namespace CoVua
                     foreach (Button item2 in cells)       //tìm nước đi ngon của quân cờ.
                     {
                         if (item2.FlatAppearance.BorderColor == Color.Blue)
-                            if (move.value < ValuablePosition(item2.Location.X / cells[0, 0].Size.Width, item2.Location.Y / cells[0, 0].Size.Height) + WorthChessman(item2.Text))
+                        {
+                            double value = ValuablePosition(item2.Location.X / cells[0, 0].Size.Width, item2.Location.Y / cells[0, 0].Size.Height) 
+                                           + WorthChessman(item2.Text) + hazii(item, item2, cells);
+                            if (move.value < value)
                             {
-                                move.value = ValuablePosition(item2.Location.X / cells[0, 0].Size.Width, item2.Location.Y / cells[0, 0].Size.Height) + WorthChessman(item2.Text);
+                                move.value = value;
                                 move.Destination = item2.Location;
                             }
+                        }
+                            
                     }
                     ChessBoard.ResetBoderColor(cells);
                     if (move.value != -9999)
@@ -59,7 +65,8 @@ namespace CoVua
 
             if (list.Count == 0)
             {
-                MessageBox.Show("you win");               
+                MessageBox.Show("you win");   
+                
             }
 
             movement = list[0];
@@ -87,7 +94,7 @@ namespace CoVua
             switch (chessman)
             {
                 case "king":
-                    return 99999;
+                    return 99990;
                 case "pawn":
                     return 10;
                 case "knight":
@@ -108,9 +115,13 @@ namespace CoVua
         {
             Button[,] matrix = ChessBoard.Forwarding(Source, Destination, cells);
 
+            int value = 0;
             if (matrix[Destination.Location.X / cells[0, 0].Width, Destination.Location.Y / cells[0, 0].Height].FlatAppearance.BorderColor == Color.Blue)
-                return WorthChessman(Source.Text);
-            else return 0;
+                value -= WorthChessman(Source.Text);
+            if (matrix[Source.Location.X / cells[0, 0].Width, Source.Location.Y / cells[0, 0].Height].FlatAppearance.BorderColor == Color.Blue)
+                value += WorthChessman(Source.Text) * 3 / 5;
+
+            return value;
         }
 
         //private Button[,] Forwarding(Button Source, Button Destination, Button[,] cells)

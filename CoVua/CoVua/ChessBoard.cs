@@ -10,9 +10,9 @@ namespace CoVua
 {
     class ChessBoard : Panel
     {
-        private Button cellPre;
+        private Button cellIsActivating;
         private bool ReadytoAttack;
-        public bool Active { get; set; } = true;
+        public bool Active { get; set; } = true; // chesboard
         public bool MyTurn { get; set; }
         public int HinhThucChoi { get; set; }
         public Button[,] cells { get; set; }
@@ -22,7 +22,7 @@ namespace CoVua
         {
             ReadytoAttack = false;
             MyTurn = true;
-            HinhThucChoi = 2;
+            HinhThucChoi = 2; // đánh với máy
 
             cells = new Button[8, 8];
             widthCell = 65;
@@ -36,6 +36,7 @@ namespace CoVua
             {
                 for (int j = 0; j < cells.GetLength(1); j++)
                 {
+                    Button x = new Button();
                     cells[i, j] = new Button();
                     cells[i, j].Width = widthCell;
                     cells[i, j].Height = heightCell;
@@ -115,8 +116,8 @@ namespace CoVua
                 {
                     ReadytoAttack = false;
                     MyTurn = !MyTurn;
-                    Chesspiece_Move(cellPre, sender);
-                    cellPre = null;
+                    Chesspiece_Move(cellIsActivating, sender);
+                    cellIsActivating = null;
                     ResetBoderColor(cells);
                 }
                 else
@@ -134,16 +135,16 @@ namespace CoVua
                         ReadytoAttack = true;
                         ResetBoderColor(cells);
                         ShowLegalMovement(sender, cells);
-                        cellPre = sender;
+                        cellIsActivating = sender;
                     }
                     else if (ReadytoAttack && (sender).FlatAppearance.BorderColor == Color.Blue)// ăn quân cờ đối thủ
                     {
-                        Chesspiece_Attack(cellPre, sender);
+                        Chesspiece_Attack(cellIsActivating, sender);
                         ReadytoAttack = false;
                         MyTurn = !MyTurn;
                         ResetBoderColor(cells);
                         (sender).FlatAppearance.BorderColor = Color.Blue;
-                        cellPre = null;
+                        cellIsActivating = null;
                     }
                     else ResetBoderColor(cells);
 
@@ -155,16 +156,16 @@ namespace CoVua
                         ReadytoAttack = true;
                         ResetBoderColor(cells);
                         ShowLegalMovement(sender, cells);
-                        cellPre = sender;
+                        cellIsActivating = sender;
                     }
                     else if (ReadytoAttack && (sender).FlatAppearance.BorderColor == Color.Blue)
                     {
-                        Chesspiece_Attack(cellPre, sender);
+                        Chesspiece_Attack(cellIsActivating, sender);
                         ReadytoAttack = false;
                         MyTurn = !MyTurn;
                         ResetBoderColor(cells);
                         (sender).FlatAppearance.BorderColor = Color.Blue;
-                        cellPre = null;
+                        cellIsActivating = null;
                     }
                     else ResetBoderColor(cells);
                 }
@@ -183,9 +184,9 @@ namespace CoVua
                 {
                     ReadytoAttack = false;
                     MyTurn = !MyTurn;
-                    //   if (cellPre != null)
-                    Chesspiece_Move(cellPre, (Button)sender);
-                    cellPre = null;
+                    //   if (cellIsActivating != null)
+                    Chesspiece_Move(cellIsActivating, (Button)sender);
+                    cellIsActivating = null;
 
                     ResetBoderColor(cells);
                     Computer.Move(cells);
@@ -204,17 +205,17 @@ namespace CoVua
                     ReadytoAttack = true;
                     ResetBoderColor(cells);
                     ShowLegalMovement((Button)sender, cells);
-                    cellPre = (Button)sender;
+                    cellIsActivating = (Button)sender;
                 }
                 else if (ReadytoAttack && ((Button)sender).FlatAppearance.BorderColor == Color.Blue)// ăn quân cờ đối thủ
                 {
-                    //   if (cellPre != null)
-                    Chesspiece_Attack(cellPre, (Button)sender);
+                    //   if (cellIsActivating != null)
+                    Chesspiece_Attack(cellIsActivating, (Button)sender);
                     ReadytoAttack = false;
                     MyTurn = !MyTurn;
                     ResetBoderColor(cells);
                     ((Button)sender).FlatAppearance.BorderColor = Color.Blue;
-                    cellPre = null;
+                    cellIsActivating = null;
 
                     ResetBoderColor(cells);
                     Computer.Move(cells);
@@ -315,13 +316,16 @@ namespace CoVua
                     matrix[i, j].FlatAppearance.BorderColor = cells[i, j].FlatAppearance.BorderColor;
                     matrix[i, j].ForeColor = cells[i, j].ForeColor;
                     matrix[i, j].Text = cells[i, j].Text;
+                    matrix[i, j].Location = new Point(i * cells[0, 0].Width, j * cells[0, 0].Width);
+                    matrix[i, j].Width = cells[i, j].Size.Width;
+                    matrix[i, j].Height = cells[i, j].Height;
                 }
             }
             return matrix;
         }
 
         /// <summary>
-        /// nhìn trước các nước có thể đi của bên còn  lại Khi di chuyển 1 quân cờ
+        /// nhìn trước các nước có thể đi của bên còn lại Khi di chuyển 1 quân cờ
         /// </summary>
         /// <param name="Source"></param>
         /// <param name="Destination"></param>
