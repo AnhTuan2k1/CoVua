@@ -28,8 +28,8 @@ namespace CoVua
 
             if (!chessBoard.MyTurn)
             {
-                ChessBoard.ResetBoderColor(chessBoard.cells);
-                Computer.Move(chessBoard.cells);
+                ChessBoard.ResetBoderColor(chessBoard);
+                Computer.Move(chessBoard);
                 chessBoard.MyTurn = !chessBoard.MyTurn;
             }
             else

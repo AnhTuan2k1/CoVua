@@ -19,36 +19,42 @@ namespace CoVua
 
     class Computer
     {
-        static public void Move(Button[,] cells)
+        static public void Move(ChessBoard chessBoard)
         {
 
-            WorthMovement ComputerMovement = Computer.MovementInfo(cells);
-            int SourceIndexX = ComputerMovement.Source.X / cells[0, 0].Size.Width;
-            int SourceIndexY = ComputerMovement.Source.Y / cells[0, 0].Size.Height;
-            int DestinationIndexX = ComputerMovement.Destination.X / cells[0, 0].Size.Width;
-            int DestinationIndexY = ComputerMovement.Destination.Y / cells[0, 0].Size.Height;
+            WorthMovement ComputerMovement = Computer.MovementInfo(chessBoard);
+            int SourceIndexX = ComputerMovement.Source.X / chessBoard.cells[0, 0].Size.Width;
+            int SourceIndexY = ComputerMovement.Source.Y / chessBoard.cells[0, 0].Size.Height;
+            int DestinationIndexX = ComputerMovement.Destination.X / chessBoard.cells[0, 0].Size.Width;
+            int DestinationIndexY = ComputerMovement.Destination.Y / chessBoard.cells[0, 0].Size.Height;
 
-            ChessBoard.Chesspiece_Move(cells[SourceIndexX, SourceIndexY], cells[DestinationIndexX, DestinationIndexY]);
+            chessBoard.movementInfos.Add(chessBoard.save(chessBoard.cells[SourceIndexX, SourceIndexY], chessBoard.cells[DestinationIndexX, DestinationIndexY]));
+            ChessBoard.Chesspiece_Move(chessBoard.cells[SourceIndexX, SourceIndexY], chessBoard.cells[DestinationIndexX, DestinationIndexY], chessBoard);
         }
 
-        static public WorthMovement MovementInfo(Button[,] cells)
+        static public WorthMovement MovementInfo(ChessBoard chessBoard)
         {
+            chessBoard.checkMate = chessBoard.CheckMate(chessBoard);
             List<WorthMovement> list = new List<WorthMovement>();
             WorthMovement movement;
-            foreach (Button item in cells)
+            foreach (Button item in chessBoard.cells)
             {
                 WorthMovement move = new WorthMovement();
                 move.value = -9999;
                 if (item.ForeColor == Color.Black && item.Text != "")
                 {
                     move.Source = item.Location;
-                    ChessBoard.ShowLegalMovement(item, cells);
-                    foreach (Button item2 in cells)       //tìm nước đi ngon của quân cờ.
+
+                    ChessBoard.ResetBoderColor(chessBoard);
+                    
+                    if (chessBoard.checkMate) chessBoard.showCheckMate(chessBoard.assassin, chessBoard.king);
+                    ChessBoard.ShowLegalMovement(item, chessBoard);
+                    foreach (Button item2 in chessBoard.cells)       //tìm nước đi ngon của quân cờ.
                     {
                         if (item2.FlatAppearance.BorderColor == Color.Blue)
                         {
-                            double value = ValuablePosition(item2.Location.X / cells[0, 0].Size.Width, item2.Location.Y / cells[0, 0].Size.Height) 
-                                           + WorthChessman(item2.Text) + hazii(item, item2, cells);
+                            double value = ValuablePosition(item2.Location.X / chessBoard.cells[0, 0].Size.Width, item2.Location.Y / chessBoard.cells[0, 0].Size.Height) 
+                                           + WorthChessman(item2.Text) + hazii(item, item2, chessBoard);
                             if (move.value < value)
                             {
                                 move.value = value;
@@ -57,7 +63,7 @@ namespace CoVua
                         }
                             
                     }
-                    ChessBoard.ResetBoderColor(cells);
+                    ChessBoard.ResetBoderColor(chessBoard);
                     if (move.value != -9999)
                         list.Add(move);
                 }
@@ -94,7 +100,7 @@ namespace CoVua
             switch (chessman)
             {
                 case "king":
-                    return 99990;
+                    return 9990;
                 case "pawn":
                     return 10;
                 case "knight":
@@ -111,15 +117,26 @@ namespace CoVua
 
         }
 
-        static  private int hazii(Button Source, Button Destination, Button[,] cells)
+        static  private int hazii(Button Source, Button Destination, ChessBoard chessBoard)
         {
-            Button[,] matrix = ChessBoard.Forwarding(Source, Destination, cells);
+            ChessBoard Board = ChessBoard.Forwarding(Source, Destination, chessBoard);
 
             int value = 0;
-            if (matrix[Destination.Location.X / cells[0, 0].Width, Destination.Location.Y / cells[0, 0].Height].FlatAppearance.BorderColor == Color.Blue)
+            foreach (Button item in Board.cells)
+            {
+                if (item.FlatAppearance.BorderColor == Color.Blue && item.Text == "king" && item.ForeColor == Source.ForeColor)
+                    return -9999;
+            }
+
+            if (Board.cells[Source.Location.X / chessBoard.cells[0, 0].Width, Source.Location.Y / chessBoard.cells[0, 0].Height].Text == "king" 
+                && Board.cells[Source.Location.X / chessBoard.cells[0, 0].Width, Source.Location.Y / chessBoard.cells[0, 0].Height].FlatAppearance.BorderColor == Color.Blue)
+                return 1;
+            else if(Board.cells[Source.Location.X / chessBoard.cells[0, 0].Width, Source.Location.Y / chessBoard.cells[0, 0].Height].FlatAppearance.BorderColor == Color.Blue)
+                value += WorthChessman(Source.Text) * 4 / 5;
+
+            if (Board.cells[Destination.Location.X / chessBoard.cells[0, 0].Width, Destination.Location.Y / chessBoard.cells[0, 0].Height].FlatAppearance.BorderColor == Color.Blue)
                 value -= WorthChessman(Source.Text);
-            if (matrix[Source.Location.X / cells[0, 0].Width, Source.Location.Y / cells[0, 0].Height].FlatAppearance.BorderColor == Color.Blue)
-                value += WorthChessman(Source.Text) * 3 / 5;
+            
 
             return value;
         }

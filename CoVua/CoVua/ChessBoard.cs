@@ -8,22 +8,42 @@ using System.Drawing;
 
 namespace CoVua
 {
+    struct MovementInfo
+    {
+        internal Point Src;
+        internal Point Dst;
+        internal string srcText;
+        internal string dstText;
+    }
+
     class ChessBoard : Panel
     {
         private Button cellIsActivating;
         private bool ReadytoAttack;
+        internal Button assassin; // Quân cờ đang chiếu
+
+        /// <summary>
+        /// vua đang bị chiếu
+        /// </summary>
+        internal Button king;
+        public bool checkMate;  // bàn cờ trong trạng thái chiếu
         public bool Active { get; set; } = true; // chesboard
         public bool MyTurn { get; set; }
         public int HinhThucChoi { get; set; }
         public Button[,] cells { get; set; }
+        public List<MovementInfo> movementInfos;
         public int widthCell { get; }
         public int heightCell { get; }
         public ChessBoard()
         {
             ReadytoAttack = false;
+            assassin = null;
+            king = null;
+            checkMate = false;
             MyTurn = true;
             HinhThucChoi = 2; // đánh với máy
 
+            movementInfos = new List<MovementInfo>();
             cells = new Button[8, 8];
             widthCell = 65;
             heightCell = 65;
@@ -113,17 +133,24 @@ namespace CoVua
             if ((sender).Text == "") // ko có quân Cờ
             {
                 if (ReadytoAttack && (sender).FlatAppearance.BorderColor == Color.Blue)     //di chuyển quân cờ đi vị trí khác
-                {
+                {                   
                     ReadytoAttack = false;
                     MyTurn = !MyTurn;
-                    Chesspiece_Move(cellIsActivating, sender);
+                    Chesspiece_Move(cellIsActivating, sender, this);
+                    ResetBoderColor(this);
+
+                    checkMate = CheckMate(this);
+                    if (checkMate) showCheckMate(assassin, king);
+
                     cellIsActivating = null;
-                    ResetBoderColor(cells);
+                    
                 }
                 else
                 {
                     ReadytoAttack = false;
-                    ResetBoderColor(cells);
+                    ResetBoderColor(this);
+
+                    if (checkMate) showCheckMate(assassin, king);
                 }
             }
             else
@@ -133,20 +160,29 @@ namespace CoVua
                     if ((sender).ForeColor == Color.Red) //nhấp vào quân cờ của mình
                     {
                         ReadytoAttack = true;
-                        ResetBoderColor(cells);
-                        ShowLegalMovement(sender, cells);
+                        ResetBoderColor(this);
+                        if (checkMate) showCheckMate(assassin, king);
+
+                        ShowLegalMovement(sender, this);
                         cellIsActivating = sender;
                     }
                     else if (ReadytoAttack && (sender).FlatAppearance.BorderColor == Color.Blue)// ăn quân cờ đối thủ
                     {
-                        Chesspiece_Attack(cellIsActivating, sender);
+                        Chesspiece_Attack(cellIsActivating, sender, this);
+                        ResetBoderColor(this);
+                        checkMate = CheckMate(this);
+                        if (checkMate) showCheckMate(assassin, king);
+
                         ReadytoAttack = false;
-                        MyTurn = !MyTurn;
-                        ResetBoderColor(cells);
+                        MyTurn = !MyTurn;                        
                         (sender).FlatAppearance.BorderColor = Color.Blue;
                         cellIsActivating = null;
                     }
-                    else ResetBoderColor(cells);
+                    else
+                    {
+                        if (checkMate) showCheckMate(assassin, king);
+                    }
+
 
                 }
                 else
@@ -154,20 +190,25 @@ namespace CoVua
                     if ((sender).ForeColor == Color.Black)
                     {
                         ReadytoAttack = true;
-                        ResetBoderColor(cells);
-                        ShowLegalMovement(sender, cells);
+                        ResetBoderColor(this);
+                        if (checkMate) showCheckMate(assassin, king);
+
+                        ShowLegalMovement(sender, this);
                         cellIsActivating = sender;
                     }
                     else if (ReadytoAttack && (sender).FlatAppearance.BorderColor == Color.Blue)
                     {
-                        Chesspiece_Attack(cellIsActivating, sender);
+                        Chesspiece_Attack(cellIsActivating, sender, this);
+                        ResetBoderColor(this);
+                        checkMate = CheckMate(this);
+                        if (checkMate) showCheckMate(assassin, king);
+
                         ReadytoAttack = false;
-                        MyTurn = !MyTurn;
-                        ResetBoderColor(cells);
+                        MyTurn = !MyTurn;                        
                         (sender).FlatAppearance.BorderColor = Color.Blue;
                         cellIsActivating = null;
                     }
-                    else ResetBoderColor(cells);
+                    else ResetBoderColor(this);
                 }
             }
         }
@@ -185,17 +226,20 @@ namespace CoVua
                     ReadytoAttack = false;
                     MyTurn = !MyTurn;
                     //   if (cellIsActivating != null)
-                    Chesspiece_Move(cellIsActivating, (Button)sender);
+                    Chesspiece_Move(cellIsActivating, (Button)sender, this);
                     cellIsActivating = null;
 
-                    ResetBoderColor(cells);
-                    Computer.Move(cells);
+                    ResetBoderColor(this);
+                    Computer.Move(this);
+                    checkMate = CheckMate(this);
+                    if (checkMate) showCheckMate(assassin, king);
+
                     MyTurn = !MyTurn;
                 }
                 else
                 {
                     ReadytoAttack = false;
-                    ResetBoderColor(cells);
+                    if (checkMate) showCheckMate(assassin, king);
                 }
             }
             else
@@ -203,25 +247,30 @@ namespace CoVua
                 if (((Button)sender).ForeColor == Color.Red) //nhấp vào quân cờ của mình
                 {
                     ReadytoAttack = true;
-                    ResetBoderColor(cells);
-                    ShowLegalMovement((Button)sender, cells);
+                    ResetBoderColor(this);
+                    if (checkMate) showCheckMate(assassin, king);
+                    ShowLegalMovement((Button)sender, this);
                     cellIsActivating = (Button)sender;
                 }
                 else if (ReadytoAttack && ((Button)sender).FlatAppearance.BorderColor == Color.Blue)// ăn quân cờ đối thủ
                 {
                     //   if (cellIsActivating != null)
-                    Chesspiece_Attack(cellIsActivating, (Button)sender);
+                    Chesspiece_Attack(cellIsActivating, (Button)sender, this);
+
                     ReadytoAttack = false;
                     MyTurn = !MyTurn;
-                    ResetBoderColor(cells);
+                    ResetBoderColor(this);
                     ((Button)sender).FlatAppearance.BorderColor = Color.Blue;
                     cellIsActivating = null;
 
-                    ResetBoderColor(cells);
-                    Computer.Move(cells);
+                    ResetBoderColor(this);
+                    Computer.Move(this);
+                    checkMate = CheckMate(this);
+                    if (checkMate) showCheckMate(assassin, king);
+
                     MyTurn = !MyTurn;
                 }
-                else ResetBoderColor(cells);
+                else ResetBoderColor(this);
             }
         }
 
@@ -230,31 +279,33 @@ namespace CoVua
         /// <summary>
         /// Xóa Các Nước đi Hợp Lệ Của Quân Cờ.
         /// </summary>
-        static public void ResetBoderColor(Button[,] cells)
+        static public void ResetBoderColor(ChessBoard chessBoard)
         {
-            foreach (Button item in cells)
+            foreach (Button item in chessBoard.cells)
             {
                 item.FlatAppearance.BorderColor = Color.Black;
             }
         }
 
-        static public void Chesspiece_Move(Button Source, Button Destination)
+        static public void Chesspiece_Move(Button Source, Button Destination, ChessBoard chessBoard)
         {
             Destination.Text = Source.Text;
             Destination.ForeColor = Source.ForeColor;
             Source.Text = "";
             Source.ForeColor = Color.Black;
 
+            chessBoard.movementInfos.Add(chessBoard.save(Source, Destination));
             Destination.FlatAppearance.BorderColor = Color.Blue;
         }
 
-         private void Chesspiece_Attack(Button Source, Button Destination)
+         private void Chesspiece_Attack(Button Source, Button Destination, ChessBoard chessBoard)
         {
             Destination.Text = Source.Text;
             Destination.ForeColor = Source.ForeColor;
             Source.Text = "";
             Source.ForeColor = Color.Black;
 
+            chessBoard.movementInfos.Add(save(Source, Destination));
             Destination.FlatAppearance.BorderColor = Color.Blue;
         }
 
@@ -262,38 +313,36 @@ namespace CoVua
         /// Hiển thị các nước đi hợp lệ của quân cờ.
         /// </summary>
         /// <param name="btn"></param>
-        static public void ShowLegalMovement(Button chessman, Button[,] cells)
+        static public void ShowLegalMovement(Button chessman, ChessBoard chessBoard)
         {
             if (chessman.Text == "pawn")
             {
                 if (chessman.ForeColor == Color.Red)
                 {
-                    Pawn.goUp(chessman, cells);
-                    Pawn.attackDiagonally(chessman, cells);
+                    Pawn.Move(chessman, chessBoard);
                 }
                 else
                 {
-                    Pawn.goUpforNeibor(chessman, cells);
-                    Pawn.attackDiagonallyforNeibor(chessman, cells);
+                    Pawn.MovefoNeiBor(chessman, chessBoard);
                 }
             }
             else
                 switch (chessman.Text)
                 {
                     case "knight":
-                        Knight.Move(chessman, cells);
+                        Knight.Move(chessman, chessBoard);
                         break;
                     case "bishop":
-                        Bishop.Move(chessman, cells);
+                        Bishop.Move(chessman, chessBoard);
                         break;
                     case "rook":
-                        Rook.Move(chessman, cells);
+                        Rook.Move(chessman, chessBoard);
                         break;
                     case "queen":
-                        Queen.Move(chessman, cells);
+                        Queen.Move(chessman, chessBoard);
                         break;
                     case "king":
-                        King.Move(chessman, cells);
+                        King.Move(chessman, chessBoard);
                         break;
                     default:
                         break;
@@ -305,23 +354,23 @@ namespace CoVua
         /// </summary>
         /// <param name="cells"></param>
         /// <returns></returns>
-        static internal Button[,] CloneButtonsInfo(Button[,] cells)
+        static internal ChessBoard CloneButtonsInfo(ChessBoard chessBoard)
         {
-            Button[,] matrix = new Button[8, 8];
-            for (int i = 0; i < cells.GetLength(0); i++)
+            ChessBoard Board = new ChessBoard();
+            for (int i = 0; i < chessBoard.cells.GetLength(0); i++)
             {
-                for (int j = 0; j < cells.GetLength(1); j++)
+                for (int j = 0; j < chessBoard.cells.GetLength(1); j++)
                 {
-                    matrix[i, j] = new Button();
-                    matrix[i, j].FlatAppearance.BorderColor = cells[i, j].FlatAppearance.BorderColor;
-                    matrix[i, j].ForeColor = cells[i, j].ForeColor;
-                    matrix[i, j].Text = cells[i, j].Text;
-                    matrix[i, j].Location = new Point(i * cells[0, 0].Width, j * cells[0, 0].Width);
-                    matrix[i, j].Width = cells[i, j].Size.Width;
-                    matrix[i, j].Height = cells[i, j].Height;
+                    Board.cells[i, j] = new Button();
+                    Board.cells[i, j].FlatAppearance.BorderColor = chessBoard.cells[i, j].FlatAppearance.BorderColor;
+                    Board.cells[i, j].ForeColor = chessBoard.cells[i, j].ForeColor;
+                    Board.cells[i, j].Text = chessBoard.cells[i, j].Text;
+                    Board.cells[i, j].Location = new Point(i * chessBoard.cells[0, 0].Width, j * chessBoard.cells[0, 0].Width);
+                    Board.cells[i, j].Width = chessBoard.cells[i, j].Size.Width;
+                    Board.cells[i, j].Height = chessBoard.cells[i, j].Height;
                 }
             }
-            return matrix;
+            return Board;
         }
 
         /// <summary>
@@ -331,34 +380,149 @@ namespace CoVua
         /// <param name="Destination"></param>
         /// <param name="cells"></param>
         /// <returns></returns>
-        static internal Button[,] Forwarding(Button Source, Button Destination, Button[,] cells)
+        static internal ChessBoard Forwarding(Button Source, Button Destination, ChessBoard chessBoard)
         {
-            Button[,] matrix = ChessBoard.CloneButtonsInfo(cells);
-            Button SourceClone = matrix[Source.Location.X / cells[0, 0].Width, Source.Location.Y / cells[0, 0].Height];
-            Button DestinationClone = matrix[Destination.Location.X / cells[0, 0].Width, Destination.Location.Y / cells[0, 0].Height];
+            ChessBoard Board = ChessBoard.CloneButtonsInfo(chessBoard);
+            Button SourceClone = Board.cells[Source.Location.X / chessBoard.cells[0, 0].Width, Source.Location.Y / chessBoard.cells[0, 0].Height];
+            Button DestinationClone = Board.cells[Destination.Location.X / chessBoard.cells[0, 0].Width, Destination.Location.Y / chessBoard.cells[0, 0].Height];
 
-            ChessBoard.Chesspiece_Move(SourceClone, DestinationClone);
-            ChessBoard.ResetBoderColor(matrix);
+            ChessBoard.Chesspiece_Move(SourceClone, DestinationClone, Board);
+            ChessBoard.ResetBoderColor(Board);
             Color x;
             if (Source.ForeColor == Color.Black)     // Máy nhìn trước 
                 x = Color.Red;
             else x = Color.Black;
 
-            foreach (Button item in matrix)
+            foreach (Button item in Board.cells)
             {
                 if (item.ForeColor == x)
-                    ChessBoard.ShowLegalMovement(item, matrix);
+                    ChessBoard.ShowLegalMovement(item, Board);
             }
-            return matrix;
+            return Board;
+        }
+
+        internal MovementInfo save(Button src, Button dst)
+        {
+            MovementInfo x = new MovementInfo();
+            x.Dst = dst.Location;
+            x.dstText = dst.Text;
+            x.srcText = src.Text;
+            x.Src = src.Location;
+
+            return x;
+        }
+
+        /// <summary>
+        /// mình hoặc đối thủ đang bị chiếu ?
+        /// </summary>
+        /// <param name="chessBoard"></param>
+        /// <returns></returns>
+        internal bool CheckMate(ChessBoard chessBoard)
+        {
+            ChessBoard x = CloneButtonsInfo(chessBoard);
+            foreach (Button item in x.cells)   
+            {
+                if (item.Text != "" && item.ForeColor == Color.Black)  //Đối thủ chiếu. item là assassin, item2 là king.
+                {
+                    ResetBoderColor(x);
+                    ShowLegalMovement(item, x);
+
+                    foreach (Button item2 in x.cells)
+                    {
+                        if (item2.Text == "king" && item2.ForeColor == Color.Red && item2.FlatAppearance.BorderColor == Color.Blue)
+                        {
+                            chessBoard.assassin = chessBoard.cells[item.Location.X/chessBoard.widthCell,item.Location.Y/chessBoard.heightCell];
+                            chessBoard.king = chessBoard.cells[item2.Location.X / chessBoard.widthCell, item2.Location.Y / chessBoard.heightCell];
+
+                            return true;
+                        }
+                    }
+                }
+
+                else if (item.Text != "" && item.ForeColor == Color.Red)
+                {
+                    ResetBoderColor(x);
+                    ShowLegalMovement(item, x);
+
+                    foreach (Button item2 in x.cells)
+                    {
+                        if (item2.Text == "king" && item2.ForeColor == Color.Black && item2.FlatAppearance.BorderColor == Color.Blue)
+                        {
+                            chessBoard.assassin = chessBoard.cells[item.Location.X / chessBoard.widthCell, item.Location.Y / chessBoard.heightCell];
+                            chessBoard.king = chessBoard.cells[item2.Location.X / chessBoard.widthCell, item2.Location.Y / chessBoard.heightCell];
+
+                            return true;
+                        }
+                    }
+                }
+            }
+
+            chessBoard.assassin = null;
+            chessBoard.king = null;
+            return false;
+        }
+
+        public void showCheckMate(Button assassin, Button king)
+        {
+            switch (assassin.Text)
+            {
+                case "knight":
+                    Knight.checkMate(assassin, king, this);
+                    break;
+                case "bishop":
+                    Bishop.checkMate(assassin, king, this);
+                    break;
+                case "rook":
+                    Rook.checkMate(assassin, king, this);
+                    break;
+                case "queen":
+                    Queen.checkMate(assassin, king, this);
+                    break;
+                case "pawn":
+                    Pawn.checkMate(assassin, king, this);
+                    break;
+                default:
+                    break;
+            }
+        }
+        public MovementInfo undo()
+        {
+            MovementInfo movementInfo = this.movementInfos[this.movementInfos.Count - 1];
+            int SourceIndexX = movementInfo.Src.X / this.cells[0, 0].Size.Width;
+            int SourceIndexY = movementInfo.Src.Y / this.cells[0, 0].Size.Height;
+            int DestinationIndexX = movementInfo.Dst.X / this.cells[0, 0].Size.Width;
+            int DestinationIndexY = movementInfo.Dst.Y / this.cells[0, 0].Size.Height;
+
+            this.cells[SourceIndexX, SourceIndexY].Text = movementInfo.dstText;
+            this.cells[DestinationIndexX, DestinationIndexY].Text = movementInfo.srcText;
+            if (this.movementInfos.Count % 2 == 1) // nếu đây là nước cờ do máy đánh
+            {
+                this.cells[SourceIndexX, SourceIndexY].ForeColor = Color.Black;
+                this.cells[DestinationIndexX, DestinationIndexY].ForeColor = Color.Red;
+            }
+            else
+            {
+                this.cells[SourceIndexX, SourceIndexY].ForeColor = Color.Red;
+                this.cells[DestinationIndexX, DestinationIndexY].ForeColor = Color.Black;
+            }
+
+            movementInfo = new MovementInfo();
+            movementInfo = save(cells[SourceIndexX, SourceIndexY], cells[DestinationIndexX, DestinationIndexY]);
+            movementInfos.RemoveAt(movementInfos.Count - 1);
+            return movementInfo;
         }
 
         private void Cell_Click(object sender, EventArgs e)
         {
             if (!Active) return;
-
+            
             if (HinhThucChoi == 1)
                 HinhThucChoi1((Button)sender, e);
             else HinhThucChoi2((Button)sender, e);
+
+
+            //checkMate = CheckMate(this);
+            //if (checkMate) showCheckMate(assassin, king);
         }
     }
 }

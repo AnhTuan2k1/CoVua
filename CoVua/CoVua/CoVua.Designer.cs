@@ -58,14 +58,14 @@
             // DanhVoiMay
             // 
             this.DanhVoiMay.Name = "DanhVoiMay";
-            this.DanhVoiMay.Size = new System.Drawing.Size(191, 26);
+            this.DanhVoiMay.Size = new System.Drawing.Size(224, 26);
             this.DanhVoiMay.Text = "Danh Voi May";
             this.DanhVoiMay.Click += new System.EventHandler(this.DanhVoiMay_Click);
             // 
             // tuChoi1Minh
             // 
             this.tuChoi1Minh.Name = "tuChoi1Minh";
-            this.tuChoi1Minh.Size = new System.Drawing.Size(191, 26);
+            this.tuChoi1Minh.Size = new System.Drawing.Size(224, 26);
             this.tuChoi1Minh.Text = "Tu Choi 1 Minh";
             this.tuChoi1Minh.Click += new System.EventHandler(this.tuChoi1Minh_Click);
             // 
