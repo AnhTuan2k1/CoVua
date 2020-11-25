@@ -100,7 +100,7 @@ namespace CoVua
             switch (chessman)
             {
                 case "king":
-                    return 9990;
+                    return 990;
                 case "pawn":
                     return 10;
                 case "knight":
@@ -122,15 +122,12 @@ namespace CoVua
             ChessBoard Board = ChessBoard.Forwarding(Source, Destination, chessBoard);
 
             int value = 0;
-            foreach (Button item in Board.cells)
-            {
-                if (item.FlatAppearance.BorderColor == Color.Blue && item.Text == "king" && item.ForeColor == Source.ForeColor)
-                    return -9999;
-            }
+            //if (Source.Text == "king")
+            //    return -9999;
 
             if (Board.cells[Source.Location.X / chessBoard.cells[0, 0].Width, Source.Location.Y / chessBoard.cells[0, 0].Height].Text == "king" 
                 && Board.cells[Source.Location.X / chessBoard.cells[0, 0].Width, Source.Location.Y / chessBoard.cells[0, 0].Height].FlatAppearance.BorderColor == Color.Blue)
-                return 1;
+                return -9999;   /////menora
             else if(Board.cells[Source.Location.X / chessBoard.cells[0, 0].Width, Source.Location.Y / chessBoard.cells[0, 0].Height].FlatAppearance.BorderColor == Color.Blue)
                 value += WorthChessman(Source.Text) * 4 / 5;
 

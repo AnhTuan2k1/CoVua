@@ -167,5 +167,27 @@ namespace CoVua
                 }
             }
         }
+
+        static private void ShowillegalAreas(ChessBoard chessBoard)
+        {
+            foreach (Button item in chessBoard.cells)
+            {
+                ChessBoard.ShowLegalMovement(item, chessBoard);
+            }
+            foreach (Button item in chessBoard.cells)
+            {
+                if (item.FlatAppearance.BorderColor == Color.Blue)
+                    item.FlatAppearance.BorderColor = Color.Yellow;
+            }
+        }
+
+        static private void HiddenillegalAreas(ChessBoard chessBoard)
+        {           
+            foreach (Button item in chessBoard.cells)
+            {
+                if (item.FlatAppearance.BorderColor == Color.Yellow)
+                    item.FlatAppearance.BorderColor = Color.Blue;
+            }
+        }
     }
 }

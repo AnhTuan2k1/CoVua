@@ -24,17 +24,36 @@ namespace CoVua
 
         static public void goUp(Button chessman, ChessBoard chessBoard)
         {
-            if (chessBoard.checkMate) return;
             int indexX = chessman.Location.X /chessman.Size.Width;
             int indexY = chessman.Location.Y / chessman.Size.Height;
 
             if (indexY - 1 >= 0)
-                if (chessBoard.cells[indexX, indexY - 1].Text == "")
+            {
+                if(chessBoard.checkMate)
+                {
+                    if (chessBoard.cells[indexX, indexY - 1].Text == "" 
+                        && chessBoard.cells[indexX, indexY - 1].FlatAppearance.BorderColor == Color.Yellow) 
+                        chessBoard.cells[indexX, indexY - 1].FlatAppearance.BorderColor = Color.Blue;
+                }
+                else
+                    if (chessBoard.cells[indexX, indexY - 1].Text == "")
                     chessBoard.cells[indexX, indexY - 1].FlatAppearance.BorderColor = Color.Blue;
+            }
+                
 
             //đi được 2 ô nếu chưa di chuyển.
-            if (indexY == 6 && chessBoard.cells[indexX, indexY - 2].Text == "" && chessBoard.cells[indexX, indexY - 1].Text == "") 
-                chessBoard.cells[indexX, indexY - 2].FlatAppearance.BorderColor = Color.Blue;
+            if(chessBoard.checkMate)
+            {
+                if (indexY == 6 && chessBoard.cells[indexX, indexY - 2].Text == "" && chessBoard.cells[indexX, indexY - 1].Text == ""
+                    && chessBoard.cells[indexX, indexY - 2].FlatAppearance.BorderColor == Color.Yellow)
+                    chessBoard.cells[indexX, indexY - 2].FlatAppearance.BorderColor = Color.Blue;
+            }
+            else
+            {
+                if (indexY == 6 && chessBoard.cells[indexX, indexY - 2].Text == "" && chessBoard.cells[indexX, indexY - 1].Text == "")
+                    chessBoard.cells[indexX, indexY - 2].FlatAppearance.BorderColor = Color.Blue;
+            }
+            
         }
        
         static public void attackDiagonally(Button chessman, ChessBoard chessBoard)
@@ -69,18 +88,39 @@ namespace CoVua
         }
 
         static public void goUpforNeibor(Button chessman, ChessBoard chessBoard)
-        {
-            if (chessBoard.checkMate) return;
+        {           
             int indexX = chessman.Location.X / chessman.Size.Width;
             int indexY = chessman.Location.Y / chessman.Size.Height;
 
             if (indexY + 1 < 8)
-                if (chessBoard.cells[indexX, indexY + 1].Text == "")
-                    chessBoard.cells[indexX, indexY + 1].FlatAppearance.BorderColor = Color.Blue;
+            {
+                if(chessBoard.checkMate)
+                {
+                    if (chessBoard.cells[indexX, indexY + 1].Text == ""
+                        && chessBoard.cells[indexX, indexY + 1].FlatAppearance.BorderColor == Color.Yellow)
+                        chessBoard.cells[indexX, indexY + 1].FlatAppearance.BorderColor = Color.Blue;
+                }
+                else
+                {
+                    if (chessBoard.cells[indexX, indexY + 1].Text == "")
+                        chessBoard.cells[indexX, indexY + 1].FlatAppearance.BorderColor = Color.Blue;
+                }
+            }
+
 
             //đi được 2 ô nếu chưa di chuyển.
-            if (indexY == 1 && chessBoard.cells[indexX, indexY + 2].Text == "" && chessBoard.cells[indexX, indexY + 1].Text == "") 
-                chessBoard.cells[indexX, indexY + 2].FlatAppearance.BorderColor = Color.Blue;
+            if (chessBoard.checkMate)
+            {
+                if (indexY == 1 && chessBoard.cells[indexX, indexY + 2].Text == "" && chessBoard.cells[indexX, indexY + 1].Text == ""
+                    && chessBoard.cells[indexX, indexY + 2].FlatAppearance.BorderColor == Color.Yellow)
+                    chessBoard.cells[indexX, indexY + 2].FlatAppearance.BorderColor = Color.Blue;
+            }
+            else
+            {
+                if (indexY == 1 && chessBoard.cells[indexX, indexY + 2].Text == "" && chessBoard.cells[indexX, indexY + 1].Text == "")
+                    chessBoard.cells[indexX, indexY + 2].FlatAppearance.BorderColor = Color.Blue;
+            }
+            
         }
 
         static public void attackDiagonallyforNeibor(Button chessman, ChessBoard chessBoard)

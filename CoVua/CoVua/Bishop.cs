@@ -31,8 +31,7 @@ namespace CoVua
                     goLeftUp(chessBoard.cells[indexX - 1, indexY - 1], chessBoard, Source);
                     if (chessBoard.checkMate)
                     {
-                        if (chessBoard.cells[indexX - 1, indexY - 1].FlatAppearance.BorderColor == Color.Yellow
-                            && chessBoard.cells[indexX - 1, indexY - 1].ForeColor != Source)
+                        if (chessBoard.cells[indexX - 1, indexY - 1].FlatAppearance.BorderColor == Color.Yellow)
                             chessBoard.cells[indexX - 1, indexY - 1].FlatAppearance.BorderColor = Color.Blue;
                     }
                     else
@@ -57,8 +56,7 @@ namespace CoVua
                     goLeftDown(chessBoard.cells[indexX - 1, indexY + 1], chessBoard, Source);
                     if (chessBoard.checkMate)
                     {
-                        if (chessBoard.cells[indexX - 1, indexY + 1].FlatAppearance.BorderColor == Color.Yellow
-                            && chessBoard.cells[indexX - 1, indexY + 1].ForeColor != Source)
+                        if (chessBoard.cells[indexX - 1, indexY + 1].FlatAppearance.BorderColor == Color.Yellow)
                             chessBoard.cells[indexX - 1, indexY + 1].FlatAppearance.BorderColor = Color.Blue;
                     }
                     else
@@ -83,8 +81,7 @@ namespace CoVua
                     goRightUp(chessBoard.cells[indexX + 1, indexY - 1], chessBoard, Source);
                     if (chessBoard.checkMate)
                     {
-                        if (chessBoard.cells[indexX + 1, indexY - 1].FlatAppearance.BorderColor == Color.Yellow
-                            && chessBoard.cells[indexX + 1, indexY - 1].ForeColor != Source)
+                        if (chessBoard.cells[indexX + 1, indexY - 1].FlatAppearance.BorderColor == Color.Yellow)
                             chessBoard.cells[indexX + 1, indexY - 1].FlatAppearance.BorderColor = Color.Blue;
                     }
                     else
@@ -109,8 +106,7 @@ namespace CoVua
                     goRightDown(chessBoard.cells[indexX + 1, indexY + 1], chessBoard,Source);
                     if (chessBoard.checkMate)
                     {
-                        if (chessBoard.cells[indexX + 1, indexY + 1].FlatAppearance.BorderColor == Color.Yellow
-                            && chessBoard.cells[indexX + 1, indexY + 1].ForeColor != Source)
+                        if (chessBoard.cells[indexX + 1, indexY + 1].FlatAppearance.BorderColor == Color.Yellow)
                             chessBoard.cells[indexX + 1, indexY + 1].FlatAppearance.BorderColor = Color.Blue;
                     }
                     else

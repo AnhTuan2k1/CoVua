@@ -18,6 +18,7 @@ namespace CoVua
             InitializeComponent();
             chessBoard = new ChessBoard();
             Controls.Add(chessBoard);
+            
         }
 
         private void DanhVoiMay_Click(object sender, EventArgs e)
@@ -39,6 +40,13 @@ namespace CoVua
         private void tuChoi1Minh_Click(object sender, EventArgs e)
         {
             chessBoard.HinhThucChoi = 1;
+        }
+
+        private void ChoiLaitoolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Controls.Remove(chessBoard);
+            chessBoard = new ChessBoard();
+            Controls.Add(chessBoard);
         }
     }
 }

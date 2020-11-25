@@ -30,8 +30,7 @@ namespace CoVua
                     goLeft(chessBoard.cells[indexX - 1, indexY], chessBoard, Source);
                     if (chessBoard.checkMate)
                     {
-                        if (chessBoard.cells[indexX - 1, indexY].FlatAppearance.BorderColor == Color.Yellow
-                            && chessBoard.cells[indexX - 1, indexY].ForeColor != Source)
+                        if (chessBoard.cells[indexX - 1, indexY].FlatAppearance.BorderColor == Color.Yellow)
                             chessBoard.cells[indexX - 1, indexY].FlatAppearance.BorderColor = Color.Blue;
                     }
                     else
@@ -57,8 +56,7 @@ namespace CoVua
                     goRight(chessBoard.cells[indexX + 1, indexY], chessBoard, Source);
                     if (chessBoard.checkMate)
                     {
-                        if (chessBoard.cells[indexX + 1, indexY].FlatAppearance.BorderColor == Color.Yellow
-                            && chessBoard.cells[indexX + 1, indexY].ForeColor != Source)
+                        if (chessBoard.cells[indexX + 1, indexY].FlatAppearance.BorderColor == Color.Yellow)
                             chessBoard.cells[indexX + 1, indexY].FlatAppearance.BorderColor = Color.Blue;
                     }
                     else
@@ -83,8 +81,7 @@ namespace CoVua
                     goUp(chessBoard.cells[indexX, indexY - 1], chessBoard, Source);
                     if (chessBoard.checkMate)
                     {
-                        if (chessBoard.cells[indexX, indexY - 1].FlatAppearance.BorderColor == Color.Yellow
-                            && chessBoard.cells[indexX, indexY - 1].ForeColor != Source)
+                        if (chessBoard.cells[indexX, indexY - 1].FlatAppearance.BorderColor == Color.Yellow)
                             chessBoard.cells[indexX, indexY - 1].FlatAppearance.BorderColor = Color.Blue;
                     }
                     else
@@ -109,8 +106,7 @@ namespace CoVua
                     goDown(chessBoard.cells[indexX, indexY + 1], chessBoard, Source);
                     if (chessBoard.checkMate)
                     {
-                        if (chessBoard.cells[indexX, indexY + 1].FlatAppearance.BorderColor == Color.Yellow
-                            && chessBoard.cells[indexX, indexY + 1].ForeColor != Source)
+                        if (chessBoard.cells[indexX, indexY + 1].FlatAppearance.BorderColor == Color.Yellow)
                             chessBoard.cells[indexX, indexY + 1].FlatAppearance.BorderColor = Color.Blue;
                     }
                     else

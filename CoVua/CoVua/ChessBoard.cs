@@ -485,6 +485,11 @@ namespace CoVua
                     break;
             }
         }
+
+        /// <summary>
+        /// chưa chạy được!
+        /// </summary>
+        /// <returns></returns>
         public MovementInfo undo()
         {
             MovementInfo movementInfo = this.movementInfos[this.movementInfos.Count - 1];
