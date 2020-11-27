@@ -75,6 +75,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -88,6 +89,48 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\hau den.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\hau trang.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\nen trang.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\nen xam.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ngua den.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ngua trang.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\tot den.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\tot trang.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\tuong den.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\tuong trang ne.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\vua den.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\vua trang.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\xe den.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\xe trang.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

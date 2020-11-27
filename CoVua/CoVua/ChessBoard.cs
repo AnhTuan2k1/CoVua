@@ -47,12 +47,12 @@ namespace CoVua
             cells = new Button[8, 8];
             widthCell = 65;
             heightCell = 65;
-             
-            Size = new Size(widthCell * 8, Height * 8);
-            Location = new Point(90,24);                             
 
-           //------------Tạo 64 ô cờ----------------------
-            for (int i = 0; i < cells.GetLength(0); i++) 
+            Size = new Size(widthCell * 8, Height * 8);
+            Location = new Point(90, 24);
+
+            //------------Tạo 64 ô cờ----------------------
+            for (int i = 0; i < cells.GetLength(0); i++)
             {
                 for (int j = 0; j < cells.GetLength(1); j++)
                 {
@@ -65,19 +65,20 @@ namespace CoVua
                     cells[i, j].Location = new Point(i * widthCell, j * heightCell);
                     if ((i + j) % 2 == 1)
                         cells[i, j].BackColor = Color.FromArgb(169, 169, 169);
-                    
+
                     cells[i, j].Click += Cell_Click;
-                                       
+                    //cells[i, j].TextImageRelation = TextImageRelation.Overlay;
+                    cells[i, j].Font = new Font("Arial", 1);
                     this.Controls.Add(cells[i, j]);
                 }
             }
 
-           //---------------Thêm Các Quân Cờ------------------
+            //---------------Thêm Các Quân Cờ------------------
             for (int i = 0; i < cells.GetLength(0); i++)
             {
                 for (int j = 0; j < cells.GetLength(1); j++)
                 {
-                    if (j == 0 || j == 7) 
+                    if (j == 0 || j == 7)
                     {
                         switch (i)
                         {
@@ -112,7 +113,7 @@ namespace CoVua
                         else
                             cells[i, j].ForeColor = Color.Red;
                     }
-                    else if (j == 1 || j == 6) 
+                    else if (j == 1 || j == 6)
                     {
                         cells[i, j].Text = "pawn";
                         if (j == 1)
@@ -120,11 +121,13 @@ namespace CoVua
                         else
                             cells[i, j].ForeColor = Color.Red;
 
-                    }                                          
+                    }
+                    PictureInsert(cells[i, j]);
+
                 }
             }
-        }      
-        
+        }
+
         /// <summary>
         /// 1 mình đánh 2 bên
         /// </summary>
@@ -133,7 +136,7 @@ namespace CoVua
             if ((sender).Text == "") // ko có quân Cờ
             {
                 if (ReadytoAttack && (sender).FlatAppearance.BorderColor == Color.Blue)     //di chuyển quân cờ đi vị trí khác
-                {                   
+                {
                     ReadytoAttack = false;
                     MyTurn = !MyTurn;
                     Chesspiece_Move(cellIsActivating, sender, this);
@@ -143,7 +146,7 @@ namespace CoVua
                     if (checkMate) showCheckMate(assassin, king);
 
                     cellIsActivating = null;
-                    
+
                 }
                 else
                 {
@@ -174,7 +177,7 @@ namespace CoVua
                         if (checkMate) showCheckMate(assassin, king);
 
                         ReadytoAttack = false;
-                        MyTurn = !MyTurn;                        
+                        MyTurn = !MyTurn;
                         (sender).FlatAppearance.BorderColor = Color.Blue;
                         cellIsActivating = null;
                     }
@@ -204,7 +207,7 @@ namespace CoVua
                         if (checkMate) showCheckMate(assassin, king);
 
                         ReadytoAttack = false;
-                        MyTurn = !MyTurn;                        
+                        MyTurn = !MyTurn;
                         (sender).FlatAppearance.BorderColor = Color.Blue;
                         cellIsActivating = null;
                     }
@@ -296,9 +299,12 @@ namespace CoVua
 
             chessBoard.movementInfos.Add(chessBoard.save(Source, Destination));
             Destination.FlatAppearance.BorderColor = Color.Blue;
+
+            PictureInsert(Source);
+            PictureInsert(Destination);
         }
 
-         private void Chesspiece_Attack(Button Source, Button Destination, ChessBoard chessBoard)
+        private void Chesspiece_Attack(Button Source, Button Destination, ChessBoard chessBoard)
         {
             Destination.Text = Source.Text;
             Destination.ForeColor = Source.ForeColor;
@@ -307,6 +313,9 @@ namespace CoVua
 
             chessBoard.movementInfos.Add(save(Source, Destination));
             Destination.FlatAppearance.BorderColor = Color.Blue;
+
+            PictureInsert(Source);
+            PictureInsert(Destination);
         }
 
         /// <summary>
@@ -346,7 +355,7 @@ namespace CoVua
                         break;
                     default:
                         break;
-                }      
+                }
         }
 
         /// <summary>
@@ -420,7 +429,7 @@ namespace CoVua
         internal bool CheckMate(ChessBoard chessBoard)
         {
             ChessBoard x = CloneButtonsInfo(chessBoard);
-            foreach (Button item in x.cells)   
+            foreach (Button item in x.cells)
             {
                 if (item.Text != "" && item.ForeColor == Color.Black)  //Đối thủ chiếu. item là assassin, item2 là king.
                 {
@@ -431,7 +440,7 @@ namespace CoVua
                     {
                         if (item2.Text == "king" && item2.ForeColor == Color.Red && item2.FlatAppearance.BorderColor == Color.Blue)
                         {
-                            chessBoard.assassin = chessBoard.cells[item.Location.X/chessBoard.widthCell,item.Location.Y/chessBoard.heightCell];
+                            chessBoard.assassin = chessBoard.cells[item.Location.X / chessBoard.widthCell, item.Location.Y / chessBoard.heightCell];
                             chessBoard.king = chessBoard.cells[item2.Location.X / chessBoard.widthCell, item2.Location.Y / chessBoard.heightCell];
 
                             return true;
@@ -520,7 +529,7 @@ namespace CoVua
         private void Cell_Click(object sender, EventArgs e)
         {
             if (!Active) return;
-            
+
             if (HinhThucChoi == 1)
                 HinhThucChoi1((Button)sender, e);
             else HinhThucChoi2((Button)sender, e);
@@ -528,6 +537,68 @@ namespace CoVua
 
             //checkMate = CheckMate(this);
             //if (checkMate) showCheckMate(assassin, king);
+        }
+
+
+        static private void PictureInsert(Button sender)
+        {
+
+
+            Button b = (Button)sender;
+            if (b.ForeColor == Color.Black)
+            {
+                switch (b.Text)
+                {
+                    case "":
+                        b.Image = null;
+                        break;
+                    case "knight":
+                        b.Image = Properties.Resources.ngua_den;
+                        break;
+                    case "pawn":
+                        b.Image = Properties.Resources.tot_den;
+                        break;
+                    case "bishop":
+                        b.Image = Properties.Resources.tuong_den;
+                        break;
+                    case "queen":
+                        b.Image = Properties.Resources.hau_den;
+                        break;
+                    case "king":
+                        b.Image = Properties.Resources.vua_den;
+                        break;
+                    case "rook":
+                        b.Image = Properties.Resources.xe_den;
+                        break;
+                }
+            }
+            else if (b.ForeColor == Color.Red)
+            {
+                switch (b.Text)
+                {
+                    case "":
+                        b.Image = null;
+                        break;
+                    case "knight":
+                        b.Image = Properties.Resources.ngua_trang;
+                        break;
+                    case "pawn":
+                        b.Image = Properties.Resources.tot_trang;
+                        break;
+                    case "bishop":
+                        b.Image = Properties.Resources.tuong_trang_ne;
+                        break;
+                    case "queen":
+                        b.Image = Properties.Resources.hau_trang;
+                        break;
+                    case "king":
+                        b.Image = Properties.Resources.vua_trang;
+                        break;
+                    case "rook":
+                        b.Image = Properties.Resources.xe_trang;
+                        break;
+                }
+            }
         }
     }
 }
