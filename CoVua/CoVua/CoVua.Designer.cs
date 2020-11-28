@@ -79,12 +79,12 @@
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ChoiLaitoolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(211, 56);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(132, 28);
             // 
             // ChoiLaitoolStripMenuItem
             // 
             this.ChoiLaitoolStripMenuItem.Name = "ChoiLaitoolStripMenuItem";
-            this.ChoiLaitoolStripMenuItem.Size = new System.Drawing.Size(210, 24);
+            this.ChoiLaitoolStripMenuItem.Size = new System.Drawing.Size(131, 24);
             this.ChoiLaitoolStripMenuItem.Text = "Chơi Lại";
             this.ChoiLaitoolStripMenuItem.Click += new System.EventHandler(this.ChoiLaitoolStripMenuItem_Click);
             // 

@@ -295,7 +295,7 @@ namespace CoVua
             Destination.Text = Source.Text;
             Destination.ForeColor = Source.ForeColor;
             Source.Text = "";
-            Source.ForeColor = Color.Black;
+            Source.ForeColor = Color.AliceBlue;
 
             chessBoard.movementInfos.Add(chessBoard.save(Source, Destination));
             Destination.FlatAppearance.BorderColor = Color.Blue;
@@ -304,12 +304,20 @@ namespace CoVua
             PictureInsert(Destination);
         }
 
+        static public void Chesspiece_Move_forForwarding(Button Source, Button Destination, ChessBoard chessBoard)
+        {
+            Destination.Text = Source.Text;
+            Destination.ForeColor = Source.ForeColor;
+            Source.Text = "";
+            Source.ForeColor = Color.AliceBlue;
+        }
+
         private void Chesspiece_Attack(Button Source, Button Destination, ChessBoard chessBoard)
         {
             Destination.Text = Source.Text;
             Destination.ForeColor = Source.ForeColor;
             Source.Text = "";
-            Source.ForeColor = Color.Black;
+            Source.ForeColor = Color.AliceBlue;
 
             chessBoard.movementInfos.Add(save(Source, Destination));
             Destination.FlatAppearance.BorderColor = Color.Blue;
@@ -357,6 +365,46 @@ namespace CoVua
                         break;
                 }
         }
+        /// <summary>
+        /// Hiển thị tất cả các nước đi của quân cờ
+        /// </summary>
+        /// <param name="chessman"></param>
+        /// <param name="chessBoard"></param>
+        static public void ShowMovement(Button chessman, ChessBoard chessBoard)
+        {
+            if (chessman.Text == "pawn")
+            {
+                if (chessman.ForeColor == Color.Red)
+                {
+                    Pawn.Movecm(chessman, chessBoard);
+                }
+                else
+                {
+                    Pawn.MovefoNeiBorcm(chessman, chessBoard);
+                }
+            }
+            else
+                switch (chessman.Text)
+                {
+                    case "knight":
+                        Knight.Movecm(chessman, chessBoard);
+                        break;
+                    case "bishop":
+                        Bishop.Movecm(chessman, chessBoard);
+                        break;
+                    case "rook":
+                        Rook.Movecm(chessman, chessBoard);
+                        break;
+                    case "queen":
+                        Queen.Movecm(chessman, chessBoard);
+                        break;
+                    case "king":
+                        King.Movecm(chessman, chessBoard);
+                        break;
+                    default:
+                        break;
+                }
+        }
 
         /// <summary>
         /// sao chép các ô cờ thành 1 mảng 2 chiều
@@ -395,7 +443,7 @@ namespace CoVua
             Button SourceClone = Board.cells[Source.Location.X / chessBoard.cells[0, 0].Width, Source.Location.Y / chessBoard.cells[0, 0].Height];
             Button DestinationClone = Board.cells[Destination.Location.X / chessBoard.cells[0, 0].Width, Destination.Location.Y / chessBoard.cells[0, 0].Height];
 
-            ChessBoard.Chesspiece_Move(SourceClone, DestinationClone, Board);
+            ChessBoard.Chesspiece_Move_forForwarding(SourceClone, DestinationClone, Board);
             ChessBoard.ResetBoderColor(Board);
             Color x;
             if (Source.ForeColor == Color.Black)     // Máy nhìn trước 
@@ -434,7 +482,7 @@ namespace CoVua
                 if (item.Text != "" && item.ForeColor == Color.Black)  //Đối thủ chiếu. item là assassin, item2 là king.
                 {
                     ResetBoderColor(x);
-                    ShowLegalMovement(item, x);
+                    ShowMovement(item, x);
 
                     foreach (Button item2 in x.cells)
                     {
@@ -451,7 +499,7 @@ namespace CoVua
                 else if (item.Text != "" && item.ForeColor == Color.Red)
                 {
                     ResetBoderColor(x);
-                    ShowLegalMovement(item, x);
+                    ShowMovement(item, x);
 
                     foreach (Button item2 in x.cells)
                     {
@@ -468,6 +516,34 @@ namespace CoVua
 
             chessBoard.assassin = null;
             chessBoard.king = null;
+            return false;
+        }
+
+        /// <summary>
+        /// Nước di chuyển làm Vua bạn bị chiếu ?
+        /// </summary>
+        /// <param name="src"></param>
+        /// <param name="Dst"></param>
+        /// <returns></returns>
+        internal bool makeCheckMate(Button src, Button Dst, ChessBoard chessBoard)
+        {
+            return false;
+            ChessBoard x = CloneButtonsInfo(chessBoard);
+            Button SourceClone = x.cells[src.Location.X / chessBoard.cells[0, 0].Width, src.Location.Y / chessBoard.cells[0, 0].Height];
+            Button DestinationClone = x.cells[Dst.Location.X / chessBoard.cells[0, 0].Width, Dst.Location.Y / chessBoard.cells[0, 0].Height];
+
+            Chesspiece_Move_forForwarding(SourceClone, DestinationClone, x);
+            CheckMate(x);
+            if (assassin != null) 
+            {
+                if (assassin.ForeColor != src.ForeColor)
+                {
+                    assassin = null;
+                    king = null;
+                    return true;
+                }                   
+            }    
+
             return false;
         }
 
@@ -599,6 +675,8 @@ namespace CoVua
                         break;
                 }
             }
+            else b.Image = null;
+
         }
     }
 }

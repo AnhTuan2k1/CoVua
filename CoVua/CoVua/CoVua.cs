@@ -31,6 +31,7 @@ namespace CoVua
             {
                 ChessBoard.ResetBoderColor(chessBoard);
                 Computer.Move(chessBoard);
+                chessBoard.HinhThucChoi = 2;
                 chessBoard.MyTurn = !chessBoard.MyTurn;
             }
             else

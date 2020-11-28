@@ -18,6 +18,14 @@ namespace CoVua
             goUp(chessman, chessBoard, chessman.ForeColor);
         }
 
+        static public void Movecm(Button chessman, ChessBoard chessBoard)
+        {
+            goDowncm(chessman, chessBoard, chessman.ForeColor);
+            goLeftcm(chessman, chessBoard, chessman.ForeColor);
+            goRightcm(chessman, chessBoard, chessman.ForeColor);
+            goUpcm(chessman, chessBoard, chessman.ForeColor);
+        }
+
         static public void goLeft(Button chessman, ChessBoard chessBoard, Color Source)
         {
             int indexX = chessman.Location.X / chessman.Size.Width;
@@ -38,8 +46,18 @@ namespace CoVua
                 }
                 else
                 {
-                    if (chessBoard.cells[indexX - 1, indexY].ForeColor != Source)
-                        chessBoard.cells[indexX - 1, indexY].FlatAppearance.BorderColor = Color.Blue;
+                    if (chessBoard.checkMate)
+                    {
+                        if (chessBoard.cells[indexX - 1, indexY].ForeColor != Source &&
+                            chessBoard.cells[indexX - 1, indexY].FlatAppearance.BorderColor == Color.Yellow)
+                            chessBoard.cells[indexX - 1, indexY].FlatAppearance.BorderColor = Color.Blue;
+                    }
+                    else
+                    {
+                        if (chessBoard.cells[indexX - 1, indexY].ForeColor != Source)
+                            chessBoard.cells[indexX - 1, indexY].FlatAppearance.BorderColor = Color.Blue;
+                    }
+                        
                 }
             }
         }
@@ -64,8 +82,17 @@ namespace CoVua
                 }
                 else
                 {
-                    if (chessBoard.cells[indexX + 1, indexY].ForeColor != Source)
-                        chessBoard.cells[indexX + 1, indexY].FlatAppearance.BorderColor = Color.Blue;
+                    if (chessBoard.checkMate)
+                    {
+                        if (chessBoard.cells[indexX + 1, indexY].ForeColor != Source &&
+                            chessBoard.cells[indexX + 1, indexY].FlatAppearance.BorderColor == Color.Yellow)
+                            chessBoard.cells[indexX + 1, indexY].FlatAppearance.BorderColor = Color.Blue;
+                    }
+                    else
+                    {
+                        if (chessBoard.cells[indexX + 1, indexY].ForeColor != Source)
+                            chessBoard.cells[indexX + 1, indexY].FlatAppearance.BorderColor = Color.Blue;
+                    }
                 }
             }
         }
@@ -89,8 +116,17 @@ namespace CoVua
                 }
                 else
                 {
-                    if (chessBoard.cells[indexX, indexY - 1].ForeColor != Source)
-                        chessBoard.cells[indexX, indexY - 1].FlatAppearance.BorderColor = Color.Blue;
+                    if (chessBoard.checkMate)
+                    {
+                        if (chessBoard.cells[indexX, indexY - 1].ForeColor != Source &&
+                            chessBoard.cells[indexX, indexY - 1].FlatAppearance.BorderColor == Color.Yellow)
+                            chessBoard.cells[indexX, indexY - 1].FlatAppearance.BorderColor = Color.Blue;
+                    }
+                    else
+                    {
+                        if (chessBoard.cells[indexX, indexY - 1].ForeColor != Source)
+                            chessBoard.cells[indexX, indexY - 1].FlatAppearance.BorderColor = Color.Blue;
+                    }
                 }
             }
         }
@@ -114,8 +150,17 @@ namespace CoVua
                 }
                 else
                 {
-                    if (chessBoard.cells[indexX, indexY + 1].ForeColor != Source)
-                        chessBoard.cells[indexX, indexY + 1].FlatAppearance.BorderColor = Color.Blue;
+                    if (chessBoard.checkMate)
+                    {
+                        if (chessBoard.cells[indexX, indexY + 1].ForeColor != Source &&
+                            chessBoard.cells[indexX, indexY + 1].FlatAppearance.BorderColor == Color.Yellow)
+                            chessBoard.cells[indexX, indexY + 1].FlatAppearance.BorderColor = Color.Blue;
+                    }
+                    else
+                    {
+                        if (chessBoard.cells[indexX, indexY + 1].ForeColor != Source)
+                            chessBoard.cells[indexX, indexY + 1].FlatAppearance.BorderColor = Color.Blue;
+                    }
                 }
             }
         }
@@ -252,7 +297,5 @@ namespace CoVua
                 }
             }
         }
-
-
     }
 }

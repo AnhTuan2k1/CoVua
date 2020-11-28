@@ -127,7 +127,7 @@ namespace CoVua
 
             if (Board.cells[Source.Location.X / chessBoard.cells[0, 0].Width, Source.Location.Y / chessBoard.cells[0, 0].Height].Text == "king" 
                 && Board.cells[Source.Location.X / chessBoard.cells[0, 0].Width, Source.Location.Y / chessBoard.cells[0, 0].Height].FlatAppearance.BorderColor == Color.Blue)
-                return -9999;   /////menora
+                return -999999;   /////
             else if(Board.cells[Source.Location.X / chessBoard.cells[0, 0].Width, Source.Location.Y / chessBoard.cells[0, 0].Height].FlatAppearance.BorderColor == Color.Blue)
                 value += WorthChessman(Source.Text) * 4 / 5;
 
