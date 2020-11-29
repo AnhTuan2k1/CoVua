@@ -564,6 +564,7 @@ namespace CoVua
         /// <returns></returns>
         internal bool Guard(Button Chessman)
         {
+
             // lưu lại quân cờ xong xuôi thì xóa nó.
             Button saveChessman = new Button();
             saveChessman.Text = Chessman.Text;
@@ -571,22 +572,28 @@ namespace CoVua
             Chessman.Text = "";
             Chessman.ForeColor = Color.AliceBlue;
 
-            checkMate = CheckMate(this);
-            if (checkMate) showCheckMate(assassin, king);
-
-
-
+            checkMate = CheckMate(this);               
             if (checkMate)
             {
-                // hiển thị lại quân cờ, và nước đi của nó
                 Chessman.Text = saveChessman.Text;
                 Chessman.ForeColor = saveChessman.ForeColor;
-                ShowGuardMovement(Chessman, this);
 
-                checkMate = false;
-                assassin = null;
-                king = null;
-                return true;
+                if (assassin.ForeColor == Chessman.ForeColor)
+                {
+                    checkMate = false;
+                    assassin = null;
+                    king = null;
+                    return false;
+                }
+                else
+                {
+                    if (checkMate) showCheckMate(assassin, king);
+                    ShowGuardMovement(Chessman, this);
+                    checkMate = false;
+                    assassin = null;
+                    king = null;
+                    return true;
+                }              
             }
             else
             {
