@@ -27,11 +27,11 @@ namespace CoVua
         /// </summary>
         internal Button king;
         public bool checkMate;  // bàn cờ trong trạng thái chiếu
-        public bool Active { get; set; } = true; // chesboard
-        public bool MyTurn { get; set; }
+        public bool Active = true; // chesboard
+        public bool MyTurn;
         public int HinhThucChoi { get; set; }
-        public Button[,] cells { get; set; }
-        public List<MovementInfo> movementInfos;
+        public Button[,] cells { get;}
+        public List<MovementInfo> movementInfos { get; }
         public int widthCell { get; }
         public int heightCell { get; }
         public ChessBoard()
@@ -405,6 +405,43 @@ namespace CoVua
                         break;
                 }
         }
+        /// <summary>
+        /// hiển thị nước đi dành cho quân cờ đang chặn đường chiếu.
+        /// </summary>
+        /// <param name="chessman"></param>
+        /// <param name="chessBoard"></param>
+        static public void ShowGuardMovement(Button chessman, ChessBoard chessBoard)
+        {
+            if (chessman.Text == "pawn")
+            {
+                if (chessman.ForeColor == Color.Red)
+                {
+                    Pawn.MoveGuard(chessman, chessBoard);
+                }
+                else
+                {
+                    Pawn.MoveGuardfoNeiBor(chessman, chessBoard);
+                }
+            }
+            else
+                switch (chessman.Text)
+                {
+                    case "knight":
+                        Knight.MoveGuard(chessman, chessBoard);
+                        break;
+                    case "bishop":
+                        Bishop.MoveGuard(chessman, chessBoard);
+                        break;
+                    case "rook":
+                        Rook.MoveGuard(chessman, chessBoard);
+                        break;
+                    case "queen":
+                        Queen.MoveGuard(chessman, chessBoard);
+                        break;
+                    default:
+                        break;
+                }
+        }
 
         /// <summary>
         /// sao chép các ô cờ thành 1 mảng 2 chiều
@@ -453,7 +490,7 @@ namespace CoVua
             foreach (Button item in Board.cells)
             {
                 if (item.ForeColor == x)
-                    ChessBoard.ShowLegalMovement(item, Board);
+                    ChessBoard.ShowMovement(item, Board);
             }
             return Board;
         }
@@ -479,7 +516,7 @@ namespace CoVua
             ChessBoard x = CloneButtonsInfo(chessBoard);
             foreach (Button item in x.cells)
             {
-                if (item.Text != "" && item.ForeColor == Color.Black)  //Đối thủ chiếu. item là assassin, item2 là king.
+                if (item.Text != "" && item.ForeColor == Color.Black)  //Đối thủ(máy) chiếu. item là assassin, item2 là king.
                 {
                     ResetBoderColor(x);
                     ShowMovement(item, x);
@@ -520,33 +557,50 @@ namespace CoVua
         }
 
         /// <summary>
-        /// Nước di chuyển làm Vua bạn bị chiếu ?
+        /// Quân cờ đang chặn đường chiếu của đối thủ? 
         /// </summary>
         /// <param name="src"></param>
         /// <param name="Dst"></param>
         /// <returns></returns>
-        internal bool makeCheckMate(Button src, Button Dst, ChessBoard chessBoard)
+        internal bool Guard(Button Chessman)
         {
-            return false;
-            ChessBoard x = CloneButtonsInfo(chessBoard);
-            Button SourceClone = x.cells[src.Location.X / chessBoard.cells[0, 0].Width, src.Location.Y / chessBoard.cells[0, 0].Height];
-            Button DestinationClone = x.cells[Dst.Location.X / chessBoard.cells[0, 0].Width, Dst.Location.Y / chessBoard.cells[0, 0].Height];
+            // lưu lại quân cờ xong xuôi thì xóa nó.
+            Button saveChessman = new Button();
+            saveChessman.Text = Chessman.Text;
+            saveChessman.ForeColor = Chessman.ForeColor;
+            Chessman.Text = "";
+            Chessman.ForeColor = Color.AliceBlue;
 
-            Chesspiece_Move_forForwarding(SourceClone, DestinationClone, x);
-            CheckMate(x);
-            if (assassin != null) 
+            checkMate = CheckMate(this);
+            if (checkMate) showCheckMate(assassin, king);
+
+
+
+            if (checkMate)
             {
-                if (assassin.ForeColor != src.ForeColor)
-                {
-                    assassin = null;
-                    king = null;
-                    return true;
-                }                   
-            }    
+                // hiển thị lại quân cờ, và nước đi của nó
+                Chessman.Text = saveChessman.Text;
+                Chessman.ForeColor = saveChessman.ForeColor;
+                ShowGuardMovement(Chessman, this);
 
-            return false;
+                checkMate = false;
+                assassin = null;
+                king = null;
+                return true;
+            }
+            else
+            {
+                Chessman.Text = saveChessman.Text;
+                Chessman.ForeColor = saveChessman.ForeColor;
+                return false;
+            }
         }
 
+        /// <summary>
+        /// hiển thị đường chiếu
+        /// </summary>
+        /// <param name="assassin"></param>
+        /// <param name="king"></param>
         public void showCheckMate(Button assassin, Button king)
         {
             switch (assassin.Text)
@@ -596,7 +650,7 @@ namespace CoVua
                 this.cells[DestinationIndexX, DestinationIndexY].ForeColor = Color.Black;
             }
 
-            movementInfo = new MovementInfo();
+            //movementInfo = new MovementInfo();
             movementInfo = save(cells[SourceIndexX, SourceIndexY], cells[DestinationIndexX, DestinationIndexY]);
             movementInfos.RemoveAt(movementInfos.Count - 1);
             return movementInfo;

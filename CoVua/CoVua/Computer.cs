@@ -114,7 +114,6 @@ namespace CoVua
                 default:
                     return 0;
             }
-
         }
 
         static  private int hazii(Button Source, Button Destination, ChessBoard chessBoard)
@@ -125,9 +124,9 @@ namespace CoVua
             //if (Source.Text == "king")
             //    return -9999;
 
-            if (Board.cells[Source.Location.X / chessBoard.cells[0, 0].Width, Source.Location.Y / chessBoard.cells[0, 0].Height].Text == "king" 
+            if (Source.Text == "king"
                 && Board.cells[Source.Location.X / chessBoard.cells[0, 0].Width, Source.Location.Y / chessBoard.cells[0, 0].Height].FlatAppearance.BorderColor == Color.Blue)
-                return -999999;   /////
+                return -99999;   /////
             else if(Board.cells[Source.Location.X / chessBoard.cells[0, 0].Width, Source.Location.Y / chessBoard.cells[0, 0].Height].FlatAppearance.BorderColor == Color.Blue)
                 value += WorthChessman(Source.Text) * 4 / 5;
 

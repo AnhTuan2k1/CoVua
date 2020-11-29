@@ -12,11 +12,20 @@ namespace CoVua
     {
         static public void MovefoNeiBor(Button chessman, ChessBoard chessBoard)
         {
+            if (chessBoard.Guard(chessman))
+                return;
             goUpforNeibor(chessman, chessBoard);
             attackDiagonallyforNeibor(chessman, chessBoard);
         }
 
         static public void Move(Button chessman, ChessBoard chessBoard)
+        {
+            if (chessBoard.Guard(chessman))
+                return;
+            goUp(chessman, chessBoard);
+            attackDiagonally(chessman, chessBoard);
+        }
+        static public void MoveGuard(Button chessman, ChessBoard chessBoard)
         {
             goUp(chessman, chessBoard);
             attackDiagonally(chessman, chessBoard);
@@ -32,6 +41,11 @@ namespace CoVua
         {
             goUpcm(chessman, chessBoard);
             attackDiagonallycm(chessman, chessBoard);
+        }
+        static public void MoveGuardfoNeiBor(Button chessman, ChessBoard chessBoard)
+        {
+            goUpforNeibor(chessman, chessBoard);
+            attackDiagonallyforNeibor(chessman, chessBoard);
         }
 
         static public void goUp(Button chessman, ChessBoard chessBoard)

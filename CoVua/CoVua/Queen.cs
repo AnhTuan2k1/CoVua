@@ -12,6 +12,8 @@ namespace CoVua
     {
         static public void Move(Button chessman, ChessBoard chessBoard)
         {
+            if (chessBoard.Guard(chessman))
+                return;
             goDown(chessman, chessBoard, chessman.ForeColor);
             goLeft(chessman, chessBoard, chessman.ForeColor);
             goRight(chessman, chessBoard, chessman.ForeColor);
@@ -31,6 +33,17 @@ namespace CoVua
             goLeftUpcm(chessman, chessBoard, chessman.ForeColor);
             goRightDowncm(chessman, chessBoard, chessman.ForeColor);
             goRightUpcm(chessman, chessBoard, chessman.ForeColor);
+        }
+        static public void MoveGuard(Button chessman, ChessBoard chessBoard)
+        {
+            goDown(chessman, chessBoard, chessman.ForeColor);
+            goLeft(chessman, chessBoard, chessman.ForeColor);
+            goRight(chessman, chessBoard, chessman.ForeColor);
+            goUp(chessman, chessBoard, chessman.ForeColor);
+            goLeftDown(chessman, chessBoard, chessman.ForeColor);
+            goLeftUp(chessman, chessBoard, chessman.ForeColor);
+            goRightDown(chessman, chessBoard, chessman.ForeColor);
+            goRightUp(chessman, chessBoard, chessman.ForeColor);
         }
 
         static public void goLeft(Button chessman, ChessBoard chessBoard, Color Source)

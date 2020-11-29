@@ -12,6 +12,8 @@ namespace CoVua
     {
         static public void Move(Button chessman, ChessBoard chessBoard)
         {
+            if (chessBoard.Guard(chessman))
+                return;
             goLeftDown1(chessman, chessBoard);
             goLeftUp1(chessman, chessBoard);
             goRightDown1(chessman, chessBoard);
@@ -32,6 +34,18 @@ namespace CoVua
             goRightDown2cm(chessman, chessBoard);
             goRightUp2cm(chessman, chessBoard);
         }
+
+        static public void MoveGuard(Button chessman, ChessBoard chessBoard)
+        {
+            goLeftDown1(chessman, chessBoard);
+            goLeftUp1(chessman, chessBoard);
+            goRightDown1(chessman, chessBoard);
+            goRightUp1(chessman, chessBoard);
+            goLeftDown2(chessman, chessBoard);
+            goLeftUp2(chessman, chessBoard);
+            goRightDown2(chessman, chessBoard);
+            goRightUp2(chessman, chessBoard);
+        }
         static public void goRightUp1(Button chessman, ChessBoard chessBoard)
         {
             int indexX = chessman.Location.X /chessman.Size.Width;
@@ -39,10 +53,6 @@ namespace CoVua
 
             if (indexY - 2 >= 0 && indexX + 1 < 8) 
             {
-
-                if (chessBoard.makeCheckMate(chessman, chessBoard.cells[indexX + 1, indexY - 2], chessBoard))
-                    return;
-
                 if (chessBoard.checkMate)
                 {
                     if (chessBoard.cells[indexX + 1, indexY - 2].FlatAppearance.BorderColor == Color.Yellow
@@ -67,10 +77,6 @@ namespace CoVua
 
             if (indexY - 1 >= 0 && indexX + 2 < 8)
             {
-
-                if (chessBoard.makeCheckMate(chessman, chessBoard.cells[indexX + 2, indexY - 1], chessBoard))
-                    return;
-
                 if (chessBoard.checkMate)
                 {
                     if (chessBoard.cells[indexX + 2, indexY - 1].FlatAppearance.BorderColor == Color.Yellow
@@ -94,10 +100,6 @@ namespace CoVua
 
             if (indexY + 2 < 8 && indexX + 1 < 8) 
             {
-
-                if (chessBoard.makeCheckMate(chessman, chessBoard.cells[indexX + 1, indexY + 2], chessBoard))
-                    return;
-
                 if (chessBoard.checkMate)
                 {
                     if (chessBoard.cells[indexX + 1, indexY + 2].FlatAppearance.BorderColor == Color.Yellow
@@ -121,10 +123,6 @@ namespace CoVua
 
             if (indexY + 1 < 8 && indexX + 2 < 8)
             {
-
-                if (chessBoard.makeCheckMate(chessman, chessBoard.cells[indexX + 2, indexY + 1], chessBoard))
-                    return;
-
                 if (chessBoard.checkMate)
                 {
                     if (chessBoard.cells[indexX + 2, indexY + 1].FlatAppearance.BorderColor == Color.Yellow
@@ -148,10 +146,6 @@ namespace CoVua
 
             if (indexY - 2 >= 0 && indexX - 1 >= 0) 
             {
-
-                if (chessBoard.makeCheckMate(chessman, chessBoard.cells[indexX - 1, indexY - 2], chessBoard))
-                    return;
-
                 if (chessBoard.checkMate)
                 {
                     if (chessBoard.cells[indexX - 1, indexY - 2].FlatAppearance.BorderColor == Color.Yellow
@@ -175,10 +169,6 @@ namespace CoVua
 
             if (indexY - 1 >= 0 && indexX - 2 >= 0)
             {
-
-                if (chessBoard.makeCheckMate(chessman, chessBoard.cells[indexX - 2, indexY - 1], chessBoard))
-                    return;
-
                 if (chessBoard.checkMate)
                 {
                     if (chessBoard.cells[indexX - 2, indexY - 1].FlatAppearance.BorderColor == Color.Yellow
@@ -203,9 +193,6 @@ namespace CoVua
 
             if (indexY + 2 < 8 && indexX - 1 >= 0)
             {
-                if (chessBoard.makeCheckMate(chessman, chessBoard.cells[indexX - 1, indexY + 2], chessBoard))
-                    return;
-
                 if (chessBoard.checkMate)
                 {
                     if (chessBoard.cells[indexX - 1, indexY + 2].FlatAppearance.BorderColor == Color.Yellow
@@ -229,10 +216,6 @@ namespace CoVua
 
             if (indexY + 1 < 8 && indexX - 2 >= 0)
             {
-
-                if (chessBoard.makeCheckMate(chessman, chessBoard.cells[indexX - 2, indexY + 1], chessBoard))
-                    return;
-
                 if (chessBoard.checkMate)
                 {
                     if (chessBoard.cells[indexX - 2, indexY + 1].FlatAppearance.BorderColor == Color.Yellow
