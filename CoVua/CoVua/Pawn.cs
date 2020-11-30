@@ -9,7 +9,7 @@ using System.Windows.Forms;
 namespace CoVua
 {
     class Pawn 
-    {
+    {       
         static public void MovefoNeiBor(Button chessman, ChessBoard chessBoard)
         {
             if (chessBoard.Guard(chessman))
@@ -33,13 +33,13 @@ namespace CoVua
 
         static public void MovefoNeiBorcm(Button chessman, ChessBoard chessBoard)
         {
-            goUpforNeiborcm(chessman, chessBoard);
+            //goUpforNeiborcm(chessman, chessBoard);
             attackDiagonallyforNeiborcm(chessman, chessBoard);
         }
 
         static public void Movecm(Button chessman, ChessBoard chessBoard)
         {
-            goUpcm(chessman, chessBoard);
+            //goUpcm(chessman, chessBoard);
             attackDiagonallycm(chessman, chessBoard);
         }
         static public void MoveGuardfoNeiBor(Button chessman, ChessBoard chessBoard)
@@ -217,13 +217,11 @@ namespace CoVua
 
             if (indexY - 1 >= 0 && indexX - 1 >= 0)
             {
-                if (chessman.ForeColor != chessBoard.cells[indexX - 1, indexY - 1].ForeColor && chessBoard.cells[indexX - 1, indexY - 1].Text != "")
                     chessBoard.cells[indexX - 1, indexY - 1].FlatAppearance.BorderColor = Color.Blue;
             }
 
             if (indexY - 1 >= 0 && indexX + 1 < 8)
             {
-                if (chessman.ForeColor != chessBoard.cells[indexX + 1, indexY - 1].ForeColor && chessBoard.cells[indexX + 1, indexY - 1].Text != "")
                     chessBoard.cells[indexX + 1, indexY - 1].FlatAppearance.BorderColor = Color.Blue;
             }
         }
@@ -248,13 +246,11 @@ namespace CoVua
 
             if (indexY + 1 < 8 && indexX - 1 >= 0)
             {
-                if (chessman.ForeColor != chessBoard.cells[indexX - 1, indexY + 1].ForeColor && chessBoard.cells[indexX - 1, indexY + 1].Text != "")
                     chessBoard.cells[indexX - 1, indexY + 1].FlatAppearance.BorderColor = Color.Blue;
             }
 
             if (indexY + 1 < 8 && indexX + 1 < 8)
             {
-                if (chessman.ForeColor != chessBoard.cells[indexX + 1, indexY + 1].ForeColor && chessBoard.cells[indexX + 1, indexY + 1].Text != "")
                     chessBoard.cells[indexX + 1, indexY + 1].FlatAppearance.BorderColor = Color.Blue;
             }
         }

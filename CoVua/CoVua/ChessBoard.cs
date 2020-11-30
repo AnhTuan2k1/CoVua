@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing;
+using System.Globalization;
 
 namespace CoVua
 {
@@ -18,6 +19,16 @@ namespace CoVua
 
     class ChessBoard : Panel
     {
+
+        public bool vua_trang;
+        public bool vua_den;
+        public bool xe_trang_trai;
+        public bool xe_trang_phai;
+        public bool xe_den_trai;
+        public bool xe_den_phai;
+        public int promotionPawn;
+        public Panel promotion;
+
         private Button cellIsActivating;
         private bool ReadytoAttack;
         internal Button assassin; // Quân cờ đang chiếu
@@ -29,13 +40,21 @@ namespace CoVua
         public bool checkMate;  // bàn cờ trong trạng thái chiếu
         public bool Active = true; // chesboard
         public bool MyTurn;
-        public int HinhThucChoi { get; set; }
-        public Button[,] cells { get;}
+        internal int HinhThucChoi { get; set; }
+        public Button[,] cells { get; }
         public List<MovementInfo> movementInfos { get; }
         public int widthCell { get; }
         public int heightCell { get; }
         public ChessBoard()
         {
+            vua_trang = true;
+            vua_den = true;
+            xe_trang_trai = true;
+            xe_trang_phai = true;
+            xe_den_trai = true;
+            xe_den_phai = true;
+            promotionPawn = -1;
+
             ReadytoAttack = false;
             assassin = null;
             king = null;
@@ -67,6 +86,7 @@ namespace CoVua
                         cells[i, j].BackColor = Color.FromArgb(169, 169, 169);
 
                     cells[i, j].Click += Cell_Click;
+                    cells[i, j].MouseMove += ChessBoard_MouseMove;
                     //cells[i, j].TextImageRelation = TextImageRelation.Overlay;
                     cells[i, j].Font = new Font("Arial", 1);
                     this.Controls.Add(cells[i, j]);
@@ -277,7 +297,53 @@ namespace CoVua
             }
         }
 
+        private void HinhThucChoi2test(Button sender, EventArgs e)
+        {
+            if (((Button)sender).Text == "") // ko có quân Cờ
+            {
+                if (ReadytoAttack && ((Button)sender).FlatAppearance.BorderColor == Color.Blue)     //di chuyển quân cờ đi vị trí khác
+                {
+                    ReadytoAttack = false;
+                    //   if (cellIsActivating != null)
+                    Chesspiece_Move(cellIsActivating, (Button)sender, this);
+                    cellIsActivating = null;
+                    ResetBoderColor(this);
+                    MyTurn = !MyTurn;
 
+                }
+                else
+                {
+                    ResetBoderColor(this);
+                    ReadytoAttack = false;
+                    if (checkMate) showCheckMate(assassin, king);
+                }
+            }
+            else
+            {
+                if (((Button)sender).ForeColor == Color.Red) //nhấp vào quân cờ của mình
+                {
+                    ReadytoAttack = true;
+                    ResetBoderColor(this);
+                    if (checkMate) showCheckMate(assassin, king);
+                    ShowLegalMovement((Button)sender, this);
+                    cellIsActivating = (Button)sender;
+                }
+                else if (ReadytoAttack && ((Button)sender).FlatAppearance.BorderColor == Color.Blue)// ăn quân cờ đối thủ
+                {
+                    //   if (cellIsActivating != null)
+                    Chesspiece_Attack(cellIsActivating, (Button)sender, this);
+
+                    ReadytoAttack = false;
+                    MyTurn = !MyTurn;
+                    ResetBoderColor(this);
+                    ((Button)sender).FlatAppearance.BorderColor = Color.Blue;
+                    cellIsActivating = null;
+                    // ResetBoderColor(this);
+
+                }
+                else ResetBoderColor(this);
+            }
+        }
         //////////////////////////////////////////////////////////////////////////////////
         /// <summary>
         /// Xóa Các Nước đi Hợp Lệ Của Quân Cờ.
@@ -292,12 +358,33 @@ namespace CoVua
 
         static public void Chesspiece_Move(Button Source, Button Destination, ChessBoard chessBoard)
         {
+            //xử lý nhập thành
+            if (chessBoard.MyTurn && chessBoard.vua_trang)
+            {
+                if (Source.Text == "king" && (Destination.Location.X / chessBoard.widthCell == 2 || Destination.Location.X / chessBoard.widthCell == 6))
+                {
+                    King.ExecuteCastling(chessBoard, Destination.Location.X / chessBoard.widthCell);
+                    return;
+                }
+            }
+            else if (!chessBoard.MyTurn && chessBoard.vua_den)
+            {
+                if (Source.Text == "king" && (Destination.Location.X / chessBoard.widthCell == 2 || Destination.Location.X / chessBoard.widthCell == 6))
+                {
+                    King.ExecuteCastling(chessBoard, Destination.Location.X / chessBoard.widthCell);
+                    return;
+                }
+            }
+            else if (Source.Text == "xe" || Source.Text == "king")
+                chessBoard.updateCastling(Source);
+
+
             Destination.Text = Source.Text;
             Destination.ForeColor = Source.ForeColor;
             Source.Text = "";
             Source.ForeColor = Color.AliceBlue;
 
-            chessBoard.movementInfos.Add(chessBoard.save(Source, Destination));
+            chessBoard.movementInfos.Add(chessBoard.saveMovementInfor(Source, Destination));
             Destination.FlatAppearance.BorderColor = Color.Blue;
 
             PictureInsert(Source);
@@ -319,7 +406,7 @@ namespace CoVua
             Source.Text = "";
             Source.ForeColor = Color.AliceBlue;
 
-            chessBoard.movementInfos.Add(save(Source, Destination));
+            chessBoard.movementInfos.Add(saveMovementInfor(Source, Destination));
             Destination.FlatAppearance.BorderColor = Color.Blue;
 
             PictureInsert(Source);
@@ -366,7 +453,7 @@ namespace CoVua
                 }
         }
         /// <summary>
-        /// Hiển thị tất cả các nước đi của quân cờ
+        /// Hiển thị tất cả các vị trí tấn công của quân cờ
         /// </summary>
         /// <param name="chessman"></param>
         /// <param name="chessBoard"></param>
@@ -405,6 +492,7 @@ namespace CoVua
                         break;
                 }
         }
+
         /// <summary>
         /// hiển thị nước đi dành cho quân cờ đang chặn đường chiếu.
         /// </summary>
@@ -495,7 +583,7 @@ namespace CoVua
             return Board;
         }
 
-        internal MovementInfo save(Button src, Button dst)
+        internal MovementInfo saveMovementInfor(Button src, Button dst)
         {
             MovementInfo x = new MovementInfo();
             x.Dst = dst.Location;
@@ -572,7 +660,7 @@ namespace CoVua
             Chessman.Text = "";
             Chessman.ForeColor = Color.AliceBlue;
 
-            checkMate = CheckMate(this);               
+            checkMate = CheckMate(this);
             if (checkMate)
             {
                 Chessman.Text = saveChessman.Text;
@@ -593,7 +681,7 @@ namespace CoVua
                     assassin = null;
                     king = null;
                     return true;
-                }              
+                }
             }
             else
             {
@@ -632,6 +720,44 @@ namespace CoVua
             }
         }
 
+        private void updateCastling(Button chesspiece)
+        {
+            if (chesspiece.Location.Y / chesspiece.Height == 0)
+            {
+                switch (chesspiece.Location.X / chesspiece.Width)
+                {
+                    case 0:
+                        xe_den_trai = false;
+                        break;
+                    case 4:
+                        vua_den = false;
+                        break;
+                    case 7:
+                        xe_den_phai = false;
+                        break;
+                    default:
+                        break;
+                }
+            }
+            else if (chesspiece.Location.Y / chesspiece.Height == 7)
+            {
+                switch (chesspiece.Location.X / chesspiece.Width)
+                {
+                    case 0:
+                        xe_trang_trai = false;
+                        break;
+                    case 4:
+                        vua_trang = false;
+                        break;
+                    case 7:
+                        xe_trang_phai = false;
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
         /// <summary>
         /// chưa chạy được!
         /// </summary>
@@ -658,26 +784,41 @@ namespace CoVua
             }
 
             //movementInfo = new MovementInfo();
-            movementInfo = save(cells[SourceIndexX, SourceIndexY], cells[DestinationIndexX, DestinationIndexY]);
+            movementInfo = saveMovementInfor(cells[SourceIndexX, SourceIndexY], cells[DestinationIndexX, DestinationIndexY]);
             movementInfos.RemoveAt(movementInfos.Count - 1);
             return movementInfo;
         }
 
         private void Cell_Click(object sender, EventArgs e)
         {
+
             if (!Active) return;
 
             if (HinhThucChoi == 1)
                 HinhThucChoi1((Button)sender, e);
-            else HinhThucChoi2((Button)sender, e);
+            else
+            {
+                if (MyTurn)
+                {
+                    HinhThucChoi2test((Button)sender, e);
+                }
 
-
-            //checkMate = CheckMate(this);
-            //if (checkMate) showCheckMate(assassin, king);
+            }
         }
 
+        private void ChessBoard_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (!MyTurn && HinhThucChoi == 2)
+            {
+                Computer.Move(this);
+                checkMate = CheckMate(this);
+                if (checkMate) showCheckMate(assassin, king);
+                MyTurn = !MyTurn;
+            }
+            //Promotion();
+        }
 
-        static private void PictureInsert(Button sender)
+        static internal void PictureInsert(Button sender)
         {
 
 
@@ -737,7 +878,82 @@ namespace CoVua
                 }
             }
             else b.Image = null;
+        }
 
+        private void Promotion()
+        {
+            if (MyTurn)
+            {
+                for (int i = 0; i < cells.GetLength(1); i++)
+                {
+                    if (cells[0, i].Text == "pawn")
+                    {
+                        promotionPawn = i;
+                        promotion = new Panel();
+                        promotion.BringToFront();
+                        Button queen = new Button();
+                        Button rook = new Button();
+                        Button knight = new Button();
+                        Button bishop = new Button();
+
+                        queen.Text = "queen";
+                        rook.Text = "rook";
+                        knight.Text = "knight";
+                        bishop.Text = "bishop";
+
+                        PictureInsert(queen);
+                        PictureInsert(rook);
+                        PictureInsert(knight);
+                        PictureInsert(bishop);
+
+                        promotion.Size = new Size(widthCell, heightCell * 4);
+                        queen.Location = new Point(widthCell, heightCell);
+                        rook.Location = new Point(widthCell, heightCell * 2);
+                        bishop.Location = new Point(widthCell, heightCell * 3);
+                        knight.Location = new Point(widthCell, heightCell * 4);
+                        promotion.Location = new Point(widthCell * 3, heightCell * 2);
+                        
+                        promotion.Controls.Add(queen);
+                        promotion.Controls.Add(rook);
+                        promotion.Controls.Add(bishop);
+                        promotion.Controls.Add(knight);
+                        Controls.Add(promotion);
+
+                        queen.MouseClick += Queen_MouseClick; ;
+                        rook.MouseClick += Queen_MouseClick;
+                        bishop.MouseClick += Queen_MouseClick;
+                        knight.MouseClick += Queen_MouseClick;
+
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 0; i < cells.GetLength(1); i++)
+                {
+                    if (cells[i, 0].Text == "pawn")
+                    {
+
+                    }
+                }
+            }
+
+        }
+
+        private void Queen_MouseClick(object sender, MouseEventArgs e)
+        {
+            if(MyTurn)
+            {
+                cells[promotionPawn, 0].Text = ((Button)sender).Text;
+                PictureInsert(cells[promotionPawn, 0]);
+            }
+            else
+            {
+
+            }
+
+            Controls.Remove(promotion);
+            promotionPawn = -1;
         }
     }
 }

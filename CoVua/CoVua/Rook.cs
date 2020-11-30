@@ -243,7 +243,6 @@ namespace CoVua
                 }
                 else
                 {
-                    if (chessBoard.cells[indexX - 1, indexY].ForeColor != Source)
                         chessBoard.cells[indexX - 1, indexY].FlatAppearance.BorderColor = Color.Blue;
                 }
             }
@@ -263,7 +262,6 @@ namespace CoVua
                 }
                 else
                 {
-                    if (chessBoard.cells[indexX + 1, indexY].ForeColor != Source)
                         chessBoard.cells[indexX + 1, indexY].FlatAppearance.BorderColor = Color.Blue;
                 }
             }
@@ -282,7 +280,6 @@ namespace CoVua
                 }
                 else
                 {
-                    if (chessBoard.cells[indexX, indexY - 1].ForeColor != Source)
                         chessBoard.cells[indexX, indexY - 1].FlatAppearance.BorderColor = Color.Blue;
                 }
             }
@@ -301,7 +298,6 @@ namespace CoVua
                 }
                 else
                 {
-                    if (chessBoard.cells[indexX, indexY + 1].ForeColor != Source)
                         chessBoard.cells[indexX, indexY + 1].FlatAppearance.BorderColor = Color.Blue;
                 }
             }

@@ -263,13 +263,11 @@ namespace CoVua
                 if (chessBoard.cells[indexX - 1, indexY + 1].Text == "")
                 {
                     goLeftDowncm(chessBoard.cells[indexX - 1, indexY + 1], chessBoard, Source);
-
                     chessBoard.cells[indexX - 1, indexY + 1].FlatAppearance.BorderColor = Color.Blue;
                 }
                 else
                 {
-                    if (chessBoard.cells[indexX - 1, indexY + 1].ForeColor != Source)
-                        chessBoard.cells[indexX - 1, indexY + 1].FlatAppearance.BorderColor = Color.Blue;
+                    chessBoard.cells[indexX - 1, indexY + 1].FlatAppearance.BorderColor = Color.Blue;
                 }
             }
         }
@@ -288,7 +286,6 @@ namespace CoVua
                 }
                 else
                 {
-                    if (chessBoard.cells[indexX + 1, indexY - 1].ForeColor != Source)
                         chessBoard.cells[indexX + 1, indexY - 1].FlatAppearance.BorderColor = Color.Blue;
                 }
             }
@@ -308,7 +305,6 @@ namespace CoVua
                 }
                 else
                 {
-                    if (chessBoard.cells[indexX + 1, indexY + 1].ForeColor != Source)
                         chessBoard.cells[indexX + 1, indexY + 1].FlatAppearance.BorderColor = Color.Blue;
                 }
             }
