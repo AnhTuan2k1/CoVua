@@ -157,9 +157,9 @@ namespace CoVua
             {
                 if (ReadytoAttack && (sender).FlatAppearance.BorderColor == Color.Blue)     //di chuyển quân cờ đi vị trí khác
                 {
-                    ReadytoAttack = false;
-                    MyTurn = !MyTurn;
+                    ReadytoAttack = false;             
                     Chesspiece_Move(cellIsActivating, sender, this);
+                    MyTurn = !MyTurn;
                     ResetBoderColor(this);
 
                     checkMate = CheckMate(this);
@@ -299,6 +299,9 @@ namespace CoVua
 
         private void HinhThucChoi2test(Button sender, EventArgs e)
         {
+            if (!MyTurn)
+                return;
+
             if (((Button)sender).Text == "") // ko có quân Cờ
             {
                 if (ReadytoAttack && ((Button)sender).FlatAppearance.BorderColor == Color.Blue)     //di chuyển quân cờ đi vị trí khác
@@ -308,6 +311,8 @@ namespace CoVua
                     Chesspiece_Move(cellIsActivating, (Button)sender, this);
                     cellIsActivating = null;
                     ResetBoderColor(this);
+                    checkMate = CheckMate(this);
+                    if (checkMate) showCheckMate(assassin, king);
                     MyTurn = !MyTurn;
 
                 }
@@ -335,10 +340,11 @@ namespace CoVua
 
                     ReadytoAttack = false;
                     MyTurn = !MyTurn;
-                    ResetBoderColor(this);
                     ((Button)sender).FlatAppearance.BorderColor = Color.Blue;
                     cellIsActivating = null;
                     // ResetBoderColor(this);
+                    checkMate = CheckMate(this);
+                    if (checkMate) showCheckMate(assassin, king);
 
                 }
                 else ResetBoderColor(this);
@@ -375,7 +381,8 @@ namespace CoVua
                     return;
                 }
             }
-            else if (Source.Text == "xe" || Source.Text == "king")
+
+            if (Source.Text == "rook" || Source.Text == "king")
                 chessBoard.updateCastling(Source);
 
 
