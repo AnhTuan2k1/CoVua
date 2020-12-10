@@ -9,7 +9,7 @@ using System.Globalization;
 
 namespace CoVua
 {
-    struct MovementInfo
+    public struct MovementInfo
     {
         internal Point Src;
         internal Point Dst;
@@ -17,7 +17,7 @@ namespace CoVua
         internal string dstText;
     }
 
-    class ChessBoard : Panel
+    public class ChessBoard : Panel
     {
 
         public bool vua_trang;
@@ -26,7 +26,10 @@ namespace CoVua
         public bool xe_trang_phai;
         public bool xe_den_trai;
         public bool xe_den_phai;
-        public int promotionPawn;
+        /// <summary>
+        /// vị trí tốt cần phong cấp (X)
+        /// </summary>
+        public int promotionPawn;  
 
         private Button cellIsActivating;
         private bool ReadytoAttack;
@@ -362,7 +365,7 @@ namespace CoVua
 
         static public void Chesspiece_Move(Button Source, Button Destination, ChessBoard chessBoard)
         {
-            //xử lý nhập thành
+            //xử lý nhập thành____________________________________________________________________
             if (chessBoard.MyTurn && chessBoard.vua_trang)
             {
                 if (Source.Text == "king" && (Destination.Location.X / chessBoard.widthCell == 2 || Destination.Location.X / chessBoard.widthCell == 6))
@@ -379,11 +382,12 @@ namespace CoVua
                     return;
                 }
             }
-
             if (Source.Text == "rook" || Source.Text == "king")
                 chessBoard.updateCastling(Source);
+            //_______________________________________________________________________________________
 
 
+            //thực hiện di chuyển
             Destination.Text = Source.Text;
             Destination.ForeColor = Source.ForeColor;
             Source.Text = "";
@@ -392,8 +396,36 @@ namespace CoVua
             chessBoard.movementInfos.Add(chessBoard.saveMovementInfor(Source, Destination));
             Destination.FlatAppearance.BorderColor = Color.Blue;
 
+
+
+            //xử lý phong cấp tốt_________________________________________________________________________
+            if (Destination.Text == "pawn")
+            {
+                if(chessBoard.HinhThucChoi == 2 && !chessBoard.MyTurn) // đánh với máy
+                {
+                    int indexY = Destination.Location.Y / Destination.Size.Height;
+                    if (/*indexY == 0 ||*/ indexY == 7)
+                    {
+                        Destination.Text = "queen";
+                    }                   
+                } 
+                else
+                {
+                    int indexY = Destination.Location.Y / Destination.Size.Height;
+                    if (indexY == 0 || indexY == 7)
+                    {
+                        int indexX = Destination.Location.X / Destination.Size.Width;
+                        chessBoard.promotionPawn = indexX;
+                        new PromotionPawn(chessBoard).ShowDialog();
+                        chessBoard.promotionPawn = -1;
+                    }
+                }         
+            }
+            //__________________________________________________________________________________________
+
             PictureInsert(Source);
             PictureInsert(Destination);
+
         }
 
         static public void Chesspiece_Move_forForwarding(Button Source, Button Destination, ChessBoard chessBoard)
@@ -413,6 +445,31 @@ namespace CoVua
 
             chessBoard.movementInfos.Add(saveMovementInfor(Source, Destination));
             Destination.FlatAppearance.BorderColor = Color.Blue;
+
+            //xử lý phong cấp tốt_________________________________________________________________________
+            if (Destination.Text == "pawn")
+            {
+                if (chessBoard.HinhThucChoi == 2 && !chessBoard.MyTurn) // đánh với máy
+                {
+                    int indexY = Destination.Location.Y / Destination.Size.Height;
+                    if (/*indexY == 0 ||*/ indexY == 7)
+                    {
+                        Destination.Text = "queen";
+                    }
+                }
+                else
+                {
+                    int indexY = Destination.Location.Y / Destination.Size.Height;
+                    if (indexY == 0 || indexY == 7)
+                    {
+                        int indexX = Destination.Location.X / Destination.Size.Width;
+                        chessBoard.promotionPawn = indexX;
+                        new PromotionPawn(chessBoard).ShowDialog();
+                        chessBoard.promotionPawn = -1;
+                    }
+                }
+            }
+            //__________________________________________________________________________________________
 
             PictureInsert(Source);
             PictureInsert(Destination);
@@ -890,20 +947,17 @@ namespace CoVua
             else b.Image = null;
         }
 
-        private void Queen_MouseClick(object sender, MouseEventArgs e)
-        {
-            if(MyTurn)
-            {
-                cells[promotionPawn, 0].Text = ((Button)sender).Text;
-                PictureInsert(cells[promotionPawn, 0]);
-            }
-            else
-            {
+        //static private void Promotion(Button Pawn, ChessBoard chessBoard)
+        //{
+        //    int indexX = Pawn.Location.X / Pawn.Size.Width;
+        //    int indexY = Pawn.Location.Y / Pawn.Size.Height;
+        //    if (indexY == 1 || indexY == 1)
+        //    {
+        //        chessBoard.promotionPawn = indexX;
+        //        new PromotionPawn(chessBoard).ShowDialog();
+        //    }
 
-            }
-
-            //Controls.Remove(promotion);
-            //promotionPawn = -1;
-        }
+        //    chessBoard.promotionPawn = -1;
+        //}
     }
 }

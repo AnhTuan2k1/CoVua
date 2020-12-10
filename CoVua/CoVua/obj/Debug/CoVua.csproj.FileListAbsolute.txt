@@ -28,3 +28,4 @@ D:\New folder (2)\CoVua\CoVua\CoVua\obj\Debug\CoVua.csproj.GenerateResource.cach
 D:\New folder (2)\CoVua\CoVua\CoVua\obj\Debug\CoVua.csproj.CoreCompileInputs.cache
 D:\New folder (2)\CoVua\CoVua\CoVua\obj\Debug\CoVua.exe
 D:\New folder (2)\CoVua\CoVua\CoVua\obj\Debug\CoVua.pdb
+D:\subjects\Lập Trình Trực Quan\doan\CoVua\CoVua\CoVua\CoVua\obj\Debug\CoVua.PromotionPawn.resources
