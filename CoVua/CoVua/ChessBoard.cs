@@ -27,7 +27,6 @@ namespace CoVua
         public bool xe_den_trai;
         public bool xe_den_phai;
         public int promotionPawn;
-        public Panel promotion;
 
         private Button cellIsActivating;
         private bool ReadytoAttack;
@@ -87,7 +86,6 @@ namespace CoVua
 
                     cells[i, j].Click += Cell_Click;
                     cells[i, j].MouseMove += ChessBoard_MouseMove;
-                    //cells[i, j].TextImageRelation = TextImageRelation.Overlay;
                     cells[i, j].Font = new Font("Arial", 1);
                     this.Controls.Add(cells[i, j]);
                 }
@@ -670,11 +668,10 @@ namespace CoVua
             checkMate = CheckMate(this);
             if (checkMate)
             {
-                Chessman.Text = saveChessman.Text;
-                Chessman.ForeColor = saveChessman.ForeColor;
-
-                if (assassin.ForeColor == Chessman.ForeColor)
+                if (assassin.ForeColor == saveChessman.ForeColor)
                 {
+                    Chessman.Text = saveChessman.Text;
+                    Chessman.ForeColor = saveChessman.ForeColor;
                     checkMate = false;
                     assassin = null;
                     king = null;
@@ -683,12 +680,18 @@ namespace CoVua
                 else
                 {
                     if (checkMate) showCheckMate(assassin, king);
+
+                    Chessman.Text = saveChessman.Text;
+                    Chessman.ForeColor = saveChessman.ForeColor;
+
                     ShowGuardMovement(Chessman, this);
                     checkMate = false;
                     assassin = null;
                     king = null;
                     return true;
                 }
+
+                
             }
             else
             {
@@ -887,66 +890,6 @@ namespace CoVua
             else b.Image = null;
         }
 
-        private void Promotion()
-        {
-            if (MyTurn)
-            {
-                for (int i = 0; i < cells.GetLength(1); i++)
-                {
-                    if (cells[0, i].Text == "pawn")
-                    {
-                        promotionPawn = i;
-                        promotion = new Panel();
-                        promotion.BringToFront();
-                        Button queen = new Button();
-                        Button rook = new Button();
-                        Button knight = new Button();
-                        Button bishop = new Button();
-
-                        queen.Text = "queen";
-                        rook.Text = "rook";
-                        knight.Text = "knight";
-                        bishop.Text = "bishop";
-
-                        PictureInsert(queen);
-                        PictureInsert(rook);
-                        PictureInsert(knight);
-                        PictureInsert(bishop);
-
-                        promotion.Size = new Size(widthCell, heightCell * 4);
-                        queen.Location = new Point(widthCell, heightCell);
-                        rook.Location = new Point(widthCell, heightCell * 2);
-                        bishop.Location = new Point(widthCell, heightCell * 3);
-                        knight.Location = new Point(widthCell, heightCell * 4);
-                        promotion.Location = new Point(widthCell * 3, heightCell * 2);
-                        
-                        promotion.Controls.Add(queen);
-                        promotion.Controls.Add(rook);
-                        promotion.Controls.Add(bishop);
-                        promotion.Controls.Add(knight);
-                        Controls.Add(promotion);
-
-                        queen.MouseClick += Queen_MouseClick; ;
-                        rook.MouseClick += Queen_MouseClick;
-                        bishop.MouseClick += Queen_MouseClick;
-                        knight.MouseClick += Queen_MouseClick;
-
-                    }
-                }
-            }
-            else
-            {
-                for (int i = 0; i < cells.GetLength(1); i++)
-                {
-                    if (cells[i, 0].Text == "pawn")
-                    {
-
-                    }
-                }
-            }
-
-        }
-
         private void Queen_MouseClick(object sender, MouseEventArgs e)
         {
             if(MyTurn)
@@ -959,8 +902,8 @@ namespace CoVua
 
             }
 
-            Controls.Remove(promotion);
-            promotionPawn = -1;
+            //Controls.Remove(promotion);
+            //promotionPawn = -1;
         }
     }
 }
