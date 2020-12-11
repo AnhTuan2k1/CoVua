@@ -213,6 +213,21 @@ namespace CoVua
 
         static private void ShowillegalAreas(ChessBoard chessBoard)
         {
+            Button Vua_Trang = new Button();
+            Button Vua_Den = Vua_Trang;
+
+            foreach (Button item in chessBoard.cells)
+            {
+                if(item.Text == "king")
+                {
+                    if (item.ForeColor == Color.Black)
+                        Vua_Den = item;
+                    else Vua_Trang = item;
+                }
+            }
+            Vua_Den.Text = "";
+            Vua_Trang.Text = "";
+
             if(chessBoard.MyTurn)
             {
                 foreach (Button item in chessBoard.cells)
@@ -238,8 +253,10 @@ namespace CoVua
                     if (item.FlatAppearance.BorderColor == Color.Blue)
                         item.FlatAppearance.BorderColor = Color.Yellow;
                 }
-            }                
-                
+            }
+
+            Vua_Den.Text = "king";
+            Vua_Trang.Text = "king";
 
         }
         static private void HiddenillegalAreas(ChessBoard chessBoard)
