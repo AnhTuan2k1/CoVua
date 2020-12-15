@@ -35,6 +35,7 @@
             this.tuChoi1Minh = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.ChoiLaitoolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.quayLạiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -77,16 +78,24 @@
             // 
             this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ChoiLaitoolStripMenuItem});
+            this.ChoiLaitoolStripMenuItem,
+            this.quayLạiToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(132, 28);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(211, 80);
             // 
             // ChoiLaitoolStripMenuItem
             // 
             this.ChoiLaitoolStripMenuItem.Name = "ChoiLaitoolStripMenuItem";
-            this.ChoiLaitoolStripMenuItem.Size = new System.Drawing.Size(131, 24);
+            this.ChoiLaitoolStripMenuItem.Size = new System.Drawing.Size(210, 24);
             this.ChoiLaitoolStripMenuItem.Text = "Chơi Lại";
             this.ChoiLaitoolStripMenuItem.Click += new System.EventHandler(this.ChoiLaitoolStripMenuItem_Click);
+            // 
+            // quayLạiToolStripMenuItem
+            // 
+            this.quayLạiToolStripMenuItem.Name = "quayLạiToolStripMenuItem";
+            this.quayLạiToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
+            this.quayLạiToolStripMenuItem.Text = "Quay Lại";
+            this.quayLạiToolStripMenuItem.Click += new System.EventHandler(this.quayLạiToolStripMenuItem_Click);
             // 
             // CoVua
             // 
@@ -114,6 +123,7 @@
         private System.Windows.Forms.ToolStripMenuItem tuChoi1Minh;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem ChoiLaitoolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem quayLạiToolStripMenuItem;
     }
 }
 

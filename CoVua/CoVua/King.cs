@@ -409,5 +409,110 @@ namespace CoVua
                 chessBoard.vua_den = false; // đã nhập thành
             }
         }
+
+        /// <summary>
+        /// redo Nhập Thành
+        /// </summary>
+        /// <param name="chessBoard"></param>
+        /// <param name="ViTri"></param>
+        static public void ExecuteCastlingReverse(ChessBoard chessBoard, int ViTri)
+        {
+            if (!chessBoard.MyTurn)
+            {
+                if (ViTri == 2)
+                {
+                    chessBoard.cells[0, 7].Text = "rook";
+                    chessBoard.cells[0, 7].ForeColor = Color.Red;
+                    ChessBoard.PictureInsert(chessBoard.cells[0, 7]);
+
+                    chessBoard.cells[1, 7].Text = "";
+                    chessBoard.cells[1, 7].ForeColor = Color.AliceBlue;
+                    ChessBoard.PictureInsert(chessBoard.cells[1, 7]);
+
+                    chessBoard.cells[2, 7].Text = "";
+                    chessBoard.cells[2, 7].ForeColor = Color.AliceBlue;
+                    ChessBoard.PictureInsert(chessBoard.cells[2, 7]);
+
+                    chessBoard.cells[3, 7].Text = "";
+                    chessBoard.cells[3, 7].ForeColor = Color.AliceBlue;
+                    ChessBoard.PictureInsert(chessBoard.cells[3, 7]);
+
+                    chessBoard.cells[4, 7].Text = "king";
+                    chessBoard.cells[4, 7].ForeColor = Color.Red;
+                    ChessBoard.PictureInsert(chessBoard.cells[4, 7]);
+
+                    chessBoard.xe_trang_trai = true;
+                }
+                else if (ViTri == 6)
+                {
+                    chessBoard.cells[4, 7].Text = "king";
+                    chessBoard.cells[4, 7].ForeColor = Color.Red;
+                    ChessBoard.PictureInsert(chessBoard.cells[4, 7]);
+
+                    chessBoard.cells[5, 7].Text = "";
+                    chessBoard.cells[5, 7].ForeColor = Color.AliceBlue;
+                    ChessBoard.PictureInsert(chessBoard.cells[5, 7]);
+
+                    chessBoard.cells[6, 7].Text = "";
+                    chessBoard.cells[6, 7].ForeColor = Color.AliceBlue;
+                    ChessBoard.PictureInsert(chessBoard.cells[6, 7]);
+
+                    chessBoard.cells[7, 7].Text = "rook";
+                    chessBoard.cells[7, 7].ForeColor = Color.Red;
+                    ChessBoard.PictureInsert(chessBoard.cells[7, 7]);
+
+                    chessBoard.xe_trang_phai = true;
+                }
+                chessBoard.vua_trang = true; // chua nhập thành
+            }
+            else
+            {
+                if (ViTri == 2)
+                {
+                    chessBoard.cells[0, 0].Text = "rook";
+                    chessBoard.cells[0, 0].ForeColor = Color.Black;
+                    ChessBoard.PictureInsert(chessBoard.cells[0, 0]);
+
+                    chessBoard.cells[1, 0].Text = "";
+                    chessBoard.cells[1, 0].ForeColor = Color.AliceBlue;
+                    ChessBoard.PictureInsert(chessBoard.cells[1, 0]);
+
+                    chessBoard.cells[2, 0].Text = "";
+                    chessBoard.cells[2, 0].ForeColor = Color.AliceBlue;
+                    ChessBoard.PictureInsert(chessBoard.cells[2, 0]);
+
+                    chessBoard.cells[3, 0].Text = "";
+                    chessBoard.cells[3, 0].ForeColor = Color.AliceBlue;
+                    ChessBoard.PictureInsert(chessBoard.cells[3, 0]);
+
+                    chessBoard.cells[4, 0].Text = "king";
+                    chessBoard.cells[4, 0].ForeColor = Color.Black;
+                    ChessBoard.PictureInsert(chessBoard.cells[4, 0]);
+
+                    chessBoard.xe_den_trai = true;
+                }
+                else if (ViTri == 6)
+                {
+                    chessBoard.cells[4, 0].Text = "king";
+                    chessBoard.cells[4, 0].ForeColor = Color.Black;
+                    ChessBoard.PictureInsert(chessBoard.cells[4, 0]);
+
+                    chessBoard.cells[5, 0].Text = "";
+                    chessBoard.cells[5, 0].ForeColor = Color.AliceBlue;
+                    ChessBoard.PictureInsert(chessBoard.cells[5, 0]);
+
+                    chessBoard.cells[6, 0].Text = "";
+                    chessBoard.cells[6, 0].ForeColor = Color.AliceBlue;
+                    ChessBoard.PictureInsert(chessBoard.cells[6, 0]);
+
+                    chessBoard.cells[7, 0].Text = "rook";
+                    chessBoard.cells[7, 0].ForeColor = Color.Black;
+                    ChessBoard.PictureInsert(chessBoard.cells[7, 0]);
+
+                    chessBoard.xe_den_phai = true;
+                }
+                chessBoard.vua_den = true; // chuaw nhập thành               
+            }
+        }
     }
 }

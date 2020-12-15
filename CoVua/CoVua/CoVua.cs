@@ -49,5 +49,13 @@ namespace CoVua
             chessBoard = new ChessBoard();
             Controls.Add(chessBoard);
         }
+
+        private void quayLạiToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            chessBoard.undo();
+
+            if (chessBoard.HinhThucChoi == 2) // đánh với máy thì undo 2 lần
+                chessBoard.undo();
+        }
     }
 }

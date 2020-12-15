@@ -204,6 +204,7 @@ namespace CoVua
                     }
                     else
                     {
+                        ResetBoderColor(this);
                         if (checkMate) showCheckMate(assassin, king);
                     }
 
@@ -364,13 +365,14 @@ namespace CoVua
         }
 
         static public void Chesspiece_Move(Button Source, Button Destination, ChessBoard chessBoard)
-        {
+        {           
             //xử lý nhập thành____________________________________________________________________
             if (chessBoard.MyTurn && chessBoard.vua_trang)
             {
                 if (Source.Text == "king" && (Destination.Location.X / chessBoard.widthCell == 2 || Destination.Location.X / chessBoard.widthCell == 6))
                 {
                     King.ExecuteCastling(chessBoard, Destination.Location.X / chessBoard.widthCell);
+                    chessBoard.movementInfos.Add(chessBoard.saveMovementInfor2(Source, Destination.Location.X / chessBoard.widthCell));
                     return;
                 }
             }
@@ -379,6 +381,7 @@ namespace CoVua
                 if (Source.Text == "king" && (Destination.Location.X / chessBoard.widthCell == 2 || Destination.Location.X / chessBoard.widthCell == 6))
                 {
                     King.ExecuteCastling(chessBoard, Destination.Location.X / chessBoard.widthCell);
+                    chessBoard.movementInfos.Add(chessBoard.saveMovementInfor2(Source, Destination.Location.X / chessBoard.widthCell));
                     return;
                 }
             }
@@ -386,16 +389,15 @@ namespace CoVua
                 chessBoard.updateCastling(Source);
             //_______________________________________________________________________________________
 
-
+            chessBoard.movementInfos.Add(chessBoard.saveMovementInfor(Source, Destination));
             //thực hiện di chuyển
             Destination.Text = Source.Text;
             Destination.ForeColor = Source.ForeColor;
             Source.Text = "";
             Source.ForeColor = Color.AliceBlue;
-
-            chessBoard.movementInfos.Add(chessBoard.saveMovementInfor(Source, Destination));
+           
             Destination.FlatAppearance.BorderColor = Color.Blue;
-
+            Source.FlatAppearance.BorderColor = Color.Blue;
 
 
             //xử lý phong cấp tốt_________________________________________________________________________
@@ -436,16 +438,17 @@ namespace CoVua
             Source.ForeColor = Color.AliceBlue;
         }
 
-        private void Chesspiece_Attack(Button Source, Button Destination, ChessBoard chessBoard)
+        static public void Chesspiece_Attack(Button Source, Button Destination, ChessBoard chessBoard)
         {
+            chessBoard.movementInfos.Add(chessBoard.saveMovementInfor(Source, Destination));
+
             Destination.Text = Source.Text;
             Destination.ForeColor = Source.ForeColor;
             Source.Text = "";
             Source.ForeColor = Color.AliceBlue;
 
-            chessBoard.movementInfos.Add(saveMovementInfor(Source, Destination));
             Destination.FlatAppearance.BorderColor = Color.Blue;
-
+            Source.FlatAppearance.BorderColor = Color.Blue;
             //xử lý phong cấp tốt_________________________________________________________________________
             if (Destination.Text == "pawn")
             {
@@ -645,13 +648,22 @@ namespace CoVua
             return Board;
         }
 
-        internal MovementInfo saveMovementInfor(Button src, Button dst)
+        private MovementInfo saveMovementInfor(Button src, Button dst)
         {
-            MovementInfo x = new MovementInfo();
+            MovementInfo x = new MovementInfo();            
             x.Dst = dst.Location;
             x.dstText = dst.Text;
             x.srcText = src.Text;
             x.Src = src.Location;
+
+            return x;
+        }
+
+        private MovementInfo saveMovementInfor2(Button src, int dst)
+        {
+            MovementInfo x = new MovementInfo();
+            x.srcText = "nhapthanh";
+            x.dstText = dst.ToString();
 
             return x;
         }
@@ -786,74 +798,138 @@ namespace CoVua
                     break;
             }
         }
-
-        private void updateCastling(Button chesspiece)
+        private void updateCastling(Button chesspiece, bool x = false)
         {
-            if (chesspiece.Location.Y / chesspiece.Height == 0)
+            if(!x)
             {
-                switch (chesspiece.Location.X / chesspiece.Width)
+                if (chesspiece.Location.Y / chesspiece.Height == 0)
                 {
-                    case 0:
-                        xe_den_trai = false;
-                        break;
-                    case 4:
-                        vua_den = false;
-                        break;
-                    case 7:
-                        xe_den_phai = false;
-                        break;
-                    default:
-                        break;
+                    switch (chesspiece.Location.X / chesspiece.Width)
+                    {
+                        case 0:
+                            xe_den_trai = x;
+                            break;
+                        case 4:
+                            vua_den = x;
+                            break;
+                        case 7:
+                            xe_den_phai = x;
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                else if (chesspiece.Location.Y / chesspiece.Height == 7)
+                {
+                    switch (chesspiece.Location.X / chesspiece.Width)
+                    {
+                        case 0:
+                            xe_trang_trai = x;
+                            break;
+                        case 4:
+                            vua_trang = x;
+                            break;
+                        case 7:
+                            xe_trang_phai = x;
+                            break;
+                        default:
+                            break;
+                    }
                 }
             }
-            else if (chesspiece.Location.Y / chesspiece.Height == 7)
+            else
             {
-                switch (chesspiece.Location.X / chesspiece.Width)
+                if (chesspiece.Location.Y / chesspiece.Height == 0)
                 {
-                    case 0:
-                        xe_trang_trai = false;
-                        break;
-                    case 4:
-                        vua_trang = false;
-                        break;
-                    case 7:
-                        xe_trang_phai = false;
-                        break;
-                    default:
-                        break;
+                    switch (chesspiece.Location.X / chesspiece.Width)
+                    {
+                        case 0:
+                            xe_den_trai = !x;
+                            break;
+                        case 4:
+                            vua_den = !x;
+                            break;
+                        case 7:
+                            xe_den_phai = !x;
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                else if (chesspiece.Location.Y / chesspiece.Height == 7)
+                {
+                    switch (chesspiece.Location.X / chesspiece.Width)
+                    {
+                        case 0:
+                            xe_trang_trai = !x;
+                            break;
+                        case 4:
+                            vua_trang = !x;
+                            break;
+                        case 7:
+                            xe_trang_phai = !x;
+                            break;
+                        default:
+                            break;
+                    }
                 }
             }
+
+            
         }
 
         /// <summary>
         /// chưa chạy được!
         /// </summary>
         /// <returns></returns>
-        public MovementInfo undo()
+        public void undo()
         {
+            if (movementInfos.Count == 0)
+                return;
+
             MovementInfo movementInfo = this.movementInfos[this.movementInfos.Count - 1];
             int SourceIndexX = movementInfo.Src.X / this.cells[0, 0].Size.Width;
             int SourceIndexY = movementInfo.Src.Y / this.cells[0, 0].Size.Height;
             int DestinationIndexX = movementInfo.Dst.X / this.cells[0, 0].Size.Width;
             int DestinationIndexY = movementInfo.Dst.Y / this.cells[0, 0].Size.Height;
 
-            this.cells[SourceIndexX, SourceIndexY].Text = movementInfo.dstText;
-            this.cells[DestinationIndexX, DestinationIndexY].Text = movementInfo.srcText;
-            if (this.movementInfos.Count % 2 == 1) // nếu đây là nước cờ do máy đánh
+            //Nhập thành
+            if(movementInfo.srcText == "nhapthanh")
+            {
+                King.ExecuteCastlingReverse(this, int.Parse(movementInfo.dstText));
+            } 
+            else if(movementInfo.srcText == "rook" || movementInfo.dstText == "king")
+            {
+                updateCastling(cells[SourceIndexX, SourceIndexY], true);
+            }
+
+            this.cells[SourceIndexX, SourceIndexY].Text = movementInfo.srcText;
+            this.cells[DestinationIndexX, DestinationIndexY].Text = movementInfo.dstText;
+            if (MyTurn) // bên kia đánh
             {
                 this.cells[SourceIndexX, SourceIndexY].ForeColor = Color.Black;
-                this.cells[DestinationIndexX, DestinationIndexY].ForeColor = Color.Red;
+                if (cells[DestinationIndexX, DestinationIndexY].Text != "")
+                    this.cells[DestinationIndexX, DestinationIndexY].ForeColor = Color.Red;
+                else
+                    this.cells[DestinationIndexX, DestinationIndexY].ForeColor = Color.AliceBlue;
             }
             else
             {
                 this.cells[SourceIndexX, SourceIndexY].ForeColor = Color.Red;
-                this.cells[DestinationIndexX, DestinationIndexY].ForeColor = Color.Black;
+                if (cells[DestinationIndexX, DestinationIndexY].Text != "")
+                    this.cells[DestinationIndexX, DestinationIndexY].ForeColor = Color.Black;
+                else
+                    this.cells[DestinationIndexX, DestinationIndexY].ForeColor = Color.AliceBlue;
             }
 
-            //movementInfo = new MovementInfo();
-            movementInfo = saveMovementInfor(cells[SourceIndexX, SourceIndexY], cells[DestinationIndexX, DestinationIndexY]);
+            MyTurn = !MyTurn;
+            ResetBoderColor(this);
+            cells[SourceIndexX, SourceIndexY].FlatAppearance.BorderColor = Color.Blue;
+            cells[DestinationIndexX, DestinationIndexY].FlatAppearance.BorderColor = Color.Blue;
+            PictureInsert(cells[SourceIndexX, SourceIndexY]);
+            PictureInsert(cells[DestinationIndexX, DestinationIndexY]);
+
             movementInfos.RemoveAt(movementInfos.Count - 1);
-            return movementInfo;
         }
 
         private void Cell_Click(object sender, EventArgs e)

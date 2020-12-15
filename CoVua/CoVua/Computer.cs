@@ -27,9 +27,9 @@ namespace CoVua
             int SourceIndexY = ComputerMovement.Source.Y / chessBoard.cells[0, 0].Size.Height;
             int DestinationIndexX = ComputerMovement.Destination.X / chessBoard.cells[0, 0].Size.Width;
             int DestinationIndexY = ComputerMovement.Destination.Y / chessBoard.cells[0, 0].Size.Height;
-
-            chessBoard.movementInfos.Add(chessBoard.saveMovementInfor(chessBoard.cells[SourceIndexX, SourceIndexY], chessBoard.cells[DestinationIndexX, DestinationIndexY]));
+           
             ChessBoard.Chesspiece_Move(chessBoard.cells[SourceIndexX, SourceIndexY], chessBoard.cells[DestinationIndexX, DestinationIndexY], chessBoard);
+            //chessBoard.movementInfos.Add(chessBoard.saveMovementInfor(chessBoard.cells[SourceIndexX, SourceIndexY], chessBoard.cells[DestinationIndexX, DestinationIndexY]));
         }
 
         static public WorthMovement MovementInfo(ChessBoard chessBoard)
