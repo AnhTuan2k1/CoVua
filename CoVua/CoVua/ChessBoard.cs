@@ -39,6 +39,7 @@ namespace CoVua
         /// vua đang bị chiếu
         /// </summary>
         internal Button king;
+        //public bool endgame;
         public bool checkMate;  // bàn cờ trong trạng thái chiếu
         public bool Active = true; // chesboard
         public bool MyTurn;
@@ -60,6 +61,7 @@ namespace CoVua
             ReadytoAttack = false;
             assassin = null;
             king = null;
+            //endgame = false;
             checkMate = false;
             MyTurn = true;
             HinhThucChoi = 2; // đánh với máy
@@ -158,13 +160,14 @@ namespace CoVua
             {
                 if (ReadytoAttack && (sender).FlatAppearance.BorderColor == Color.Blue)     //di chuyển quân cờ đi vị trí khác
                 {
-                    ReadytoAttack = false;             
-                    Chesspiece_Move(cellIsActivating, sender, this);
-                    MyTurn = !MyTurn;
-                    ResetBoderColor(this);
 
+                    ReadytoAttack = false;             
+                    Chesspiece_Move(cellIsActivating, sender, this);                  
+                    ResetBoderColor(this);
                     checkMate = CheckMate(this);
                     if (checkMate) showCheckMate(assassin, king);
+                    MyTurn = !MyTurn;
+                    if (endGame()) { return; }                   
 
                     cellIsActivating = null;
 
@@ -196,9 +199,12 @@ namespace CoVua
                         ResetBoderColor(this);
                         checkMate = CheckMate(this);
                         if (checkMate) showCheckMate(assassin, king);
-
-                        ReadytoAttack = false;
                         MyTurn = !MyTurn;
+                        if (endGame()) { return; }
+
+                        
+
+                        ReadytoAttack = false;                       
                         (sender).FlatAppearance.BorderColor = Color.Blue;
                         cellIsActivating = null;
                     }
@@ -227,9 +233,11 @@ namespace CoVua
                         ResetBoderColor(this);
                         checkMate = CheckMate(this);
                         if (checkMate) showCheckMate(assassin, king);
-
-                        ReadytoAttack = false;
                         MyTurn = !MyTurn;
+                        if (endGame()) { return; }
+                        
+
+                        ReadytoAttack = false;                       
                         (sender).FlatAppearance.BorderColor = Color.Blue;
                         cellIsActivating = null;
                     }
@@ -311,12 +319,13 @@ namespace CoVua
                     ReadytoAttack = false;
                     //   if (cellIsActivating != null)
                     Chesspiece_Move(cellIsActivating, (Button)sender, this);
+                    MyTurn = !MyTurn;
                     cellIsActivating = null;
                     ResetBoderColor(this);
                     checkMate = CheckMate(this);
                     if (checkMate) showCheckMate(assassin, king);
-                    MyTurn = !MyTurn;
-
+                    if (endGame()) { return; }
+                                      
                 }
                 else
                 {
@@ -341,12 +350,16 @@ namespace CoVua
                     Chesspiece_Attack(cellIsActivating, (Button)sender, this);
 
                     ReadytoAttack = false;
+                    ResetBoderColor(this);//
                     MyTurn = !MyTurn;
+                    checkMate = CheckMate(this);
+                    if (checkMate) showCheckMate(assassin, king);
+                    if (endGame()) { return; }
+                   
                     ((Button)sender).FlatAppearance.BorderColor = Color.Blue;
                     cellIsActivating = null;
                     // ResetBoderColor(this);
-                    checkMate = CheckMate(this);
-                    if (checkMate) showCheckMate(assassin, king);
+                    
 
                 }
                 else ResetBoderColor(this);
@@ -905,7 +918,7 @@ namespace CoVua
 
             this.cells[SourceIndexX, SourceIndexY].Text = movementInfo.srcText;
             this.cells[DestinationIndexX, DestinationIndexY].Text = movementInfo.dstText;
-            if (MyTurn) // bên kia đánh
+            if (movementInfos.Count % 2 == 0) // bên kia đánh
             {
                 this.cells[SourceIndexX, SourceIndexY].ForeColor = Color.Black;
                 if (cells[DestinationIndexX, DestinationIndexY].Text != "")
@@ -922,12 +935,14 @@ namespace CoVua
                     this.cells[DestinationIndexX, DestinationIndexY].ForeColor = Color.AliceBlue;
             }
 
+            ReadytoAttack = false;
             MyTurn = !MyTurn;
             ResetBoderColor(this);
             cells[SourceIndexX, SourceIndexY].FlatAppearance.BorderColor = Color.Blue;
             cells[DestinationIndexX, DestinationIndexY].FlatAppearance.BorderColor = Color.Blue;
             PictureInsert(cells[SourceIndexX, SourceIndexY]);
             PictureInsert(cells[DestinationIndexX, DestinationIndexY]);
+            this.Enabled = true;
 
             movementInfos.RemoveAt(movementInfos.Count - 1);
         }
@@ -954,9 +969,10 @@ namespace CoVua
             if (!MyTurn && HinhThucChoi == 2)
             {
                 Computer.Move(this);
-                checkMate = CheckMate(this);
-                if (checkMate) showCheckMate(assassin, king);
-                MyTurn = !MyTurn;
+                //checkMate = CheckMate(this);
+                //if (checkMate) showCheckMate(assassin, king);
+                //MyTurn = !MyTurn;
+                //if (endGame()) { return; }
             }
             //Promotion();
         }
@@ -1021,6 +1037,44 @@ namespace CoVua
                 }
             }
             else b.Image = null;
+        }
+
+        /// <summary>
+        /// Trò chơi đã kết thúc chưa?
+        /// </summary>
+        /// <returns></returns>
+        internal bool endGame()
+        {          
+            foreach (Button item in cells)
+            {
+                if(MyTurn)
+                {
+                    if (item.ForeColor == Color.Red && item.Text != "")
+                    {
+                        ShowLegalMovement(item, this);                      
+                    }                           
+                }
+                else 
+                {
+                    if (item.ForeColor == Color.Black && item.Text != "")
+                        ShowLegalMovement(item, this);
+                }
+
+                foreach (Button item2 in cells)
+                {
+                    if (item2.FlatAppearance.BorderColor == Color.Blue)
+                    {
+                        ResetBoderColor(this);
+                        return false;
+                    }
+
+                }
+            }
+
+
+            if (CheckMate(this)) showCheckMate(assassin, king);
+            new EndGame(this).ShowDialog();
+            return true;
         }
 
         //static private void Promotion(Button Pawn, ChessBoard chessBoard)

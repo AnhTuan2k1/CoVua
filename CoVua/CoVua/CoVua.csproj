@@ -57,6 +57,12 @@
     <Compile Include="CoVua.Designer.cs">
       <DependentUpon>CoVua.cs</DependentUpon>
     </Compile>
+    <Compile Include="EndGame.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EndGame.Designer.cs">
+      <DependentUpon>EndGame.cs</DependentUpon>
+    </Compile>
     <Compile Include="King.cs" />
     <Compile Include="Knight.cs" />
     <Compile Include="Pawn.cs" />
@@ -72,6 +78,9 @@
     <Compile Include="Rook.cs" />
     <EmbeddedResource Include="CoVua.resx">
       <DependentUpon>CoVua.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EndGame.resx">
+      <DependentUpon>EndGame.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PromotionPawn.resx">
       <DependentUpon>PromotionPawn.cs</DependentUpon>

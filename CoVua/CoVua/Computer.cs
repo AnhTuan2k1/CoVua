@@ -29,6 +29,13 @@ namespace CoVua
             int DestinationIndexY = ComputerMovement.Destination.Y / chessBoard.cells[0, 0].Size.Height;
            
             ChessBoard.Chesspiece_Move(chessBoard.cells[SourceIndexX, SourceIndexY], chessBoard.cells[DestinationIndexX, DestinationIndexY], chessBoard);
+            chessBoard.checkMate = chessBoard.CheckMate(chessBoard);
+            if (chessBoard.checkMate) chessBoard.showCheckMate(chessBoard.assassin, chessBoard.king);
+            chessBoard.MyTurn = !chessBoard.MyTurn;
+            if (chessBoard.endGame()) { return; }
+
+            chessBoard.cells[SourceIndexX, SourceIndexY].FlatAppearance.BorderColor = Color.Blue;
+            chessBoard.cells[DestinationIndexX, DestinationIndexY].FlatAppearance.BorderColor = Color.Blue;
             //chessBoard.movementInfos.Add(chessBoard.saveMovementInfor(chessBoard.cells[SourceIndexX, SourceIndexY], chessBoard.cells[DestinationIndexX, DestinationIndexY]));
         }
 
@@ -71,8 +78,7 @@ namespace CoVua
 
             if (list.Count == 0)
             {
-                MessageBox.Show("you win");   
-                
+                MessageBox.Show("you win");                  
             }
 
             movement = list[0];
