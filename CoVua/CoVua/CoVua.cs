@@ -27,14 +27,14 @@ namespace CoVua
             //chessBoard = new ChessBoard();
             //Controls.Add(chessBoard);
 
-            if (!chessBoard.MyTurn)
-            {
-                ChessBoard.ResetBoderColor(chessBoard);
-                Computer.Move(chessBoard);
-                chessBoard.HinhThucChoi = 2;
-                chessBoard.MyTurn = !chessBoard.MyTurn;
-            }
-            else
+            //if (!chessBoard.MyTurn)
+            //{
+            //    ChessBoard.ResetBoderColor(chessBoard);
+            //    Computer.Move(chessBoard);
+            //    chessBoard.HinhThucChoi = 2;
+            //    chessBoard.MyTurn = !chessBoard.MyTurn;
+            //}
+            //else
                 chessBoard.HinhThucChoi = 2;
         }
 
@@ -54,7 +54,7 @@ namespace CoVua
         {
             chessBoard.undo();
 
-            if (chessBoard.HinhThucChoi == 2) // đánh với máy thì undo 2 lần
+            if (chessBoard.HinhThucChoi == 2 && !chessBoard.MyTurn)
                 chessBoard.undo();
         }
     }

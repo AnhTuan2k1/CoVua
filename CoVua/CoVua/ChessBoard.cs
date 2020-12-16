@@ -857,13 +857,13 @@ namespace CoVua
                     switch (chesspiece.Location.X / chesspiece.Width)
                     {
                         case 0:
-                            xe_den_trai = !x;
+                            xe_den_trai =x;
                             break;
                         case 4:
-                            vua_den = !x;
+                            vua_den = x;
                             break;
                         case 7:
-                            xe_den_phai = !x;
+                            xe_den_phai = x;
                             break;
                         default:
                             break;
@@ -874,13 +874,13 @@ namespace CoVua
                     switch (chesspiece.Location.X / chesspiece.Width)
                     {
                         case 0:
-                            xe_trang_trai = !x;
+                            xe_trang_trai = x;
                             break;
                         case 4:
-                            vua_trang = !x;
+                            vua_trang = x;
                             break;
                         case 7:
-                            xe_trang_phai = !x;
+                            xe_trang_phai = x;
                             break;
                         default:
                             break;
