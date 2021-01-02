@@ -72,7 +72,7 @@ namespace CoVua
             heightCell = 65;
 
             Size = new Size(widthCell * 8, Height * 8);
-            Location = new Point(90, 24);
+            Location = new Point(260, 60);
 
             //------------Tạo 64 ô cờ----------------------
             for (int i = 0; i < cells.GetLength(0); i++)

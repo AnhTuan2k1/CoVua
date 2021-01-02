@@ -26,8 +26,12 @@ namespace CoVua
             else
                 label1.Text = "You Win";
             label2.Text += " " + chessBoard.movementInfos.Count.ToString();
-
             chessBoard.Enabled = false;
+        }
+
+        private void EndGame_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

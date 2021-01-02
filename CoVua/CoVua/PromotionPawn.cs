@@ -44,5 +44,10 @@ namespace CoVua
 
             this.Close();
         }
+
+        private void PromotionPawn_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
