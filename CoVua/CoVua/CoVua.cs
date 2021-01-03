@@ -54,32 +54,39 @@ namespace CoVua
 
         private void CoVua_Load(object sender, EventArgs e)
         {
-
+            //MessageBox.Show("Mode One player is on!!", "Announcement!!!");
+            this.Controls.Remove(chessBoard);
+            chessBoard = new ChessBoard();
+            Controls.Add(chessBoard);
         }
 
         private void btOnePlayer_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Mode One player is on!!", "Announcement!!!");
-            this.Controls.Remove(chessBoard);
-            chessBoard = new ChessBoard();
-            Controls.Add(chessBoard);
+
             chessBoard.HinhThucChoi = 2;
         }
 
         private void btTwoPlayers_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Mode Two players is on!!", "Announcement!!!");
-            this.Controls.Remove(chessBoard);
-            chessBoard = new ChessBoard();
-            Controls.Add(chessBoard);
+            //MessageBox.Show("Mode Two players is on!!", "Announcement!!!");
+            //this.Controls.Remove(chessBoard);
+            //chessBoard = new ChessBoard();
+            //Controls.Add(chessBoard);
             chessBoard.HinhThucChoi = 1;
         }
 
         private void btUndo_Click(object sender, EventArgs e)
         {
-            chessBoard.undo();
-            if (chessBoard.HinhThucChoi == 2 && !chessBoard.MyTurn)
+            try
+            {
                 chessBoard.undo();
+                if (chessBoard.HinhThucChoi == 2 && !chessBoard.MyTurn)
+                    chessBoard.undo();
+            }
+            catch (Exception)
+            {
+             
+            }           
         }
 
         private void btExit_Click(object sender, EventArgs e)

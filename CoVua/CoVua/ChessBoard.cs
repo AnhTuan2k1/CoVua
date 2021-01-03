@@ -454,6 +454,12 @@ namespace CoVua
         static public void Chesspiece_Attack(Button Source, Button Destination, ChessBoard chessBoard)
         {
             chessBoard.movementInfos.Add(chessBoard.saveMovementInfor(Source, Destination));
+            if (Destination.Text == "king")
+            {
+                chessBoard.MyTurn = !chessBoard.MyTurn;
+                new EndGame(chessBoard).ShowDialog();
+                chessBoard.MyTurn = !chessBoard.MyTurn;
+            }
 
             Destination.Text = Source.Text;
             Destination.ForeColor = Source.ForeColor;
@@ -609,58 +615,6 @@ namespace CoVua
                 }
         }
 
-        /// <summary>
-        /// sao chép các ô cờ thành 1 mảng 2 chiều
-        /// </summary>
-        /// <param name="cells"></param>
-        /// <returns></returns>
-        static internal ChessBoard CloneButtonsInfo(ChessBoard chessBoard)
-        {
-            ChessBoard Board = new ChessBoard();
-            for (int i = 0; i < chessBoard.cells.GetLength(0); i++)
-            {
-                for (int j = 0; j < chessBoard.cells.GetLength(1); j++)
-                {
-                    Board.cells[i, j] = new Button();
-                    Board.cells[i, j].FlatAppearance.BorderColor = chessBoard.cells[i, j].FlatAppearance.BorderColor;
-                    Board.cells[i, j].ForeColor = chessBoard.cells[i, j].ForeColor;
-                    Board.cells[i, j].Text = chessBoard.cells[i, j].Text;
-                    Board.cells[i, j].Location = new Point(i * chessBoard.cells[0, 0].Width, j * chessBoard.cells[0, 0].Width);
-                    Board.cells[i, j].Width = chessBoard.cells[i, j].Size.Width;
-                    Board.cells[i, j].Height = chessBoard.cells[i, j].Height;
-                }
-            }
-            return Board;
-        }
-
-        /// <summary>
-        /// nhìn trước các nước có thể đi của bên còn lại Khi di chuyển 1 quân cờ
-        /// </summary>
-        /// <param name="Source"></param>
-        /// <param name="Destination"></param>
-        /// <param name="cells"></param>
-        /// <returns></returns>
-        static internal ChessBoard Forwarding(Button Source, Button Destination, ChessBoard chessBoard)
-        {
-            ChessBoard Board = ChessBoard.CloneButtonsInfo(chessBoard);
-            Button SourceClone = Board.cells[Source.Location.X / chessBoard.cells[0, 0].Width, Source.Location.Y / chessBoard.cells[0, 0].Height];
-            Button DestinationClone = Board.cells[Destination.Location.X / chessBoard.cells[0, 0].Width, Destination.Location.Y / chessBoard.cells[0, 0].Height];
-
-            ChessBoard.Chesspiece_Move_forForwarding(SourceClone, DestinationClone, Board);
-            ChessBoard.ResetBoderColor(Board);
-            Color x;
-            if (Source.ForeColor == Color.Black)     // Máy nhìn trước 
-                x = Color.Red;
-            else x = Color.Black;
-
-            foreach (Button item in Board.cells)
-            {
-                if (item.ForeColor == x)
-                    ChessBoard.ShowMovement(item, Board);
-            }
-            return Board;
-        }
-
         private MovementInfo saveMovementInfor(Button src, Button dst)
         {
             MovementInfo x = new MovementInfo();            
@@ -688,7 +642,7 @@ namespace CoVua
         /// <returns></returns>
         internal bool CheckMate(ChessBoard chessBoard)
         {
-            ChessBoard x = CloneButtonsInfo(chessBoard);
+            ChessBoard x = Computer.CloneButtonsInfo(chessBoard);
             foreach (Button item in x.cells)
             {
                 if (item.Text != "" && item.ForeColor == Color.Black)  //Đối thủ(máy) chiếu. item là assassin, item2 là king.
