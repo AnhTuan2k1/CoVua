@@ -131,16 +131,16 @@ namespace CoVua
             label3.Visible = false;
             label4.Visible = true;
             label5.Visible = true;
-            btOnePlayer.Visible = false;
-            btTwoPlayers.Visible = false;
-            btHelp.Visible = false;
-            btExit.Visible = false;
-            btLoad.Visible = false;
-            btOnePlayerInGame.Visible = true;
-            btTwoPlayersInGame.Visible = true;
-            btSave.Visible = true;
-            btBack.Visible = true;
-            btUndo.Visible = true;
+            gnbtOnePlayer.Visible = false;
+            gnbtTwoPlayers.Visible = false;
+            gnbtHelp.Visible = false;
+            gnbtExit.Visible = false;
+            gnbtLoad.Visible = false;
+            gnbtOnePLayerInGame.Visible = true;
+            gnbtTwoPLayersInGame.Visible = true;
+            gnbtSave.Visible = true;
+            gnbtBack.Visible = true;
+            gnbtUndo.Visible = true;
             ShowMode(i);
 
         }
@@ -152,7 +152,8 @@ namespace CoVua
             }
             else
             {
-                label4.Text = "Alone";
+                label4.Text = "Play with " +
+                    "computer";
             }
             
         }
@@ -176,16 +177,16 @@ namespace CoVua
             label3.Visible = true;
             label4.Visible = false;
             label5.Visible =false;
-            btOnePlayer.Visible = true;
-            btTwoPlayers.Visible = true;
-            btHelp.Visible = true;
-            btExit.Visible = true;
-            btLoad.Visible = true;
-            btSave.Visible = false;
-            btOnePlayerInGame.Visible = false;
-            btTwoPlayersInGame.Visible = false;
-            btBack.Visible = false;
-            btUndo.Visible = false;
+            gnbtOnePlayer.Visible = true;
+           gnbtTwoPlayers.Visible = true;
+            gnbtHelp.Visible = true;
+            gnbtExit.Visible = true;
+            gnbtLoad.Visible = true;
+            gnbtSave.Visible = false;
+            gnbtOnePLayerInGame.Visible = false;
+            gnbtTwoPLayersInGame.Visible = false;
+            gnbtBack.Visible = false;
+            gnbtUndo.Visible = false;
             this.Controls.Remove(chessBoard);
         }
          private void btSave_Click(object sender, EventArgs e)
@@ -215,6 +216,89 @@ namespace CoVua
         private void btHelp_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start("https://gamevh.net/cms/static/guide_chess.jsp");
+        }
+
+        private void gnbtOnePLayerInGame_Click(object sender, EventArgs e)
+        {
+            chessBoard.HinhThucChoi = 2;
+            ShowMode(chessBoard.HinhThucChoi);
+        }
+
+        private void gnbtTwoPLayersInGame_Click(object sender, EventArgs e)
+        {
+            chessBoard.HinhThucChoi = 1;
+            ShowMode(chessBoard.HinhThucChoi);
+        }
+
+        private void gnbtUndo_Click(object sender, EventArgs e)
+        {
+            chessBoard.undo();
+            if (chessBoard.HinhThucChoi == 2 && !chessBoard.MyTurn)
+                chessBoard.undo();
+        }
+
+        private void gnbtSave_Click(object sender, EventArgs e)
+        {
+            chessBoard.SaveChess();
+            MessageBox.Show("Đã lưu thành công!!!");
+        }
+
+        private void gnbtBack_Click(object sender, EventArgs e)
+        {
+            label1.Visible = true;
+            label2.Visible = true;
+            label3.Visible = true;
+            label4.Visible = false;
+            label5.Visible = false;
+            gnbtOnePlayer.Visible = true;
+            gnbtTwoPlayers.Visible = true;
+            gnbtHelp.Visible = true;
+            gnbtExit.Visible = true;
+            gnbtLoad.Visible = true;
+            gnbtSave.Visible = false;
+            gnbtOnePLayerInGame.Visible = false;
+            gnbtTwoPLayersInGame.Visible = false;
+            gnbtBack.Visible = false;
+            gnbtUndo.Visible = false;
+            this.Controls.Remove(chessBoard);
+        }
+
+        private void gnbtOnePlayer_Click(object sender, EventArgs e)
+        {
+            this.Controls.Remove(chessBoard);
+            Controls.Add(chessBoard);
+            chessBoard.HinhThucChoi = 2;
+            OnOff();
+        }
+
+        private void gnbtTwoPlayers_Click(object sender, EventArgs e)
+        {
+            this.Controls.Remove(chessBoard);
+            chessBoard = new ChessBoard();
+            Controls.Add(chessBoard);
+            chessBoard.HinhThucChoi = 1;
+            OnOff();
+        }
+
+        private void gnbtHelp_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://gamevh.net/cms/static/guide_chess.jsp");
+        }
+
+        private void gnbtLoad_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Chơi tiếp ván cờ gần đây.");
+            chessBoard.LoadChess();
+        }
+
+        private void gunaGradientButton1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
