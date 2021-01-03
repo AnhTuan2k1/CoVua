@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CoVua));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.DanhVoiMay = new System.Windows.Forms.ToolStripMenuItem();
@@ -38,22 +39,21 @@
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.ChoiLaitoolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.quayLạiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.btHelp = new System.Windows.Forms.Button();
             this.btExit = new System.Windows.Forms.Button();
             this.btOnePlayer = new System.Windows.Forms.Button();
             this.btTwoPlayers = new System.Windows.Forms.Button();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.btOnePlayerInGame = new System.Windows.Forms.Button();
+            this.btTwoPlayersInGame = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.btLoad = new System.Windows.Forms.Button();
+            this.btBack = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.btUndo = new System.Windows.Forms.Button();
-            this.btSave = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
-            this.panel1.SuspendLayout();
-            this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -129,43 +129,33 @@
             this.quayLạiToolStripMenuItem.Text = "Quay Lại";
             this.quayLạiToolStripMenuItem.Click += new System.EventHandler(this.quayLạiToolStripMenuItem_Click);
             // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.btHelp);
-            this.panel1.Controls.Add(this.btExit);
-            this.panel1.Controls.Add(this.btOnePlayer);
-            this.panel1.Controls.Add(this.btTwoPlayers);
-            this.panel1.Controls.Add(this.panel2);
-            this.panel1.Controls.Add(this.btLoad);
-            this.panel1.Controls.Add(this.btUndo);
-            this.panel1.Controls.Add(this.btSave);
-            this.panel1.Location = new System.Drawing.Point(0, 31);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(229, 762);
-            this.panel1.TabIndex = 4;
-            // 
             // btHelp
             // 
             this.btHelp.BackColor = System.Drawing.Color.White;
-            this.btHelp.FlatAppearance.BorderSize = 0;
+            this.btHelp.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btHelp.FlatAppearance.BorderSize = 2;
             this.btHelp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btHelp.Font = new System.Drawing.Font("Comic Sans MS", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btHelp.Location = new System.Drawing.Point(-3, 586);
+            this.btHelp.Location = new System.Drawing.Point(499, 479);
             this.btHelp.Name = "btHelp";
-            this.btHelp.Size = new System.Drawing.Size(232, 90);
+            this.btHelp.Size = new System.Drawing.Size(232, 88);
             this.btHelp.TabIndex = 5;
+            this.btHelp.TabStop = false;
             this.btHelp.Text = "Help";
             this.btHelp.UseVisualStyleBackColor = false;
             // 
             // btExit
             // 
             this.btExit.BackColor = System.Drawing.Color.White;
+            this.btExit.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btExit.FlatAppearance.BorderSize = 2;
             this.btExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btExit.Font = new System.Drawing.Font("Comic Sans MS", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btExit.Location = new System.Drawing.Point(-3, 673);
+            this.btExit.Location = new System.Drawing.Point(499, 611);
             this.btExit.Name = "btExit";
-            this.btExit.Size = new System.Drawing.Size(238, 89);
+            this.btExit.Size = new System.Drawing.Size(232, 88);
             this.btExit.TabIndex = 5;
+            this.btExit.TabStop = false;
             this.btExit.Text = "Exit";
             this.btExit.UseVisualStyleBackColor = false;
             this.btExit.Click += new System.EventHandler(this.btExit_Click);
@@ -173,13 +163,15 @@
             // btOnePlayer
             // 
             this.btOnePlayer.BackColor = System.Drawing.Color.White;
-            this.btOnePlayer.FlatAppearance.BorderSize = 0;
+            this.btOnePlayer.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btOnePlayer.FlatAppearance.BorderSize = 2;
             this.btOnePlayer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btOnePlayer.Font = new System.Drawing.Font("Comic Sans MS", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btOnePlayer.Location = new System.Drawing.Point(0, 146);
+            this.btOnePlayer.Location = new System.Drawing.Point(393, 340);
             this.btOnePlayer.Name = "btOnePlayer";
             this.btOnePlayer.Size = new System.Drawing.Size(232, 88);
-            this.btOnePlayer.TabIndex = 1;
+            this.btOnePlayer.TabIndex = 50;
+            this.btOnePlayer.TabStop = false;
             this.btOnePlayer.Text = "One Player";
             this.btOnePlayer.UseVisualStyleBackColor = false;
             this.btOnePlayer.Click += new System.EventHandler(this.btOnePlayer_Click);
@@ -187,88 +179,133 @@
             // btTwoPlayers
             // 
             this.btTwoPlayers.BackColor = System.Drawing.Color.White;
-            this.btTwoPlayers.FlatAppearance.BorderSize = 0;
+            this.btTwoPlayers.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btTwoPlayers.FlatAppearance.BorderSize = 2;
             this.btTwoPlayers.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btTwoPlayers.Font = new System.Drawing.Font("Comic Sans MS", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btTwoPlayers.Location = new System.Drawing.Point(0, 220);
+            this.btTwoPlayers.Location = new System.Drawing.Point(631, 340);
             this.btTwoPlayers.Name = "btTwoPlayers";
-            this.btTwoPlayers.Size = new System.Drawing.Size(232, 97);
+            this.btTwoPlayers.Size = new System.Drawing.Size(232, 88);
             this.btTwoPlayers.TabIndex = 2;
+            this.btTwoPlayers.TabStop = false;
             this.btTwoPlayers.Text = "Two Players";
             this.btTwoPlayers.UseVisualStyleBackColor = false;
             this.btTwoPlayers.Click += new System.EventHandler(this.btTwoPlayers_Click);
             // 
-            // panel2
+            // label2
             // 
-            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.panel2.Controls.Add(this.label1);
-            this.panel2.Controls.Add(this.pictureBox1);
-            this.panel2.Location = new System.Drawing.Point(0, 0);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(229, 150);
-            this.panel2.TabIndex = 0;
+            this.label2.Font = new System.Drawing.Font("Comic Sans MS", 35F, System.Drawing.FontStyle.Bold);
+            this.label2.Location = new System.Drawing.Point(485, 242);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(236, 81);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "Menu";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label3
+            // 
+            this.label3.Font = new System.Drawing.Font("Comic Sans MS", 15F, System.Drawing.FontStyle.Bold);
+            this.label3.Location = new System.Drawing.Point(62, 341);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(325, 81);
+            this.label3.TabIndex = 6;
+            this.label3.Text = "Choose Mode To Play :";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // btOnePlayerInGame
+            // 
+            this.btOnePlayerInGame.BackColor = System.Drawing.Color.White;
+            this.btOnePlayerInGame.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btOnePlayerInGame.FlatAppearance.BorderSize = 2;
+            this.btOnePlayerInGame.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btOnePlayerInGame.Font = new System.Drawing.Font("Comic Sans MS", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btOnePlayerInGame.Location = new System.Drawing.Point(26, 339);
+            this.btOnePlayerInGame.Name = "btOnePlayerInGame";
+            this.btOnePlayerInGame.Size = new System.Drawing.Size(232, 88);
+            this.btOnePlayerInGame.TabIndex = 7;
+            this.btOnePlayerInGame.Text = "One Player";
+            this.btOnePlayerInGame.UseVisualStyleBackColor = false;
+            this.btOnePlayerInGame.Visible = false;
+            this.btOnePlayerInGame.Click += new System.EventHandler(this.btOnePlayerInGame_Click);
+            // 
+            // btTwoPlayersInGame
+            // 
+            this.btTwoPlayersInGame.BackColor = System.Drawing.Color.White;
+            this.btTwoPlayersInGame.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btTwoPlayersInGame.FlatAppearance.BorderSize = 2;
+            this.btTwoPlayersInGame.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btTwoPlayersInGame.Font = new System.Drawing.Font("Comic Sans MS", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btTwoPlayersInGame.Location = new System.Drawing.Point(26, 440);
+            this.btTwoPlayersInGame.Name = "btTwoPlayersInGame";
+            this.btTwoPlayersInGame.Size = new System.Drawing.Size(232, 88);
+            this.btTwoPlayersInGame.TabIndex = 8;
+            this.btTwoPlayersInGame.Text = "Two Players";
+            this.btTwoPlayersInGame.UseVisualStyleBackColor = false;
+            this.btTwoPlayersInGame.Visible = false;
+            this.btTwoPlayersInGame.Click += new System.EventHandler(this.btTwoPlayersInGame_Click);
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label1.Font = new System.Drawing.Font("Showcard Gothic", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.Yellow;
-            this.label1.Location = new System.Drawing.Point(12, 108);
+            this.label1.Font = new System.Drawing.Font("Comic Sans MS", 35F, System.Drawing.FontStyle.Bold);
+            this.label1.Location = new System.Drawing.Point(275, 94);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(189, 35);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Chess Game";
+            this.label1.Size = new System.Drawing.Size(722, 81);
+            this.label1.TabIndex = 9;
+            this.label1.Text = "Let\'s Play Chess!!!";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // pictureBox1
+            // btBack
             // 
-            this.pictureBox1.Image = global::CoVua.Properties.Resources.icons8_knight_100;
-            this.pictureBox1.Location = new System.Drawing.Point(48, 0);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(128, 105);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
+            this.btBack.BackColor = System.Drawing.Color.White;
+            this.btBack.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btBack.FlatAppearance.BorderSize = 2;
+            this.btBack.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btBack.Font = new System.Drawing.Font("Comic Sans MS", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btBack.Location = new System.Drawing.Point(26, 652);
+            this.btBack.Name = "btBack";
+            this.btBack.Size = new System.Drawing.Size(232, 88);
+            this.btBack.TabIndex = 10;
+            this.btBack.Text = "Return To Menu";
+            this.btBack.UseVisualStyleBackColor = false;
+            this.btBack.Visible = false;
+            this.btBack.Click += new System.EventHandler(this.btBack_Click);
             // 
-            // btLoad
+            // label4
             // 
-            this.btLoad.BackColor = System.Drawing.Color.White;
-            this.btLoad.FlatAppearance.BorderSize = 0;
-            this.btLoad.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btLoad.Font = new System.Drawing.Font("Comic Sans MS", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btLoad.Location = new System.Drawing.Point(-3, 499);
-            this.btLoad.Name = "btLoad";
-            this.btLoad.Size = new System.Drawing.Size(232, 94);
-            this.btLoad.TabIndex = 5;
-            this.btLoad.Text = "Load";
-            this.btLoad.UseVisualStyleBackColor = false;
+            this.label4.Font = new System.Drawing.Font("Comic Sans MS", 20F, System.Drawing.FontStyle.Bold);
+            this.label4.Location = new System.Drawing.Point(119, 175);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(213, 81);
+            this.label4.TabIndex = 11;
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label4.Visible = false;
+            // 
+            // label5
+            // 
+            this.label5.Font = new System.Drawing.Font("Comic Sans MS", 20F, System.Drawing.FontStyle.Bold);
+            this.label5.Location = new System.Drawing.Point(-8, 185);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(160, 61);
+            this.label5.TabIndex = 12;
+            this.label5.Text = "Mode:";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label5.Visible = false;
             // 
             // btUndo
             // 
             this.btUndo.BackColor = System.Drawing.Color.White;
-            this.btUndo.FlatAppearance.BorderSize = 0;
+            this.btUndo.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btUndo.FlatAppearance.BorderSize = 2;
             this.btUndo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btUndo.Font = new System.Drawing.Font("Comic Sans MS", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btUndo.Location = new System.Drawing.Point(-3, 314);
+            this.btUndo.Location = new System.Drawing.Point(26, 544);
             this.btUndo.Name = "btUndo";
-            this.btUndo.Size = new System.Drawing.Size(232, 93);
-            this.btUndo.TabIndex = 3;
+            this.btUndo.Size = new System.Drawing.Size(232, 88);
+            this.btUndo.TabIndex = 51;
             this.btUndo.Text = "Undo";
             this.btUndo.UseVisualStyleBackColor = false;
+            this.btUndo.Visible = false;
             this.btUndo.Click += new System.EventHandler(this.btUndo_Click);
-            // 
-            // btSave
-            // 
-            this.btSave.BackColor = System.Drawing.Color.White;
-            this.btSave.FlatAppearance.BorderSize = 0;
-            this.btSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btSave.Font = new System.Drawing.Font("Comic Sans MS", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btSave.Location = new System.Drawing.Point(-3, 406);
-            this.btSave.Name = "btSave";
-            this.btSave.Size = new System.Drawing.Size(232, 99);
-            this.btSave.TabIndex = 4;
-            this.btSave.Text = "Save";
-            this.btSave.UseVisualStyleBackColor = false;
             // 
             // CoVua
             // 
@@ -277,10 +314,23 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(210)))), ((int)(((byte)(192)))));
             this.ClientSize = new System.Drawing.Size(1177, 795);
             this.ContextMenuStrip = this.contextMenuStrip1;
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.btUndo);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.btBack);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.btTwoPlayersInGame);
+            this.Controls.Add(this.btOnePlayerInGame);
+            this.Controls.Add(this.btExit);
+            this.Controls.Add(this.btHelp);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.btTwoPlayers);
+            this.Controls.Add(this.btOnePlayer);
             this.Controls.Add(this.menuStrip1);
-            this.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.Controls.Add(this.label5);
+            this.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "CoVua";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -290,10 +340,6 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.contextMenuStrip1.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -307,19 +353,21 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem ChoiLaitoolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem quayLạiToolStripMenuItem;
-        private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button btExit;
         private System.Windows.Forms.Button btHelp;
-        private System.Windows.Forms.Button btLoad;
-        private System.Windows.Forms.Button btSave;
-        private System.Windows.Forms.Button btUndo;
         private System.Windows.Forms.Button btTwoPlayers;
         private System.Windows.Forms.Button btOnePlayer;
-        private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.ToolStripMenuItem undoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button btOnePlayerInGame;
+        private System.Windows.Forms.Button btTwoPlayersInGame;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btBack;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button btUndo;
     }
 }
 

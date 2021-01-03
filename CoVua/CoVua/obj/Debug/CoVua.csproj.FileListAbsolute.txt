@@ -62,3 +62,18 @@ D:\Đồ án\CoVua\CoVua\CoVua\obj\Debug\CoVua.csproj.GenerateResource.cache
 D:\Đồ án\CoVua\CoVua\CoVua\obj\Debug\CoVua.csproj.CoreCompileInputs.cache
 D:\Đồ án\CoVua\CoVua\CoVua\obj\Debug\CoVua.exe
 D:\Đồ án\CoVua\CoVua\CoVua\obj\Debug\CoVua.pdb
+C:\Users\Xuan Thai\Downloads\Github Repo\CoVua\CoVua\CoVua\CoVua\bin\Debug\CoVua.exe.config
+C:\Users\Xuan Thai\Downloads\Github Repo\CoVua\CoVua\CoVua\CoVua\bin\Debug\CoVua.exe
+C:\Users\Xuan Thai\Downloads\Github Repo\CoVua\CoVua\CoVua\CoVua\bin\Debug\CoVua.pdb
+C:\Users\Xuan Thai\Downloads\Github Repo\CoVua\CoVua\CoVua\CoVua\obj\Debug\CoVua.csprojAssemblyReference.cache
+C:\Users\Xuan Thai\Downloads\Github Repo\CoVua\CoVua\CoVua\CoVua\obj\Debug\Interop.MediaPlayer.dll
+C:\Users\Xuan Thai\Downloads\Github Repo\CoVua\CoVua\CoVua\CoVua\obj\Debug\Interop.WMPLib.dll
+C:\Users\Xuan Thai\Downloads\Github Repo\CoVua\CoVua\CoVua\CoVua\obj\Debug\CoVua.csproj.ResolveComReference.cache
+C:\Users\Xuan Thai\Downloads\Github Repo\CoVua\CoVua\CoVua\CoVua\obj\Debug\CoVua.CoVua.resources
+C:\Users\Xuan Thai\Downloads\Github Repo\CoVua\CoVua\CoVua\CoVua\obj\Debug\CoVua.EndGame.resources
+C:\Users\Xuan Thai\Downloads\Github Repo\CoVua\CoVua\CoVua\CoVua\obj\Debug\CoVua.PromotionPawn.resources
+C:\Users\Xuan Thai\Downloads\Github Repo\CoVua\CoVua\CoVua\CoVua\obj\Debug\CoVua.Properties.Resources.resources
+C:\Users\Xuan Thai\Downloads\Github Repo\CoVua\CoVua\CoVua\CoVua\obj\Debug\CoVua.csproj.GenerateResource.cache
+C:\Users\Xuan Thai\Downloads\Github Repo\CoVua\CoVua\CoVua\CoVua\obj\Debug\CoVua.csproj.CoreCompileInputs.cache
+C:\Users\Xuan Thai\Downloads\Github Repo\CoVua\CoVua\CoVua\CoVua\obj\Debug\CoVua.exe
+C:\Users\Xuan Thai\Downloads\Github Repo\CoVua\CoVua\CoVua\CoVua\obj\Debug\CoVua.pdb

@@ -34,6 +34,7 @@ namespace CoVua
             chessBoard.HinhThucChoi = 1;
         }
 
+        
         private void ChoiLaitoolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Controls.Remove(chessBoard);
@@ -58,19 +59,24 @@ namespace CoVua
 
         private void btOnePlayer_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Mode One player is on!!", "Announcement!!!");
+            //MessageBox.Show("Mode One player is on!!", "Announcement!!!");
             this.Controls.Remove(chessBoard);
             Controls.Add(chessBoard);
             chessBoard.HinhThucChoi = 2;
+            OnOff();
+            
+
+
         }
 
         private void btTwoPlayers_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Mode Two players is on!!", "Announcement!!!");
+            //MessageBox.Show("Mode Two players is on!!", "Announcement!!!");
             this.Controls.Remove(chessBoard);
             chessBoard = new ChessBoard();
             Controls.Add(chessBoard);
             chessBoard.HinhThucChoi = 1;
+            OnOff();
         }
 
         private void btUndo_Click(object sender, EventArgs e)
@@ -114,6 +120,69 @@ namespace CoVua
             chessBoard.undo();
             if (chessBoard.HinhThucChoi == 2 && !chessBoard.MyTurn)
                 chessBoard.undo();
+        }
+
+
+        private void OnOff()
+        {
+            int i= chessBoard.HinhThucChoi;
+            label1.Visible = false;
+            label2.Visible = false;
+            label3.Visible = false;
+            label4.Visible = true;
+            label5.Visible = true;
+            btOnePlayer.Visible = false;
+            btTwoPlayers.Visible = false;
+            btHelp.Visible = false;
+            btExit.Visible = false;
+            btOnePlayerInGame.Visible = true;
+            btTwoPlayersInGame.Visible = true;
+            btBack.Visible = true;
+            btUndo.Visible = true;
+            ShowMode(i);
+
+        }
+        private void ShowMode(int i)
+        {
+            if(i==1)
+            {
+                label4.Text = "PvP";
+            }
+            else
+            {
+                label4.Text = "Alone";
+            }
+            
+        }
+
+        private void btOnePlayerInGame_Click(object sender, EventArgs e)
+        {
+            chessBoard.HinhThucChoi = 2;
+            ShowMode(chessBoard.HinhThucChoi);
+        }
+
+        private void btTwoPlayersInGame_Click(object sender, EventArgs e)
+        {
+            chessBoard.HinhThucChoi = 1;
+            ShowMode(chessBoard.HinhThucChoi);
+        }
+
+        private void btBack_Click(object sender, EventArgs e)
+        {
+            label1.Visible = true;
+            label2.Visible = true;
+            label3.Visible = true;
+            label4.Visible = false;
+            label5.Visible =false;
+            btOnePlayer.Visible = true;
+            btTwoPlayers.Visible = true;
+            btHelp.Visible = true;
+            btExit.Visible = true;
+            btOnePlayerInGame.Visible = false;
+            btTwoPlayersInGame.Visible = false;
+            btBack.Visible = false;
+            btUndo.Visible = false;
+            this.Controls.Remove(chessBoard);
         }
     }
 }
