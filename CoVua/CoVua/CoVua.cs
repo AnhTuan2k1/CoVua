@@ -184,5 +184,16 @@ namespace CoVua
             btUndo.Visible = false;
             this.Controls.Remove(chessBoard);
         }
+         private void btSave_Click(object sender, EventArgs e)
+        {
+            chessBoard.SaveChess();
+            MessageBox.Show("Đã lưu thành công!!!");  
+        }
+
+        private void btLoad_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Chơi tiếp ván cờ gần đây.");
+            chessBoard.LoadChess();
+          }
     }
 }
