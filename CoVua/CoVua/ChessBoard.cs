@@ -1070,7 +1070,10 @@ namespace CoVua
             {
                 for (int i = 0; i < P.Length; i++)
                 {
-                    cells[i, j].Text = Convert.ToInt32(P[i][j]) - 48;
+                    for (int j = 0; j < P.Length; j++)
+                    {
+                        cells[i, j].Text = Convert.ToString((P[i][j]) - 48);
+                    }
                 }
             }
         }

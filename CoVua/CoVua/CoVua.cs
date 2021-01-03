@@ -135,8 +135,10 @@ namespace CoVua
             btTwoPlayers.Visible = false;
             btHelp.Visible = false;
             btExit.Visible = false;
+            btLoad.Visible = false;
             btOnePlayerInGame.Visible = true;
             btTwoPlayersInGame.Visible = true;
+            btSave.Visible = true;
             btBack.Visible = true;
             btUndo.Visible = true;
             ShowMode(i);
@@ -178,6 +180,8 @@ namespace CoVua
             btTwoPlayers.Visible = true;
             btHelp.Visible = true;
             btExit.Visible = true;
+            btLoad.Visible = true;
+            btSave.Visible = false;
             btOnePlayerInGame.Visible = false;
             btTwoPlayersInGame.Visible = false;
             btBack.Visible = false;
@@ -195,5 +199,22 @@ namespace CoVua
             MessageBox.Show("Chơi tiếp ván cờ gần đây.");
             chessBoard.LoadChess();
           }
+
+        private void btLoad_Click_1(object sender, EventArgs e)
+        {
+            MessageBox.Show("Chơi tiếp ván cờ gần đây.");
+            chessBoard.LoadChess();
+        }
+
+        private void btSave_Click_1(object sender, EventArgs e)
+        {
+            chessBoard.SaveChess();
+            MessageBox.Show("Đã lưu thành công!!!");
+        }
+
+        private void btHelp_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://gamevh.net/cms/static/guide_chess.jsp");
+        }
     }
 }

@@ -77,3 +77,20 @@ C:\Users\Xuan Thai\Downloads\Github Repo\CoVua\CoVua\CoVua\CoVua\obj\Debug\CoVua
 C:\Users\Xuan Thai\Downloads\Github Repo\CoVua\CoVua\CoVua\CoVua\obj\Debug\CoVua.csproj.CoreCompileInputs.cache
 C:\Users\Xuan Thai\Downloads\Github Repo\CoVua\CoVua\CoVua\CoVua\obj\Debug\CoVua.exe
 C:\Users\Xuan Thai\Downloads\Github Repo\CoVua\CoVua\CoVua\CoVua\obj\Debug\CoVua.pdb
+D:\ĐỒ ÁN HY VỌNG\CoVua\CoVua\CoVua\obj\Debug\CoVua.csprojAssemblyReference.cache
+D:\ĐỒ ÁN HY VỌNG\CoVua\CoVua\CoVua\obj\Debug\Interop.MediaPlayer.dll
+D:\ĐỒ ÁN HY VỌNG\CoVua\CoVua\CoVua\obj\Debug\Interop.WMPLib.dll
+D:\ĐỒ ÁN HY VỌNG\CoVua\CoVua\CoVua\obj\Debug\CoVua.csproj.ResolveComReference.cache
+D:\ĐỒ ÁN HY VỌNG\CoVua\CoVua\CoVua\obj\Debug\CoVua.CoVua.resources
+D:\ĐỒ ÁN HY VỌNG\CoVua\CoVua\CoVua\obj\Debug\CoVua.EndGame.resources
+D:\ĐỒ ÁN HY VỌNG\CoVua\CoVua\CoVua\obj\Debug\CoVua.PromotionPawn.resources
+D:\ĐỒ ÁN HY VỌNG\CoVua\CoVua\CoVua\obj\Debug\CoVua.Properties.Resources.resources
+D:\ĐỒ ÁN HY VỌNG\CoVua\CoVua\CoVua\obj\Debug\CoVua.csproj.GenerateResource.cache
+D:\ĐỒ ÁN HY VỌNG\CoVua\CoVua\CoVua\obj\Debug\CoVua.csproj.CoreCompileInputs.cache
+D:\ĐỒ ÁN HY VỌNG\CoVua\CoVua\CoVua\obj\Debug\CoVua.exe
+D:\ĐỒ ÁN HY VỌNG\CoVua\CoVua\CoVua\obj\Debug\CoVua.pdb
+D:\ĐỒ ÁN HY VỌNG\CoVua\CoVua\CoVua\bin\Debug\CoVua.exe.config
+D:\ĐỒ ÁN HY VỌNG\CoVua\CoVua\CoVua\bin\Debug\CoVua.exe
+D:\ĐỒ ÁN HY VỌNG\CoVua\CoVua\CoVua\bin\Debug\CoVua.pdb
+D:\ĐỒ ÁN HY VỌNG\CoVua\CoVua\CoVua\bin\Debug\Guna.UI.dll
+D:\ĐỒ ÁN HY VỌNG\CoVua\CoVua\CoVua\obj\Debug\CoVua.csproj.CopyComplete
