@@ -300,5 +300,13 @@ namespace CoVua
         {
 
         }
+
+        private void gnbtExit_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Bạn có muốn thoát không?", "Notification!", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                Application.Exit();
+            }
+        }
     }
 }

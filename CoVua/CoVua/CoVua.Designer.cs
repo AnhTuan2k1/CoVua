@@ -69,7 +69,7 @@
             this.fileToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1177, 30);
+            this.menuStrip1.Size = new System.Drawing.Size(1177, 28);
             this.menuStrip1.TabIndex = 3;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -193,7 +193,7 @@
             // 
             // gunaElipse1
             // 
-            this.gunaElipse1.Radius = 20;
+            this.gunaElipse1.Radius = 10;
             this.gunaElipse1.TargetControl = this;
             // 
             // gunaControlBox1
@@ -506,6 +506,7 @@
             this.gnbtExit.TabIndex = 65;
             this.gnbtExit.Text = "Exit";
             this.gnbtExit.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.gnbtExit.Click += new System.EventHandler(this.gnbtExit_Click);
             // 
             // CoVua
             // 
