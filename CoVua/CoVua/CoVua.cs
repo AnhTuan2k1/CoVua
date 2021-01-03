@@ -7,23 +7,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using WMPLib;
 namespace CoVua
 {
     public partial class CoVua : Form
     {
         private ChessBoard chessBoard;
-        WMPLib.WindowsMediaPlayer player = new WMPLib.WindowsMediaPlayer();
         public CoVua()
         {
-            InitializeComponent();  
+            InitializeComponent();
+            chessBoard = new ChessBoard();
         }
 
         private void DanhVoiMay_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Mode One player is on!!", "Announcement!!!");
             this.Controls.Remove(chessBoard);
-            chessBoard = new ChessBoard();
             Controls.Add(chessBoard);
             chessBoard.HinhThucChoi = 2;
         }
@@ -32,7 +30,6 @@ namespace CoVua
         {
             MessageBox.Show("Mode Two players is on!!", "Announcement!!!");
             this.Controls.Remove(chessBoard);
-            chessBoard = new ChessBoard();
             Controls.Add(chessBoard);
             chessBoard.HinhThucChoi = 1;
         }
@@ -47,7 +44,6 @@ namespace CoVua
         private void quayLạiToolStripMenuItem_Click(object sender, EventArgs e)
         {
             chessBoard.undo();
-
             if (chessBoard.HinhThucChoi == 2 && !chessBoard.MyTurn)
                 chessBoard.undo();
         }
@@ -55,40 +51,35 @@ namespace CoVua
         private void CoVua_Load(object sender, EventArgs e)
         {
             //MessageBox.Show("Mode One player is on!!", "Announcement!!!");
-            this.Controls.Remove(chessBoard);
-            chessBoard = new ChessBoard();
-            Controls.Add(chessBoard);
+            //this.Controls.Remove(chessBoard);
+            //chessBoard = new ChessBoard();
+            //Controls.Add(chessBoard);
         }
 
         private void btOnePlayer_Click(object sender, EventArgs e)
         {
-
+            MessageBox.Show("Mode One player is on!!", "Announcement!!!");
+            this.Controls.Remove(chessBoard);
+            Controls.Add(chessBoard);
             chessBoard.HinhThucChoi = 2;
         }
 
         private void btTwoPlayers_Click(object sender, EventArgs e)
         {
-            //MessageBox.Show("Mode Two players is on!!", "Announcement!!!");
-            //this.Controls.Remove(chessBoard);
-            //chessBoard = new ChessBoard();
-            //Controls.Add(chessBoard);
+            MessageBox.Show("Mode Two players is on!!", "Announcement!!!");
+            this.Controls.Remove(chessBoard);
+            chessBoard = new ChessBoard();
+            Controls.Add(chessBoard);
             chessBoard.HinhThucChoi = 1;
         }
 
         private void btUndo_Click(object sender, EventArgs e)
         {
-            try
-            {
                 chessBoard.undo();
                 if (chessBoard.HinhThucChoi == 2 && !chessBoard.MyTurn)
                     chessBoard.undo();
-            }
-            catch (Exception)
-            {
-             
-            }           
+                    
         }
-
         private void btExit_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("Bạn có muốn thoát không?", "Notification!", MessageBoxButtons.YesNo) == DialogResult.Yes)
@@ -99,13 +90,10 @@ namespace CoVua
 
         private void button1_Click(object sender, EventArgs e)
         {
-            player.URL = @"D:\Luyện tập\Sound\Đen x JustaTee - Đi Về Nhà (M-V).mp3";
-            player.controls.play();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            player.controls.stop();
         }
 
         private void CoVua_Resize(object sender, EventArgs e)
@@ -124,7 +112,6 @@ namespace CoVua
         private void undoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             chessBoard.undo();
-
             if (chessBoard.HinhThucChoi == 2 && !chessBoard.MyTurn)
                 chessBoard.undo();
         }

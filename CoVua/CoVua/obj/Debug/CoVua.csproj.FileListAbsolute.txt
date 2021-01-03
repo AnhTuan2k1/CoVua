@@ -47,3 +47,18 @@ D:\DoAnCoVua\CoVua\CoVua\CoVua\obj\Debug\CoVua.csproj.ResolveComReference.cache
 D:\subjects\Lập Trình Trực Quan\doan\CoVua\CoVua\CoVua\CoVua\obj\Debug\Interop.MediaPlayer.dll
 D:\subjects\Lập Trình Trực Quan\doan\CoVua\CoVua\CoVua\CoVua\obj\Debug\Interop.WMPLib.dll
 D:\subjects\Lập Trình Trực Quan\doan\CoVua\CoVua\CoVua\CoVua\obj\Debug\CoVua.csproj.ResolveComReference.cache
+D:\Đồ án\CoVua\CoVua\CoVua\bin\Debug\CoVua.exe.config
+D:\Đồ án\CoVua\CoVua\CoVua\bin\Debug\CoVua.exe
+D:\Đồ án\CoVua\CoVua\CoVua\bin\Debug\CoVua.pdb
+D:\Đồ án\CoVua\CoVua\CoVua\obj\Debug\CoVua.csprojAssemblyReference.cache
+D:\Đồ án\CoVua\CoVua\CoVua\obj\Debug\Interop.MediaPlayer.dll
+D:\Đồ án\CoVua\CoVua\CoVua\obj\Debug\Interop.WMPLib.dll
+D:\Đồ án\CoVua\CoVua\CoVua\obj\Debug\CoVua.csproj.ResolveComReference.cache
+D:\Đồ án\CoVua\CoVua\CoVua\obj\Debug\CoVua.CoVua.resources
+D:\Đồ án\CoVua\CoVua\CoVua\obj\Debug\CoVua.EndGame.resources
+D:\Đồ án\CoVua\CoVua\CoVua\obj\Debug\CoVua.PromotionPawn.resources
+D:\Đồ án\CoVua\CoVua\CoVua\obj\Debug\CoVua.Properties.Resources.resources
+D:\Đồ án\CoVua\CoVua\CoVua\obj\Debug\CoVua.csproj.GenerateResource.cache
+D:\Đồ án\CoVua\CoVua\CoVua\obj\Debug\CoVua.csproj.CoreCompileInputs.cache
+D:\Đồ án\CoVua\CoVua\CoVua\obj\Debug\CoVua.exe
+D:\Đồ án\CoVua\CoVua\CoVua\obj\Debug\CoVua.pdb
