@@ -42,8 +42,7 @@ namespace CoVua
         static public WorthMovement MovementInfo(ChessBoard chessBoard)
         {
             chessBoard.checkMate = chessBoard.CheckMate(chessBoard);
-            List<WorthMovement> list = new List<WorthMovement>();
-            WorthMovement movement;
+            List<WorthMovement> list = new List<WorthMovement>();           
             foreach (Button item in chessBoard.cells)
             {
                 WorthMovement move = new WorthMovement();
@@ -62,17 +61,18 @@ namespace CoVua
                         {                            
                             double value = ValuablePosition(item2, chessBoard, item, item.ForeColor)
                                            + WorthChessman2(item2.Text, item) + hazii(item, item2, chessBoard);
-                            if (move.value < value)
-                            {
+                            //if (move.value < value)
+                            //{
                                 move.value = value;
                                 move.Destination = item2.Location;
-                            }
+                            //}
+                            if (move.value != -99999)
+                                list.Add(move);
                         }
-
                     }
                     ChessBoard.ResetBoderColor(chessBoard);
-                    if (move.value != -99999)
-                        list.Add(move);
+                    //if (move.value != -99999)
+                    //    list.Add(move);
                 }
             }
 
@@ -80,15 +80,25 @@ namespace CoVua
             //{
             //    MessageBox.Show("you win");
             //}
-
-            movement = list[0];
+            WorthMovement movement, movement2, movement3;
+            movement = movement2 = movement3 = list[0];           
             for (int i = 1; i < list.Count; i++)
             {
                 if (list[i].value > movement.value)
-                    movement = list[i];
+                {
+                    movement3 = movement2;
+                    movement2 = movement;
+                    movement = list[i];                   
+                }                        
             }
 
-            return movement;
+            Random rd = new Random();
+            int x = rd.Next(1, 4);
+            if (x == 1)
+                return movement2;
+            else if (x == 2)
+                return movement3;
+            else return movement;
         }
 
         //static public bool Moveok(ChessBoard chessBoard, Button Source, Button Destination)
@@ -213,7 +223,7 @@ namespace CoVua
             {
                 if (item.FlatAppearance.BorderColor == Color.Blue)
                 {
-                    value += 0.4 + WorthChessman(item.Text) / 150.0;
+                    value += 0.3 + WorthChessman(item.Text) / 150.0;
                 }
             }
             ChessBoard.ResetBoderColor(chessBoard);
@@ -379,7 +389,6 @@ namespace CoVua
                             value -= 900;
                             break;
                         case "pawn":
-                            value -= 0.5;
                             break;
                         case "knight":
                             value -= 22;
@@ -518,7 +527,7 @@ namespace CoVua
             {-2, -3, -3, -4, -4, -3, -3, -2 },
             {-1, -2, -2, -4, -4, -3, -2, -1 },
             { 2,  2,  0,  0,  0,  0,  0,  0 },
-            { 2,  3,  1,  0,  0,  1,  3,  2 }
+            { 0,  3,  0,  0,  0,  0,  3,  0 }
         };
 
         static double[,] queenPosition =
@@ -552,8 +561,8 @@ namespace CoVua
             {-1,   0, 0.5,  1,  1, 0.5,   0, -1 },
             {-1, 0.5, 0.5,  1,  1, 0.5, 0.5, -1 },
             {-1,   0,   1,  1,  1,   1,   0, -1 },
-            {-1,   1,   1,  1,  1,   1,   1, -1 },
-            {-1, 0.5,   0,  0,  0,   0, 0.5, -1 },
+            {-1,   1,   1,  0.5,  1,   1,   1, -1 },
+            {-1, 0.5,   0, 1.5,  0,   0, 0.5, -1 },
             {-2,  -1,  -1, -1, -1,  -1,  -1, -2 }
         };
 
@@ -564,19 +573,19 @@ namespace CoVua
             {-3,   0,   1, 1.5, 1.5,   1,   0, -3 },
             {-3, 0.5, 1.5,   2,   0.5, 1.5, 0.5, -3 },
             {-3,   0, 1.5,   0.5,   2, 1.5,   0, -3 },
-            {-3, 0.5,   1, 1.5, 1.5,   2, 0.5, -3 },
+            {-3, 0.5,   2, 1.5, 1.5,   1, 0.5, -3 },
             {-4,  -2,   0, 0.5, 0.5,   0,  -2, -4 },
             {-5,  -4,  -3,  -3,  -3,  -3,  -4, -5 },
         };
 
         static double[,] pawnPosition =
         {
-            {  0,    0,   0,   0,   0,   0,    0,   0 },
+            {  5,    5,   5,   5,   5,   5,    5,   5 },
             {  5,    5,   5,   5,   5,   5,    5,   5 },
             {  1,    1,   2,   3,   3,   2,    1,   1 },
             {0.5,  0.5, 1.5, 2.5, 2.5,   1,  0.5, 0.5 },
             {  0,    0,   0,   2.5,   2,   0,    0,   0 },
-            {0.5, -0.5,  -1,   0,   1,  -1, -0.5, 0.5 },
+            {  1, -0.5, 0.5,    0,   1,  -1, -0.5, 0.5 },
             {0.5,    1,   1,  -2,  -2,   1,    1, 0.5 },
             {  0,    0,   0,   0,   0,   0,    0,    0},
         };
