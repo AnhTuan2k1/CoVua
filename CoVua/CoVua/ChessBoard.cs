@@ -1030,6 +1030,50 @@ namespace CoVua
             new EndGame(this).ShowDialog();
             return true;
         }
+        public void SaveChess()
+        {
+
+            using (System.IO.StreamWriter w = new System.IO.StreamWriter(Application.StartupPath + "\\Save\\unfinishedmatch.txt"))
+            {
+                for (int i = 0; i < cells.GetLength(0); i++)
+                {
+                    for (int j = 0; j < cells.GetLength(1); j++)
+                    {
+                        switch (cells[i, j].Text)
+                        {
+                            case "pawn":
+                                w.Write("1"); break;
+                            case "rook":
+                                w.Write("2"); break;
+                            case "knight":
+                                w.Write("3"); break;
+                            case "bishop":
+                                w.Write("4"); break;
+                            case "king":
+                                w.Write("5"); break;
+                            case "queen":
+                                w.Write("6"); break;
+
+                            default:
+                                w.Write("0"); break;
+                        }
+                        w.WriteLine();
+                    }
+
+                }
+            }
+
+        }
+         public void LoadChess()
+        {
+            string[] P = System.IO.File.ReadAllLines(Application.StartupPath + "\\Save\\unfinishedmatch.txt");
+            {
+                for (int i = 0; i < P.Length; i++)
+                {
+                    cells[i, j].Text = Convert.ToInt32(P[i][j]) - 48;
+                }
+            }
+        }
 
         //static private void Promotion(Button Pawn, ChessBoard chessBoard)
         //{
