@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -42,7 +43,7 @@ namespace CoVua
         static public WorthMovement MovementInfo(ChessBoard chessBoard)
         {
             chessBoard.checkMate = chessBoard.CheckMate(chessBoard);
-            List<WorthMovement> list = new List<WorthMovement>();           
+            List<WorthMovement> list = new List<WorthMovement>();
             foreach (Button item in chessBoard.cells)
             {
                 WorthMovement move = new WorthMovement();
@@ -58,21 +59,19 @@ namespace CoVua
                     foreach (Button item2 in chessBoard.cells)       //tìm nước đi ngon của quân cờ.
                     {
                         if (item2.FlatAppearance.BorderColor == Color.Blue)
-                        {                            
+                        {
                             double value = ValuablePosition(item2, chessBoard, item, item.ForeColor)
                                            + WorthChessman2(item2.Text, item) + hazii(item, item2, chessBoard);
-                            //if (move.value < value)
-                            //{
+                            if (move.value < value)
+                            {
                                 move.value = value;
                                 move.Destination = item2.Location;
-                            //}
-                            if (move.value != -99999)
-                                list.Add(move);
+                            }
                         }
                     }
                     ChessBoard.ResetBoderColor(chessBoard);
-                    //if (move.value != -99999)
-                    //    list.Add(move);
+                    if (move.value != -99999)
+                        list.Add(move);
                 }
             }
 
@@ -80,25 +79,28 @@ namespace CoVua
             //{
             //    MessageBox.Show("you win");
             //}
-            WorthMovement movement, movement2, movement3;
-            movement = movement2 = movement3 = list[0];           
+            WorthMovement movement, movement2;
+            movement = movement2 = list[0];
             for (int i = 1; i < list.Count; i++)
             {
                 if (list[i].value > movement.value)
                 {
-                    movement3 = movement2;
                     movement2 = movement;
-                    movement = list[i];                   
-                }                        
+                    movement = list[i];
+                }
             }
+            if (movement.value - movement2.value < 5)
+            {
+                Random rd = new Random();
+                int x = rd.Next(1, 3);
+                if (x == 1)
+                    return movement2;
+                else
+                    return movement;
+            }
+            else
+                return movement;
 
-            Random rd = new Random();
-            int x = rd.Next(1, 4);
-            if (x == 1)
-                return movement2;
-            else if (x == 2)
-                return movement3;
-            else return movement;
         }
 
         //static public bool Moveok(ChessBoard chessBoard, Button Source, Button Destination)
@@ -272,7 +274,7 @@ namespace CoVua
         /// <returns></returns>
         static private int WorthChessman2(string chessman, Button source)
         {
-            if(source.Text == "king")
+            if (source.Text == "king")
                 switch (chessman)
                 {
                     case "king":
@@ -349,33 +351,33 @@ namespace CoVua
             else
             if (Board.cells[Source.Location.X / chessBoard.cells[0, 0].Width, Source.Location.Y / chessBoard.cells[0, 0].Height].FlatAppearance.BorderColor == Color.Blue)
             {
-                if (Board2.cells[Destination.Location.X / chessBoard.cells[0, 0].Width, Destination.Location.Y / chessBoard.cells[0, 0].Height].FlatAppearance.BorderColor == Color.Blue)
-                {
-                    switch (Board.cells[Destination.Location.X / chessBoard.cells[0, 0].Width, Destination.Location.Y / chessBoard.cells[0, 0].Height].Text)
-                    {
-                        case "king":
-                            value = 900;
-                            break;
-                        case "pawn":
-                            value = 0.5;
-                            break;
-                        case "knight":
-                            value = 22;
-                            break;
-                        case "bishop":
-                            value = 22;
-                            break;
-                        case "rook":
-                            value = 35;
-                            break;
-                        case "queen":
-                            value = 70;
-                            break;
-                    }
-                }
-                else
-                    value += WorthChessman(Source.Text) * 4.0 / 5;
-            }    
+                //if (Board2.cells[Destination.Location.X / chessBoard.cells[0, 0].Width, Destination.Location.Y / chessBoard.cells[0, 0].Height].FlatAppearance.BorderColor == Color.Blue)
+                //{
+                //    switch (Board.cells[Destination.Location.X / chessBoard.cells[0, 0].Width, Destination.Location.Y / chessBoard.cells[0, 0].Height].Text)
+                //    {
+                //        case "king":
+                //            value = 900;
+                //            break;
+                //        case "pawn":
+                //            value = 0.5;
+                //            break;
+                //        case "knight":
+                //            value = 22;
+                //            break;
+                //        case "bishop":
+                //            value = 22;
+                //            break;
+                //        case "rook":
+                //            value = 35;
+                //            break;
+                //        case "queen":
+                //            value = 70;
+                //            break;
+                //    }
+                //}
+                //else
+                value += WorthChessman(Source.Text) * 4.0 / 5;
+            }
 
 
             //_________________________________________
@@ -408,9 +410,7 @@ namespace CoVua
                     value -= WorthChessman(Source.Text);
             }
 
-
-
-            value += area(Board, Color.Black) - area(Board2, Color.Black);
+            value += area(Board, Color.Black) - area(Board2, Color.Red);
 
             return value;
         }
@@ -426,7 +426,7 @@ namespace CoVua
         //    //if (Source.Text == "king"
         //    //    && Board.cells[Source.Location.X / chessBoard.cells[0, 0].Width, Source.Location.Y / chessBoard.cells[0, 0].Height].FlatAppearance.BorderColor == Color.Blue)
         //    //    return -99999;   /////
-        //    //else 
+        //    //else
         //    if (Board.cells[Source.Location.X / chessBoard.cells[0, 0].Width, Source.Location.Y / chessBoard.cells[0, 0].Height].FlatAppearance.BorderColor == Color.Blue)
         //        value += WorthChessman(Source.Text) * 4 / 5;
 
@@ -477,7 +477,7 @@ namespace CoVua
             ChessBoard.Chesspiece_Move_forForwarding(SourceClone, DestinationClone, Board);
             ChessBoard.ResetBoderColor(Board);
             Color x;
-            if (Source.ForeColor == Color.Black)     // Máy nhìn trước 
+            if (Source.ForeColor == Color.Black)     // Máy nhìn trước
                 x = Color.Red;
             else x = Color.Black;
 
@@ -492,7 +492,7 @@ namespace CoVua
         {
 
             ChessBoard.Chesspiece_Move_forForwarding(SourceClone, DestinationClone, chessBoardClone);
-            ChessBoard.ResetBoderColor(chessBoardClone);          
+            ChessBoard.ResetBoderColor(chessBoardClone);
 
             foreach (Button item in chessBoardClone.cells)
             {
@@ -560,7 +560,7 @@ namespace CoVua
             {-1,   0,   0,  0,  0,   0,   0, -1 },
             {-1,   0, 0.5,  1,  1, 0.5,   0, -1 },
             {-1, 0.5, 0.5,  1,  1, 0.5, 0.5, -1 },
-            {-1,   0,   1,  1,  1,   1,   0, -1 },
+            {-1,   0,   1,  1,  1.5,   1,   0, -1 },
             {-1,   1,   1,  0.5,  1,   1,   1, -1 },
             {-1, 0.5,   0, 1.5,  0,   0, 0.5, -1 },
             {-2,  -1,  -1, -1, -1,  -1,  -1, -2 }
@@ -580,7 +580,7 @@ namespace CoVua
 
         static double[,] pawnPosition =
         {
-            {  5,    5,   5,   5,   5,   5,    5,   5 },
+            {  6,    6,   6,   6,   6,   6,    6,   6 },
             {  5,    5,   5,   5,   5,   5,    5,   5 },
             {  1,    1,   2,   3,   3,   2,    1,   1 },
             {0.5,  0.5, 1.5, 2.5, 2.5,   1,  0.5, 0.5 },

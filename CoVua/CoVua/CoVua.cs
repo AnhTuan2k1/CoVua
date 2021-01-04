@@ -135,7 +135,7 @@ namespace CoVua
             gnbtTwoPlayers.Visible = false;
             gnbtHelp.Visible = false;
             gnbtExit.Visible = false;
-            gnbtLoad.Visible = false;
+            gnbtLoad.Visible = true;
             gnbtOnePLayerInGame.Visible = true;
             gnbtTwoPLayersInGame.Visible = true;
             gnbtSave.Visible = true;
@@ -198,13 +198,13 @@ namespace CoVua
         private void btLoad_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Chơi tiếp ván cờ gần đây.");
-            chessBoard.LoadChess();
+            chessBoard.load();
           }
 
         private void btLoad_Click_1(object sender, EventArgs e)
         {
-            MessageBox.Show("Chơi tiếp ván cờ gần đây.");
-            chessBoard.LoadChess();
+            
+            chessBoard.load();
         }
 
         private void btSave_Click_1(object sender, EventArgs e)
@@ -254,7 +254,7 @@ namespace CoVua
             gnbtTwoPlayers.Visible = true;
             gnbtHelp.Visible = true;
             gnbtExit.Visible = true;
-            gnbtLoad.Visible = true;
+            gnbtLoad.Visible = false;
             gnbtSave.Visible = false;
             gnbtOnePLayerInGame.Visible = false;
             gnbtTwoPLayersInGame.Visible = false;
@@ -287,8 +287,8 @@ namespace CoVua
 
         private void gnbtLoad_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Chơi tiếp ván cờ gần đây.");
-            chessBoard.LoadChess();
+            
+            chessBoard.load();
         }
 
         private void gunaGradientButton1_Click(object sender, EventArgs e)

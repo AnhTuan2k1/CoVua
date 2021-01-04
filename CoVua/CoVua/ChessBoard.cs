@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing;
 using System.Globalization;
+using System.IO;
 
 namespace CoVua
 {
@@ -29,7 +30,7 @@ namespace CoVua
         /// <summary>
         /// vị trí tốt cần phong cấp (X)
         /// </summary>
-        public int promotionPawn;  
+        public int promotionPawn;
 
         private Button cellIsActivating;
         private bool ReadytoAttack;
@@ -161,13 +162,13 @@ namespace CoVua
                 if (ReadytoAttack && (sender).FlatAppearance.BorderColor == Color.Blue)     //di chuyển quân cờ đi vị trí khác
                 {
 
-                    ReadytoAttack = false;             
-                    Chesspiece_Move(cellIsActivating, sender, this);                  
+                    ReadytoAttack = false;
+                    Chesspiece_Move(cellIsActivating, sender, this);
                     ResetBoderColor(this);
                     checkMate = CheckMate(this);
                     if (checkMate) showCheckMate(assassin, king);
                     MyTurn = !MyTurn;
-                    if (endGame()) { return; }                   
+                    if (endGame()) { return; }
 
                     cellIsActivating = null;
 
@@ -202,9 +203,9 @@ namespace CoVua
                         MyTurn = !MyTurn;
                         if (endGame()) { return; }
 
-                        
 
-                        ReadytoAttack = false;                       
+
+                        ReadytoAttack = false;
                         (sender).FlatAppearance.BorderColor = Color.Blue;
                         cellIsActivating = null;
                     }
@@ -235,9 +236,9 @@ namespace CoVua
                         if (checkMate) showCheckMate(assassin, king);
                         MyTurn = !MyTurn;
                         if (endGame()) { return; }
-                        
 
-                        ReadytoAttack = false;                       
+
+                        ReadytoAttack = false;
                         (sender).FlatAppearance.BorderColor = Color.Blue;
                         cellIsActivating = null;
                     }
@@ -325,7 +326,7 @@ namespace CoVua
                     checkMate = CheckMate(this);
                     if (checkMate) showCheckMate(assassin, king);
                     if (endGame()) { return; }
-                                      
+
                 }
                 else
                 {
@@ -355,11 +356,11 @@ namespace CoVua
                     checkMate = CheckMate(this);
                     if (checkMate) showCheckMate(assassin, king);
                     if (endGame()) { return; }
-                   
+
                     ((Button)sender).FlatAppearance.BorderColor = Color.Blue;
                     cellIsActivating = null;
                     // ResetBoderColor(this);
-                    
+
 
                 }
                 else ResetBoderColor(this);
@@ -378,7 +379,7 @@ namespace CoVua
         }
 
         static public void Chesspiece_Move(Button Source, Button Destination, ChessBoard chessBoard)
-        {           
+        {
             //xử lý nhập thành____________________________________________________________________
             if (chessBoard.MyTurn && chessBoard.vua_trang)
             {
@@ -408,7 +409,7 @@ namespace CoVua
             Destination.ForeColor = Source.ForeColor;
             Source.Text = "";
             Source.ForeColor = Color.AliceBlue;
-           
+
             Destination.FlatAppearance.BorderColor = Color.Blue;
             Source.FlatAppearance.BorderColor = Color.Blue;
 
@@ -416,14 +417,14 @@ namespace CoVua
             //xử lý phong cấp tốt_________________________________________________________________________
             if (Destination.Text == "pawn")
             {
-                if(chessBoard.HinhThucChoi == 2 && !chessBoard.MyTurn) // đánh với máy
+                if (chessBoard.HinhThucChoi == 2 && !chessBoard.MyTurn) // đánh với máy
                 {
                     int indexY = Destination.Location.Y / Destination.Size.Height;
                     if (/*indexY == 0 ||*/ indexY == 7)
                     {
                         Destination.Text = "queen";
-                    }                   
-                } 
+                    }
+                }
                 else
                 {
                     int indexY = Destination.Location.Y / Destination.Size.Height;
@@ -434,7 +435,7 @@ namespace CoVua
                         new PromotionPawn(chessBoard).ShowDialog();
                         chessBoard.promotionPawn = -1;
                     }
-                }         
+                }
             }
             //__________________________________________________________________________________________
 
@@ -617,7 +618,7 @@ namespace CoVua
 
         private MovementInfo saveMovementInfor(Button src, Button dst)
         {
-            MovementInfo x = new MovementInfo();            
+            MovementInfo x = new MovementInfo();
             x.Dst = dst.Location;
             x.dstText = dst.Text;
             x.srcText = src.Text;
@@ -727,7 +728,7 @@ namespace CoVua
                     return true;
                 }
 
-                
+
             }
             else
             {
@@ -767,7 +768,7 @@ namespace CoVua
         }
         private void updateCastling(Button chesspiece, bool x = false)
         {
-            if(!x)
+            if (!x)
             {
                 if (chesspiece.Location.Y / chesspiece.Height == 0)
                 {
@@ -811,7 +812,7 @@ namespace CoVua
                     switch (chesspiece.Location.X / chesspiece.Width)
                     {
                         case 0:
-                            xe_den_trai =x;
+                            xe_den_trai = x;
                             break;
                         case 4:
                             vua_den = x;
@@ -842,7 +843,7 @@ namespace CoVua
                 }
             }
 
-            
+
         }
 
         /// <summary>
@@ -861,11 +862,11 @@ namespace CoVua
             int DestinationIndexY = movementInfo.Dst.Y / this.cells[0, 0].Size.Height;
 
             //Nhập thành
-            if(movementInfo.srcText == "nhapthanh")
+            if (movementInfo.srcText == "nhapthanh")
             {
                 King.ExecuteCastlingReverse(this, int.Parse(movementInfo.dstText));
-            } 
-            else if(movementInfo.srcText == "rook" || movementInfo.dstText == "king")
+            }
+            else if (movementInfo.srcText == "rook" || movementInfo.dstText == "king")
             {
                 updateCastling(cells[SourceIndexX, SourceIndexY], true);
             }
@@ -998,17 +999,17 @@ namespace CoVua
         /// </summary>
         /// <returns></returns>
         internal bool endGame()
-        {          
+        {
             foreach (Button item in cells)
             {
-                if(MyTurn)
+                if (MyTurn)
                 {
                     if (item.ForeColor == Color.Red && item.Text != "")
                     {
-                        ShowLegalMovement(item, this);                      
-                    }                           
+                        ShowLegalMovement(item, this);
+                    }
                 }
-                else 
+                else
                 {
                     if (item.ForeColor == Color.Black && item.Text != "")
                         ShowLegalMovement(item, this);
@@ -1033,62 +1034,98 @@ namespace CoVua
         public void SaveChess()
         {
 
-            using (System.IO.StreamWriter w = new System.IO.StreamWriter(Application.StartupPath + "\\Save\\unfinishedmatch.txt"))
+            using (SaveFileDialog saveFile = new SaveFileDialog())
             {
-                for (int i = 0; i < cells.GetLength(0); i++)
+                saveFile.Filter = "Text File|*.txt";
+                saveFile.FileName = "covua.txt";
+                if (saveFile.ShowDialog() == DialogResult.OK)
                 {
-                    for (int j = 0; j < cells.GetLength(1); j++)
+                    using (StreamWriter sw = new StreamWriter(saveFile.FileName))
                     {
-                        switch (cells[i, j].Text)
+                        sw.WriteLine("LapTrinhTrucQuan.lttq");
+                        sw.WriteLine(vua_trang);
+                        sw.WriteLine(vua_den);
+                        sw.WriteLine(xe_den_phai);
+                        sw.WriteLine(xe_den_trai);
+                        sw.WriteLine(xe_trang_phai);
+                        sw.WriteLine(xe_trang_trai);
+                        sw.WriteLine(checkMate);
+                        sw.WriteLine(MyTurn);
+                        sw.WriteLine(HinhThucChoi);
+                        foreach (Button item in cells)
                         {
-                            case "pawn":
-                                w.Write("1"); break;
-                            case "rook":
-                                w.Write("2"); break;
-                            case "knight":
-                                w.Write("3"); break;
-                            case "bishop":
-                                w.Write("4"); break;
-                            case "king":
-                                w.Write("5"); break;
-                            case "queen":
-                                w.Write("6"); break;
-
-                            default:
-                                w.Write("0"); break;
+                            sw.WriteLine(item.Text);
+                            if (item.ForeColor == Color.Red)
+                                sw.WriteLine("red");
+                            else if (item.ForeColor == Color.Black)
+                                sw.WriteLine("black");
+                            else sw.WriteLine("ali");
                         }
-                        w.WriteLine();
                     }
-
                 }
             }
 
         }
-         public void LoadChess()
+    
+    public void load()
+    {
+        using (OpenFileDialog openFile = new OpenFileDialog())
         {
-            string[] P = System.IO.File.ReadAllLines(Application.StartupPath + "\\Save\\unfinishedmatch.txt");
+            openFile.Filter = "Text File|*.txt";
+            if (openFile.ShowDialog() == DialogResult.OK)
             {
-                for (int i = 0; i < P.Length; i++)
+                using (StreamReader sr = new StreamReader(openFile.FileName))
                 {
-                    for (int j = 0; j < P.Length; j++)
+                    if (sr.ReadLine().Trim() != "LapTrinhTrucQuan.lttq")
                     {
-                        cells[i, j].Text = Convert.ToString((P[i][j]) - 48);
+                        MessageBox.Show("không Thể Đọc File Này!");
+                        return;
+                    }
+
+                    if (sr.ReadLine().Trim() == "True") vua_trang = true; else vua_trang = false;
+                    if (sr.ReadLine().Trim() == "True") vua_den = true; else vua_den = false;
+                    if (sr.ReadLine().Trim() == "True") xe_den_phai = true; else xe_den_phai = false;
+                    if (sr.ReadLine().Trim() == "True") xe_den_trai = true; else xe_den_trai = false;
+                    if (sr.ReadLine().Trim() == "True") xe_trang_phai = true; else xe_trang_phai = false;
+                    if (sr.ReadLine().Trim() == "True") xe_trang_trai = true; else xe_trang_trai = false;
+                    if (sr.ReadLine().Trim() == "True") checkMate = true; else checkMate = false;
+                    if (sr.ReadLine().Trim() == "True") MyTurn = true; else MyTurn = false;
+                    HinhThucChoi = int.Parse(sr.ReadLine().Trim());
+
+                    string x;
+                    foreach (Button item in cells)
+                    {
+                        item.Text = sr.ReadLine().Trim();
+
+                        x = sr.ReadLine().Trim();
+                        if (x == "black")
+                            item.ForeColor = Color.Black;
+                        else if (x == "red")
+                            item.ForeColor = Color.Red;
+                        else item.ForeColor = Color.AliceBlue;
+
+                        PictureInsert(item);
                     }
                 }
             }
         }
-
-        //static private void Promotion(Button Pawn, ChessBoard chessBoard)
-        //{
-        //    int indexX = Pawn.Location.X / Pawn.Size.Width;
-        //    int indexY = Pawn.Location.Y / Pawn.Size.Height;
-        //    if (indexY == 1 || indexY == 1)
-        //    {
-        //        chessBoard.promotionPawn = indexX;
-        //        new PromotionPawn(chessBoard).ShowDialog();
-        //    }
-
-        //    chessBoard.promotionPawn = -1;
-        //}
+        movementInfos.Clear();
+        ResetBoderColor(this);
     }
 }
+
+
+    //static private void Promotion(Button Pawn, ChessBoard chessBoard)
+    //{
+    //    int indexX = Pawn.Location.X / Pawn.Size.Width;
+    //    int indexY = Pawn.Location.Y / Pawn.Size.Height;
+    //    if (indexY == 1 || indexY == 1)
+    //    {
+    //        chessBoard.promotionPawn = indexX;
+    //        new PromotionPawn(chessBoard).ShowDialog();
+    //    }
+
+    //    chessBoard.promotionPawn = -1;
+    //}
+}
+

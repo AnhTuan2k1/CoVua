@@ -87,28 +87,28 @@
             // DanhVoiMay
             // 
             this.DanhVoiMay.Name = "DanhVoiMay";
-            this.DanhVoiMay.Size = new System.Drawing.Size(224, 26);
+            this.DanhVoiMay.Size = new System.Drawing.Size(169, 26);
             this.DanhVoiMay.Text = "One Player";
             this.DanhVoiMay.Click += new System.EventHandler(this.DanhVoiMay_Click);
             // 
             // tuChoi1Minh
             // 
             this.tuChoi1Minh.Name = "tuChoi1Minh";
-            this.tuChoi1Minh.Size = new System.Drawing.Size(224, 26);
+            this.tuChoi1Minh.Size = new System.Drawing.Size(169, 26);
             this.tuChoi1Minh.Text = "Two Players";
             this.tuChoi1Minh.Click += new System.EventHandler(this.tuChoi1Minh_Click);
             // 
             // undoToolStripMenuItem
             // 
             this.undoToolStripMenuItem.Name = "undoToolStripMenuItem";
-            this.undoToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.undoToolStripMenuItem.Size = new System.Drawing.Size(169, 26);
             this.undoToolStripMenuItem.Text = "Undo";
             this.undoToolStripMenuItem.Click += new System.EventHandler(this.undoToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(169, 26);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -174,7 +174,7 @@
             this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
             this.label4.Location = new System.Drawing.Point(19, 206);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(213, 157);
+            this.label4.Size = new System.Drawing.Size(238, 157);
             this.label4.TabIndex = 11;
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.label4.Visible = false;
@@ -350,7 +350,7 @@
             this.gnbtBack.ForeColor = System.Drawing.Color.Maroon;
             this.gnbtBack.Image = ((System.Drawing.Image)(resources.GetObject("gnbtBack.Image")));
             this.gnbtBack.ImageSize = new System.Drawing.Size(20, 20);
-            this.gnbtBack.Location = new System.Drawing.Point(0, 705);
+            this.gnbtBack.Location = new System.Drawing.Point(502, 726);
             this.gnbtBack.Name = "gnbtBack";
             this.gnbtBack.OnHoverBaseColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(143)))), ((int)(((byte)(255)))));
             this.gnbtBack.OnHoverBorderColor = System.Drawing.Color.Black;
@@ -358,7 +358,7 @@
             this.gnbtBack.OnHoverImage = null;
             this.gnbtBack.OnPressedColor = System.Drawing.Color.Black;
             this.gnbtBack.Radius = 20;
-            this.gnbtBack.Size = new System.Drawing.Size(245, 88);
+            this.gnbtBack.Size = new System.Drawing.Size(245, 71);
             this.gnbtBack.TabIndex = 60;
             this.gnbtBack.Text = "Return to Menu";
             this.gnbtBack.Visible = false;
@@ -455,29 +455,29 @@
             // 
             this.gnbtLoad.AnimationHoverSpeed = 0.07F;
             this.gnbtLoad.AnimationSpeed = 0.03F;
-            this.gnbtLoad.BackColor = System.Drawing.Color.Transparent;
-            this.gnbtLoad.BaseColor1 = System.Drawing.Color.White;
-            this.gnbtLoad.BaseColor2 = System.Drawing.Color.White;
+            this.gnbtLoad.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(210)))), ((int)(((byte)(192)))));
+            this.gnbtLoad.BaseColor1 = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(210)))), ((int)(((byte)(192)))));
+            this.gnbtLoad.BaseColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(210)))), ((int)(((byte)(192)))));
             this.gnbtLoad.BorderColor = System.Drawing.Color.Black;
             this.gnbtLoad.DialogResult = System.Windows.Forms.DialogResult.None;
             this.gnbtLoad.FocusedColor = System.Drawing.Color.Empty;
-            this.gnbtLoad.Font = new System.Drawing.Font(".VnMysticalH", 15F, System.Drawing.FontStyle.Bold);
-            this.gnbtLoad.ForeColor = System.Drawing.Color.Black;
+            this.gnbtLoad.Font = new System.Drawing.Font("Showcard Gothic", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
+            this.gnbtLoad.ForeColor = System.Drawing.Color.Maroon;
             this.gnbtLoad.Image = ((System.Drawing.Image)(resources.GetObject("gnbtLoad.Image")));
             this.gnbtLoad.ImageSize = new System.Drawing.Size(20, 20);
-            this.gnbtLoad.Location = new System.Drawing.Point(502, 561);
+            this.gnbtLoad.Location = new System.Drawing.Point(4, 715);
             this.gnbtLoad.Name = "gnbtLoad";
-            this.gnbtLoad.OnHoverBaseColor1 = System.Drawing.Color.White;
-            this.gnbtLoad.OnHoverBaseColor2 = System.Drawing.Color.White;
+            this.gnbtLoad.OnHoverBaseColor1 = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(143)))), ((int)(((byte)(255)))));
+            this.gnbtLoad.OnHoverBaseColor2 = System.Drawing.Color.Black;
             this.gnbtLoad.OnHoverBorderColor = System.Drawing.Color.Black;
             this.gnbtLoad.OnHoverForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
             this.gnbtLoad.OnHoverImage = null;
             this.gnbtLoad.OnPressedColor = System.Drawing.Color.Black;
             this.gnbtLoad.Radius = 20;
-            this.gnbtLoad.Size = new System.Drawing.Size(219, 87);
+            this.gnbtLoad.Size = new System.Drawing.Size(219, 53);
             this.gnbtLoad.TabIndex = 64;
             this.gnbtLoad.Text = "Load";
-            this.gnbtLoad.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.gnbtLoad.Visible = false;
             this.gnbtLoad.Click += new System.EventHandler(this.gnbtLoad_Click);
             // 
             // gnbtExit
