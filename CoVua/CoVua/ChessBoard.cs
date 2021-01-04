@@ -1081,7 +1081,6 @@ namespace CoVua
                         MessageBox.Show("không Thể Đọc File Này!");
                         return;
                     }
-
                     if (sr.ReadLine().Trim() == "True") vua_trang = true; else vua_trang = false;
                     if (sr.ReadLine().Trim() == "True") vua_den = true; else vua_den = false;
                     if (sr.ReadLine().Trim() == "True") xe_den_phai = true; else xe_den_phai = false;

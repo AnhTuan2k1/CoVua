@@ -193,7 +193,7 @@
             // 
             // gunaElipse1
             // 
-            this.gunaElipse1.Radius = 10;
+            this.gunaElipse1.Radius = 0;
             this.gunaElipse1.TargetControl = this;
             // 
             // gunaControlBox1
@@ -436,7 +436,7 @@
             this.gnbtHelp.ForeColor = System.Drawing.Color.Black;
             this.gnbtHelp.Image = ((System.Drawing.Image)(resources.GetObject("gnbtHelp.Image")));
             this.gnbtHelp.ImageSize = new System.Drawing.Size(20, 20);
-            this.gnbtHelp.Location = new System.Drawing.Point(502, 449);
+            this.gnbtHelp.Location = new System.Drawing.Point(502, 537);
             this.gnbtHelp.Name = "gnbtHelp";
             this.gnbtHelp.OnHoverBaseColor1 = System.Drawing.Color.White;
             this.gnbtHelp.OnHoverBaseColor2 = System.Drawing.Color.White;
@@ -474,7 +474,7 @@
             this.gnbtLoad.OnHoverImage = null;
             this.gnbtLoad.OnPressedColor = System.Drawing.Color.Black;
             this.gnbtLoad.Radius = 20;
-            this.gnbtLoad.Size = new System.Drawing.Size(219, 53);
+            this.gnbtLoad.Size = new System.Drawing.Size(219, 68);
             this.gnbtLoad.TabIndex = 64;
             this.gnbtLoad.Text = "Load";
             this.gnbtLoad.Visible = false;
