@@ -57,6 +57,7 @@
             this.gnbtHelp = new Guna.UI.WinForms.GunaGradientButton();
             this.gnbtLoad = new Guna.UI.WinForms.GunaGradientButton();
             this.gnbtExit = new Guna.UI.WinForms.GunaGradientButton();
+            this.gnbtNewGame = new Guna.UI.WinForms.GunaGradientButton();
             this.menuStrip1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -172,7 +173,7 @@
             // 
             this.label4.Font = new System.Drawing.Font(".VnRevueH", 18F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.label4.Location = new System.Drawing.Point(19, 206);
+            this.label4.Location = new System.Drawing.Point(12, 184);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(238, 157);
             this.label4.TabIndex = 11;
@@ -249,8 +250,7 @@
             this.gnbtOnePLayerInGame.OnHoverForeColor = System.Drawing.Color.White;
             this.gnbtOnePLayerInGame.OnHoverImage = null;
             this.gnbtOnePLayerInGame.OnPressedColor = System.Drawing.Color.Black;
-            this.gnbtOnePLayerInGame.Radius = 20;
-            this.gnbtOnePLayerInGame.Size = new System.Drawing.Size(232, 88);
+            this.gnbtOnePLayerInGame.Size = new System.Drawing.Size(232, 100);
             this.gnbtOnePLayerInGame.TabIndex = 56;
             this.gnbtOnePLayerInGame.Text = "One Player";
             this.gnbtOnePLayerInGame.Visible = false;
@@ -269,14 +269,13 @@
             this.gnbtTwoPLayersInGame.ForeColor = System.Drawing.Color.Maroon;
             this.gnbtTwoPLayersInGame.Image = ((System.Drawing.Image)(resources.GetObject("gnbtTwoPLayersInGame.Image")));
             this.gnbtTwoPLayersInGame.ImageSize = new System.Drawing.Size(20, 20);
-            this.gnbtTwoPLayersInGame.Location = new System.Drawing.Point(0, 449);
+            this.gnbtTwoPLayersInGame.Location = new System.Drawing.Point(0, 456);
             this.gnbtTwoPLayersInGame.Name = "gnbtTwoPLayersInGame";
             this.gnbtTwoPLayersInGame.OnHoverBaseColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(143)))), ((int)(((byte)(255)))));
             this.gnbtTwoPLayersInGame.OnHoverBorderColor = System.Drawing.Color.Black;
             this.gnbtTwoPLayersInGame.OnHoverForeColor = System.Drawing.Color.White;
             this.gnbtTwoPLayersInGame.OnHoverImage = null;
             this.gnbtTwoPLayersInGame.OnPressedColor = System.Drawing.Color.Black;
-            this.gnbtTwoPLayersInGame.Radius = 20;
             this.gnbtTwoPLayersInGame.Size = new System.Drawing.Size(232, 88);
             this.gnbtTwoPLayersInGame.TabIndex = 57;
             this.gnbtTwoPLayersInGame.Text = "Two Players";
@@ -303,7 +302,6 @@
             this.gnbtUndo.OnHoverForeColor = System.Drawing.Color.White;
             this.gnbtUndo.OnHoverImage = null;
             this.gnbtUndo.OnPressedColor = System.Drawing.Color.Black;
-            this.gnbtUndo.Radius = 20;
             this.gnbtUndo.Size = new System.Drawing.Size(232, 88);
             this.gnbtUndo.TabIndex = 58;
             this.gnbtUndo.Text = "Undo";
@@ -330,7 +328,6 @@
             this.gnbtSave.OnHoverForeColor = System.Drawing.Color.White;
             this.gnbtSave.OnHoverImage = null;
             this.gnbtSave.OnPressedColor = System.Drawing.Color.Black;
-            this.gnbtSave.Radius = 20;
             this.gnbtSave.Size = new System.Drawing.Size(232, 88);
             this.gnbtSave.TabIndex = 59;
             this.gnbtSave.Text = "Save";
@@ -455,7 +452,7 @@
             // 
             this.gnbtLoad.AnimationHoverSpeed = 0.07F;
             this.gnbtLoad.AnimationSpeed = 0.03F;
-            this.gnbtLoad.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(210)))), ((int)(((byte)(192)))));
+            this.gnbtLoad.BackColor = System.Drawing.Color.Transparent;
             this.gnbtLoad.BaseColor1 = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(210)))), ((int)(((byte)(192)))));
             this.gnbtLoad.BaseColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(210)))), ((int)(((byte)(192)))));
             this.gnbtLoad.BorderColor = System.Drawing.Color.Black;
@@ -473,7 +470,6 @@
             this.gnbtLoad.OnHoverForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
             this.gnbtLoad.OnHoverImage = null;
             this.gnbtLoad.OnPressedColor = System.Drawing.Color.Black;
-            this.gnbtLoad.Radius = 20;
             this.gnbtLoad.Size = new System.Drawing.Size(219, 68);
             this.gnbtLoad.TabIndex = 64;
             this.gnbtLoad.Text = "Load";
@@ -508,6 +504,33 @@
             this.gnbtExit.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.gnbtExit.Click += new System.EventHandler(this.gnbtExit_Click);
             // 
+            // gnbtNewGame
+            // 
+            this.gnbtNewGame.AnimationHoverSpeed = 0.07F;
+            this.gnbtNewGame.AnimationSpeed = 0.03F;
+            this.gnbtNewGame.BaseColor1 = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(210)))), ((int)(((byte)(192)))));
+            this.gnbtNewGame.BaseColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(210)))), ((int)(((byte)(192)))));
+            this.gnbtNewGame.BorderColor = System.Drawing.Color.Black;
+            this.gnbtNewGame.DialogResult = System.Windows.Forms.DialogResult.None;
+            this.gnbtNewGame.FocusedColor = System.Drawing.Color.Empty;
+            this.gnbtNewGame.Font = new System.Drawing.Font("Showcard Gothic", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
+            this.gnbtNewGame.ForeColor = System.Drawing.Color.Maroon;
+            this.gnbtNewGame.Image = ((System.Drawing.Image)(resources.GetObject("gnbtNewGame.Image")));
+            this.gnbtNewGame.ImageSize = new System.Drawing.Size(20, 20);
+            this.gnbtNewGame.Location = new System.Drawing.Point(0, 311);
+            this.gnbtNewGame.Name = "gnbtNewGame";
+            this.gnbtNewGame.OnHoverBaseColor1 = System.Drawing.Color.FromArgb(((int)(((byte)(155)))), ((int)(((byte)(145)))), ((int)(((byte)(221)))));
+            this.gnbtNewGame.OnHoverBaseColor2 = System.Drawing.Color.Black;
+            this.gnbtNewGame.OnHoverBorderColor = System.Drawing.Color.White;
+            this.gnbtNewGame.OnHoverForeColor = System.Drawing.Color.White;
+            this.gnbtNewGame.OnHoverImage = null;
+            this.gnbtNewGame.OnPressedColor = System.Drawing.Color.Black;
+            this.gnbtNewGame.Size = new System.Drawing.Size(232, 69);
+            this.gnbtNewGame.TabIndex = 66;
+            this.gnbtNewGame.Text = "New Game";
+            this.gnbtNewGame.Visible = false;
+            this.gnbtNewGame.Click += new System.EventHandler(this.gnbtNewGame_Click);
+            // 
             // CoVua
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -515,6 +538,7 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(210)))), ((int)(((byte)(192)))));
             this.ClientSize = new System.Drawing.Size(1177, 795);
             this.ContextMenuStrip = this.contextMenuStrip1;
+            this.Controls.Add(this.gnbtNewGame);
             this.Controls.Add(this.gnbtExit);
             this.Controls.Add(this.gnbtLoad);
             this.Controls.Add(this.gnbtHelp);
@@ -578,6 +602,7 @@
         private Guna.UI.WinForms.GunaGradientButton gnbtHelp;
         private Guna.UI.WinForms.GunaGradientButton gnbtLoad;
         private Guna.UI.WinForms.GunaGradientButton gnbtExit;
+        private Guna.UI.WinForms.GunaGradientButton gnbtNewGame;
     }
 }
 

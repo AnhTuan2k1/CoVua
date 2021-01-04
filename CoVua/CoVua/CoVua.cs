@@ -136,6 +136,7 @@ namespace CoVua
             gnbtHelp.Visible = false;
             gnbtExit.Visible = false;
             gnbtLoad.Visible = true;
+            gnbtNewGame.Visible = true;
             gnbtOnePLayerInGame.Visible = true;
             gnbtTwoPLayersInGame.Visible = true;
             gnbtSave.Visible = true;
@@ -256,6 +257,7 @@ namespace CoVua
             gnbtExit.Visible = true;
             gnbtLoad.Visible = false;
             gnbtSave.Visible = false;
+            gnbtNewGame.Visible = false;
             gnbtOnePLayerInGame.Visible = false;
             gnbtTwoPLayersInGame.Visible = false;
             gnbtBack.Visible = false;
@@ -307,6 +309,28 @@ namespace CoVua
             {
                 Application.Exit();
             }
+        }
+
+        private void gnbtNewGame_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult;
+            if ((dialogResult = MessageBox.Show("Bạn có muốn save lại không ?", "Thông báo", MessageBoxButtons.YesNoCancel)) == DialogResult.No)
+            {
+                this.Controls.Remove(chessBoard);
+                chessBoard = new ChessBoard();
+                Controls.Add(chessBoard);
+                OnOff();
+            }
+           else if(dialogResult==DialogResult.Yes)
+            {
+                chessBoard.SaveChess();
+                this.Controls.Remove (chessBoard);
+                chessBoard = new ChessBoard();
+                Controls.Add(chessBoard);
+                OnOff();
+            }  
+            
+
         }
     }
 }
