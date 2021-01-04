@@ -897,7 +897,7 @@ namespace CoVua
             cells[DestinationIndexX, DestinationIndexY].FlatAppearance.BorderColor = Color.Blue;
             PictureInsert(cells[SourceIndexX, SourceIndexY]);
             PictureInsert(cells[DestinationIndexX, DestinationIndexY]);
-            this.Enabled = true;
+            //this.Enabled = true;
 
             movementInfos.RemoveAt(movementInfos.Count - 1);
         }

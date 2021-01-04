@@ -24,6 +24,9 @@ namespace CoVua
         {
 
             WorthMovement ComputerMovement = Computer.MovementInfo(chessBoard);
+            if (ComputerMovement.Source == null)
+                return;
+
             int SourceIndexX = ComputerMovement.Source.X / chessBoard.cells[0, 0].Size.Width;
             int SourceIndexY = ComputerMovement.Source.Y / chessBoard.cells[0, 0].Size.Height;
             int DestinationIndexX = ComputerMovement.Destination.X / chessBoard.cells[0, 0].Size.Width;
@@ -75,10 +78,12 @@ namespace CoVua
                 }
             }
 
-            //if (list.Count == 0)
-            //{
-            //    MessageBox.Show("you win");
-            //}
+            if (list.Count == 0)
+            {
+                //MessageBox.Show("you win");
+                new EndGame(chessBoard).ShowDialog();
+                return new WorthMovement();
+            }
             WorthMovement movement, movement2;
             movement = movement2 = list[0];
             for (int i = 1; i < list.Count; i++)
@@ -347,7 +352,7 @@ namespace CoVua
 
             if (Source.Text == "king"
                 && Board.cells[Source.Location.X / chessBoard.cells[0, 0].Width, Source.Location.Y / chessBoard.cells[0, 0].Height].FlatAppearance.BorderColor == Color.Blue)
-                return value += -99999;   /////
+                return value += -90888;   /////
             else
             if (Board.cells[Source.Location.X / chessBoard.cells[0, 0].Width, Source.Location.Y / chessBoard.cells[0, 0].Height].FlatAppearance.BorderColor == Color.Blue)
             {
