@@ -70,11 +70,12 @@ namespace CoVua
                                 move.value = value;
                                 move.Destination = item2.Location;
                             //}
+                            if (move.value != -99999)
+                                list.Add(move);
                         }
                     }
                     ChessBoard.ResetBoderColor(chessBoard);
-                    if (move.value != -99999)
-                        list.Add(move);
+                    
                 }
             }
 
