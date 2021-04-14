@@ -65,11 +65,11 @@ namespace CoVua
                         {
                             double value = ValuablePosition(item2, chessBoard, item, item.ForeColor)
                                            + WorthChessman2(item2.Text, item) + hazii(item, item2, chessBoard);
-                            if (move.value < value)
-                            {
+                            //if (move.value < value)
+                            //{
                                 move.value = value;
                                 move.Destination = item2.Location;
-                            }
+                            //}
                         }
                     }
                     ChessBoard.ResetBoderColor(chessBoard);
@@ -352,7 +352,7 @@ namespace CoVua
 
             if (Source.Text == "king"
                 && Board.cells[Source.Location.X / chessBoard.cells[0, 0].Width, Source.Location.Y / chessBoard.cells[0, 0].Height].FlatAppearance.BorderColor == Color.Blue)
-                return value += -90888;   /////
+                return value += -888;   /////
             else
             if (Board.cells[Source.Location.X / chessBoard.cells[0, 0].Width, Source.Location.Y / chessBoard.cells[0, 0].Height].FlatAppearance.BorderColor == Color.Blue)
             {
